@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyFinance</string>
+    <string name="expenses_tab">Расходы</string>
+    <string name="income_tab">Доходы</string>
+    <string name="account_tab">Счет</string>
+    <string name="category_tab">Статьи</string>
+    <string name="settings_tab">Настройки</string>
 </resources>
