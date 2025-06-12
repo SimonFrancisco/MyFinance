@@ -1,5 +1,6 @@
 package francisco.simon.myfinance.ui.navigation
 
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination
 import kotlinx.serialization.Serializable
 import kotlin.reflect.KClass
@@ -33,6 +34,10 @@ data object CategoryGraph {
 data object SettingsGraph {
     @Serializable
     data object SettingsRoute
+}
+
+fun NavBackStackEntry?.routeClass(): KClass<*>? {
+    return this?.destination.routeClass()
 }
 
 fun NavDestination?.routeClass(): KClass<*>? {

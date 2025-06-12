@@ -1,8 +1,13 @@
-package francisco.simon.myfinance.ui.navigation
+package francisco.simon.myfinance.core.components.navigationBar
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import francisco.simon.myfinance.R
+import francisco.simon.myfinance.ui.navigation.AccountGraph
+import francisco.simon.myfinance.ui.navigation.CategoryGraph
+import francisco.simon.myfinance.ui.navigation.ExpenseGraph
+import francisco.simon.myfinance.ui.navigation.IncomeGraph
+import francisco.simon.myfinance.ui.navigation.SettingsGraph
 
 
 data class AppTab(

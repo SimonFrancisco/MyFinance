@@ -22,7 +22,8 @@ private val LightColorScheme = lightColorScheme(
     onSurface = Black,
     outlineVariant = Grey,
     surfaceContainer = GreyLight,
-    tertiary = DarkGrey
+    tertiary = DarkGrey,
+    secondaryContainer = LightGreen
 
 )
 
@@ -30,7 +31,7 @@ private val LightColorScheme = lightColorScheme(
 fun MyFinanceTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
