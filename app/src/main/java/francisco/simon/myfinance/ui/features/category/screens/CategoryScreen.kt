@@ -3,22 +3,18 @@ package francisco.simon.myfinance.ui.features.category.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.exclude
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -32,7 +28,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
@@ -40,13 +35,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.semantics.isTraversalGroup
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
+import francisco.simon.myfinance.core.components.FullScreenLoading
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.ui.features.category.model.CategoryUI
 
@@ -75,9 +68,7 @@ fun CategoryScreenContent(
         }
 
         is CategoryScreenState.Loading -> {
-            Box(modifier = Modifier.fillMaxSize()) {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            }
+            FullScreenLoading()
         }
 
         is CategoryScreenState.Success -> {
@@ -138,12 +129,13 @@ fun SearchCategory(
     }
     SearchBar(
         shape = RectangleShape,
-        windowInsets = WindowInsets.statusBars.exclude(SearchBarDefaults.windowInsets),
+        windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
         modifier = modifier
-            .height(56.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .background(SearchBarDefaults.colors().containerColor),
         inputField = {
             SearchBarDefaults.InputField(
+                modifier = Modifier.fillMaxHeight(),
                 query = query.value,
                 onQueryChange = {
                     query.value = it

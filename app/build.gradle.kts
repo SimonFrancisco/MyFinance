@@ -59,4 +59,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
 
+    implementation(libs.lottie.compose)
+
+
 }

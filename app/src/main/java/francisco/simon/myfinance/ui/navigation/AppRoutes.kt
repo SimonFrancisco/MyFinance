@@ -36,6 +36,9 @@ data object SettingsGraph {
     data object SettingsRoute
 }
 
+@Serializable
+data object SplashRoute
+
 fun NavBackStackEntry?.routeClass(): KClass<*>? {
     return this?.destination.routeClass()
 }

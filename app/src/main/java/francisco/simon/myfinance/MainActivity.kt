@@ -31,9 +31,9 @@ import francisco.simon.myfinance.core.components.topBar.AppTopBar
 import francisco.simon.myfinance.core.components.topBar.LocalAppBarState
 import francisco.simon.myfinance.ui.navigation.AccountGraph.AccountRoute
 import francisco.simon.myfinance.ui.navigation.AppNavGraph
-import francisco.simon.myfinance.ui.navigation.ExpenseGraph
 import francisco.simon.myfinance.ui.navigation.ExpenseGraph.ExpenseRoute
 import francisco.simon.myfinance.ui.navigation.IncomeGraph.IncomeRoute
+import francisco.simon.myfinance.ui.navigation.SplashRoute
 import francisco.simon.myfinance.ui.navigation.routeClass
 import francisco.simon.myfinance.ui.theme.Green
 import francisco.simon.myfinance.ui.theme.GreyLight
@@ -42,13 +42,15 @@ import francisco.simon.myfinance.ui.theme.MyFinanceTheme
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         edgeToEdge()
+
+        super.onCreate(savedInstanceState)
         setContent {
             MyFinanceTheme {
                 FinanceApp()
             }
         }
+
     }
 
     private fun edgeToEdge() {
@@ -78,15 +80,21 @@ fun FinanceApp() {
     ) {
         Scaffold(
             bottomBar = {
-                AppNavigationBar(
-                    navController = navController,
-                    tabs = mainTabs
-                )
+                if (currentBackStackEntry.routeClass() != SplashRoute::class) {
+                    AppNavigationBar(
+                        navController = navController,
+                        tabs = mainTabs
+                    )
+                }
+
             },
             topBar = {
-                AppTopBar(
-                    appBarState = appBarState
-                )
+                if (currentBackStackEntry.routeClass() != SplashRoute::class) {
+                    AppTopBar(
+                        appBarState = appBarState
+                    )
+                }
+
             },
             floatingActionButton = {
                 if (currentBackStackEntry.routeClass() in floatButtonScreens) {
@@ -109,7 +117,7 @@ fun FinanceApp() {
         ) { innerPadding ->
             AppNavGraph(
                 navController = navController,
-                startDestination = ExpenseGraph,
+                startDestination = SplashRoute,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)

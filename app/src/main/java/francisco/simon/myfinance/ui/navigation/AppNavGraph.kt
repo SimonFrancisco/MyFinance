@@ -13,6 +13,7 @@ import francisco.simon.myfinance.ui.features.category.screens.CategoryScreen
 import francisco.simon.myfinance.ui.features.expense.screens.expense.ExpenseScreen
 import francisco.simon.myfinance.ui.features.icome.screens.income.IncomeScreen
 import francisco.simon.myfinance.ui.features.settings.screens.settings.SettingsScreen
+import francisco.simon.myfinance.ui.features.splash.SplashScreen
 import francisco.simon.myfinance.ui.navigation.AccountGraph.AccountRoute
 import francisco.simon.myfinance.ui.navigation.CategoryGraph.CategoryRoute
 import francisco.simon.myfinance.ui.navigation.ExpenseGraph.ExpenseRoute
@@ -36,6 +37,9 @@ fun AppNavGraph(
             startDestination = startDestination,
             modifier = modifier
         ) {
+            composable<SplashRoute> {
+                SplashScreen()
+            }
             navigation<ExpenseGraph>(startDestination = ExpenseRoute) {
                 composable<ExpenseRoute> {
                     ExpenseScreen {

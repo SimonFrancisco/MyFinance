@@ -53,7 +53,8 @@ fun AppNavigationBar(
                     Icon(
                         painter = painterResource(tab.iconRes),
                         contentDescription = null,
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier
+                            .size(16.dp)
                     )
                 },
                 label = {

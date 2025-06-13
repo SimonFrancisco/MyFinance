@@ -1,6 +1,6 @@
 package francisco.simon.myfinance.ui.features.settings.screens.settings
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -65,32 +65,38 @@ fun SettingsScreenList(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        CustomListItem(
-            modifier = Modifier
-                .height(56.dp),
-            headlineContent = {
-                Text(
-                    text = stringResource(R.string.dark_theme),
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            },
-            trailingContent = {
-                Switch(
-                    modifier = Modifier
-                        .height(32.dp)
-                        .width(52.dp),
-                    checked = checked.value, onCheckedChange = {
-                        checked.value = it
-                    }
-                )
-            },
-        )
-        HorizontalDivider()
+
         LazyColumn {
-            items(settingsOptions) { setting ->
+            item {
                 CustomListItem(
                     modifier = Modifier
                         .height(56.dp),
+                    headlineContent = {
+                        Text(
+                            text = stringResource(R.string.dark_theme),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    },
+                    trailingContent = {
+                        Switch(
+                            modifier = Modifier
+                                .height(32.dp)
+                                .width(52.dp),
+                            checked = checked.value, onCheckedChange = {
+                                checked.value = it
+                            }
+                        )
+                    },
+                )
+                HorizontalDivider()
+            }
+            items(settingsOptions) { setting ->
+                CustomListItem(
+                    modifier = Modifier
+                        .height(56.dp)
+                        .clickable {
+
+                        },
                     headlineContent = {
                         Text(text = setting, style = MaterialTheme.typography.bodyLarge)
                     },
