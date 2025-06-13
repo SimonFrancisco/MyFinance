@@ -1,6 +1,5 @@
 package francisco.simon.myfinance.ui.features.category.screens
 
-import francisco.simon.myfinance.domain.entity.Category
 import francisco.simon.myfinance.ui.features.category.model.CategoryUI
 
 sealed class CategoryScreenState {

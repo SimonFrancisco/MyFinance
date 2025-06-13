@@ -1,6 +1,5 @@
 package francisco.simon.myfinance.ui.features.icome.screens.income
 
-import francisco.simon.myfinance.ui.features.expense.model.Expense
 import francisco.simon.myfinance.ui.features.icome.model.Income
 
 sealed class IncomeScreenState {

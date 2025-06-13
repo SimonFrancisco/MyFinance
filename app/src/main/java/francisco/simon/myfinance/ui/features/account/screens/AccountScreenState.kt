@@ -1,6 +1,5 @@
 package francisco.simon.myfinance.ui.features.account.screens
 
-import francisco.simon.myfinance.domain.entity.Account
 import francisco.simon.myfinance.ui.features.account.model.AccountUI
 
 sealed class AccountScreenState{
