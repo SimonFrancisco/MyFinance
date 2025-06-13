@@ -171,7 +171,7 @@ class TransactionRepositoryImpl @Inject constructor() : TransactionRepository {
                     isIncome = false
                 ),
                 amount = "1000",
-                comment = ""
+                comment = "Francisco"
             )
         )
         add(
@@ -210,6 +210,25 @@ class TransactionRepositoryImpl @Inject constructor() : TransactionRepository {
                 ),
                 amount = "1000",
                 comment = ""
+            )
+        )
+        add(
+            Transaction(
+                id = 11,
+                account = Account(
+                    id = 1,
+                    name = "Simon",
+                    balance = "1000.00",
+                    currency = "RUB"
+                ),
+                category = Category(
+                    id = 11,
+                    name = "Медицина",
+                    emoji = "\uD83D\uDC8A",
+                    isIncome = false
+                ),
+                amount = "1000",
+                comment = "Simon"
             )
         )
     }

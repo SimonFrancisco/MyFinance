@@ -14,3 +14,10 @@ fun String.toVectorRes(): Int {
         else -> R.drawable.ic_launcher_foreground
     }
 }
+
+fun String.toCurrencySymbol(): String {
+    return when (this) {
+        "RUB" -> "₽"
+        else -> ""
+    }
+}

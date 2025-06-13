@@ -10,7 +10,8 @@ fun Transaction.toExpense(): Expense {
         emojiRes = this.category.emoji.toVectorRes(),
         name = this.category.name,
         amount = this.amount,
-        comment = this.comment
+        comment = this.comment,
+        currency = this.account.currency
     )
 }
 

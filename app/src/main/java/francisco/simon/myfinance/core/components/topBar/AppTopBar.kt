@@ -29,7 +29,6 @@ abstract class NavigationButton(
     class Close(action: () -> Unit) : NavigationButton(R.drawable.ic_close, action)
 }
 
-
 class ActionButton(@DrawableRes val icon: Int, val action: () -> Unit)
 
 class AppBarState(

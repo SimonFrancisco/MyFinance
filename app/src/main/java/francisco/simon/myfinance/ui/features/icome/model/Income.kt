@@ -1,10 +1,9 @@
-package francisco.simon.myfinance.ui.features.expense.model
+package francisco.simon.myfinance.ui.features.icome.model
 
 import androidx.annotation.DrawableRes
 
-data class Expense(
+data class Income(
     val transactionId: Int,
-    @DrawableRes val emojiRes: Int,
     val name: String,
     val amount: String,
     val currency:String,

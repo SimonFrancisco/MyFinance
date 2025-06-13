@@ -10,4 +10,8 @@
     <string name="account_app_top_bar">Мой счет</string>
     <string name="category_app_top_bar">Мои статьи</string>
     <string name="settings_app_top_bar">Настройки</string>
+    <string name="all_money">Всего</string>
+    <string name="currency">Валюта</string>
+    <string name="search_bar_find_category">Найти статью</string>
+    <string name="dark_theme">Тёмная тема</string>
 </resources>
