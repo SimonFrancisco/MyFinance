@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">MyFinance</string>
+    <string name="expenses_tab">Расходы</string>
+    <string name="income_tab">Доходы</string>
+    <string name="account_tab">Счет</string>
+    <string name="category_tab">Статьи</string>
+    <string name="settings_tab">Настройки</string>
+    <string name="expense_app_top_bar">Расходы сегодня</string>
+    <string name="income_app_top_bar">Доходы сегодня</string>
+    <string name="account_app_top_bar">Мой счет</string>
+    <string name="category_app_top_bar">Мои статьи</string>
+    <string name="settings_app_top_bar">Настройки</string>
+    <string name="all_money">Всего</string>
+    <string name="currency">Валюта</string>
+    <string name="search_bar_find_category">Найти статью</string>
+    <string name="dark_theme">Тёмная тема</string>
 </resources>
