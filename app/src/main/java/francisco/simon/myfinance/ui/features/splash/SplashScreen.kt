@@ -14,6 +14,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.ui.navigation.ExpenseGraph
 import francisco.simon.myfinance.ui.navigation.LocalNavController
+import francisco.simon.myfinance.ui.navigation.SplashRoute
 import francisco.simon.myfinance.ui.theme.Green
 
 @Composable
@@ -32,7 +33,11 @@ fun SplashScreen() {
             progress = { logoAnimationState.progress }
         )
         if (logoAnimationState.isAtEnd && logoAnimationState.isPlaying) {
-            navController.navigate(ExpenseGraph)
+            navController.navigate(ExpenseGraph){
+                popUpTo(SplashRoute){
+                    inclusive = true
+                }
+            }
         }
     }
 }
