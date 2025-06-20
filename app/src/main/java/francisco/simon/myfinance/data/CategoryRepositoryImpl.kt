@@ -1,19 +1,38 @@
 package francisco.simon.myfinance.data
 
+import android.util.Log
+import francisco.simon.myfinance.data.api.ApiService
 import francisco.simon.myfinance.domain.entity.Category
 import francisco.simon.myfinance.domain.repository.CategoryRepository
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
-class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {
+class CategoryRepositoryImpl @Inject constructor(
+    private val apiService: ApiService
+) : CategoryRepository {
 
     private val categories = MutableStateFlow<List<Category>>(generateCategories())
-        .onStart { delay(SIMULATE_LOADING_DELAY) }
 
-    override fun getAllCategories(): Flow<List<Category>> {
+    override suspend fun getAllCategories(): Flow<List<Category>> {
+        try {
+            val response = apiService.getCategories()
+            categories.update {
+                response.body()?.let { listCategories ->
+                    listCategories.map { category ->
+                        Category(
+                            id = category.id,
+                            name = category.name,
+                            emoji = category.emoji,
+                            isIncome = category.isIncome
+                        )
+                    }
+                }!!
+            }
+        } catch (e: Exception) {
+            Log.d("ERROR", e.toString())
+        }
         return categories
     }
 

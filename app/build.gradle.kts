@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -19,9 +21,19 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        val localProperties = Properties()
+        localProperties.load(project.rootProject.file("local.properties").inputStream())
+        buildConfigField(
+            "String",
+            "API_KEY",
+            "\"${localProperties.getProperty("API_KEY")}\""
+        )
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://shmr-finance.ru/api/v1/\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -39,22 +51,35 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
 dependencies {
 
     implementation(libs.androidx.core.ktx)
+
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
     implementation(platform(libs.androidx.compose.bom))
 
     implementation(libs.bundles.compose)
+
     implementation(libs.bundles.android.ui)
+
     debugImplementation(libs.bundles.compose.debug)
+
     androidTestImplementation(libs.bundles.android.test)
+
     implementation(libs.bundles.hilt)
+
     implementation(libs.bundles.serialization)
+
     ksp(libs.bundles.ksp)
+
+    implementation(libs.bundles.http)
+    implementation(libs.bundles.retrofit)
+    implementation(libs.json.serialization)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
