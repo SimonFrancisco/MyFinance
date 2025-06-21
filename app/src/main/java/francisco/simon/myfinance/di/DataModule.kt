@@ -5,8 +5,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import francisco.simon.myfinance.data.CategoryRepositoryImpl
-import francisco.simon.myfinance.data.TransactionRepositoryImpl
+import francisco.simon.myfinance.data.repositories.CategoryRepositoryImpl
+import francisco.simon.myfinance.data.repositories.TransactionRepositoryImpl
 import francisco.simon.myfinance.data.api.ApiFactory
 import francisco.simon.myfinance.data.api.ApiService
 import francisco.simon.myfinance.domain.repository.CategoryRepository

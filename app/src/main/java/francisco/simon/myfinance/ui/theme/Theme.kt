@@ -23,7 +23,8 @@ private val LightColorScheme = lightColorScheme(
     outlineVariant = Grey,
     surfaceContainer = GreyLight,
     tertiary = DarkGrey,
-    secondaryContainer = LightGreen
+    secondaryContainer = LightGreen,
+    onSurfaceVariant = LighterGray
 
 )
 

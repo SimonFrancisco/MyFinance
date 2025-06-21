@@ -1,8 +1,8 @@
 package francisco.simon.myfinance.ui.features.category.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -27,13 +27,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -41,6 +41,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
+import francisco.simon.myfinance.core.components.RetryButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.ui.features.category.model.CategoryUI
 
@@ -58,16 +59,19 @@ fun CategoryScreen(appBarConfig: (AppBarState) -> Unit) {
         minActiveState = Lifecycle.State.RESUMED
     )
     val currentState = state.value
-    CategoryScreenContent(currentState)
+    CategoryScreenContent(currentState, viewModel)
 }
 
 @Composable
 fun CategoryScreenContent(
-    state: CategoryScreenState
+    state: CategoryScreenState,
+    viewModel: CategoryViewModel
 ) {
     when (state) {
         is CategoryScreenState.Error -> {
-
+            RetryButton(onClick = {
+                viewModel.retry()
+            })
         }
 
         is CategoryScreenState.Loading -> {
@@ -101,18 +105,20 @@ fun CategoryScreenList(
                     Text(
                         text = category.name,
                         style = MaterialTheme.typography.bodyLarge,
-                    )
+                        color = MaterialTheme.colorScheme.onSurface,
+                        )
 
                 },
                 leadingContent = {
-                    Image(
-                        imageVector = ImageVector.vectorResource(category.emojiRes),
-                        contentDescription = null,
-                        modifier = Modifier
+                    Box(
+                        Modifier
                             .size(24.dp)
                             .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.secondaryContainer)
-                    )
+                            .background(MaterialTheme.colorScheme.secondaryContainer),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(category.emoji)
+                    }
                     Spacer(Modifier.width(16.dp))
                 }
             )
