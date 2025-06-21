@@ -9,6 +9,9 @@ import kotlin.reflect.KClass
 data object ExpenseGraph {
     @Serializable
     data object ExpenseRoute
+
+    @Serializable
+    data object ExpensesHistoryRoute
 }
 
 @Serializable
@@ -16,6 +19,9 @@ data object IncomeGraph {
 
     @Serializable
     data object IncomeRoute
+
+    @Serializable
+    data object IncomeHistoryRoute
 }
 
 @Serializable

@@ -12,7 +12,7 @@ data class TransactionDto(
     @SerializedName("amount")
     val amount: String,
     @SerializedName("comment")
-    val comment: String,
+    val comment: String?,
     @SerializedName("transactionDate")
     val transactionDate: String,
     @SerializedName("createdAt")

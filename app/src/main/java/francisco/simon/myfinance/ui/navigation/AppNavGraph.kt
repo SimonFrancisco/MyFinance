@@ -11,12 +11,16 @@ import francisco.simon.myfinance.core.components.topBar.LocalAppBarState
 import francisco.simon.myfinance.ui.features.account.screens.AccountScreen
 import francisco.simon.myfinance.ui.features.category.screens.CategoryScreen
 import francisco.simon.myfinance.ui.features.expense.screens.expense.ExpenseScreen
+import francisco.simon.myfinance.ui.features.expense.screens.history.ExpensesHistoryScreen
+import francisco.simon.myfinance.ui.features.icome.screens.history.IncomeHistoryScreen
 import francisco.simon.myfinance.ui.features.icome.screens.income.IncomeScreen
 import francisco.simon.myfinance.ui.features.settings.screens.settings.SettingsScreen
 import francisco.simon.myfinance.ui.features.splash.SplashScreen
 import francisco.simon.myfinance.ui.navigation.AccountGraph.AccountRoute
 import francisco.simon.myfinance.ui.navigation.CategoryGraph.CategoryRoute
 import francisco.simon.myfinance.ui.navigation.ExpenseGraph.ExpenseRoute
+import francisco.simon.myfinance.ui.navigation.ExpenseGraph.ExpensesHistoryRoute
+import francisco.simon.myfinance.ui.navigation.IncomeGraph.IncomeHistoryRoute
 import francisco.simon.myfinance.ui.navigation.IncomeGraph.IncomeRoute
 import francisco.simon.myfinance.ui.navigation.SettingsGraph.SettingsRoute
 
@@ -51,10 +55,28 @@ fun AppNavGraph(
 
                     }
                 }
+                composable<ExpensesHistoryRoute> {
+                    ExpensesHistoryScreen {
+                        with(appBarState) {
+                            titleRes = it.titleRes
+                            navigationButton = it.navigationButton
+                            actionButton = it.actionButton
+                        }
+                    }
+                }
             }
             navigation<IncomeGraph>(startDestination = IncomeRoute) {
                 composable<IncomeRoute> {
                     IncomeScreen {
+                        with(appBarState) {
+                            titleRes = it.titleRes
+                            navigationButton = it.navigationButton
+                            actionButton = it.actionButton
+                        }
+                    }
+                }
+                composable<IncomeHistoryRoute> {
+                    IncomeHistoryScreen {
                         with(appBarState) {
                             titleRes = it.titleRes
                             navigationButton = it.navigationButton
