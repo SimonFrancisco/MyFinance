@@ -1,5 +1,5 @@
 [versions]
-agp = "8.7.3"
+agp = "8.10.1"
 kotlin = "2.1.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -7,13 +7,16 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.9.1"
 activityCompose = "1.10.1"
-composeBom = "2025.06.00"
+composeBom = "2025.06.01"
 navigationCompose = "2.9.0"
 ksp = "2.1.21-2.0.1"
 hilt = "2.56.2"
 hiltNavCompose = "1.2.0"
-ktxSerialization = "1.6.3"
+ktxSerialization = "1.8.0"
 lottieCompose = "6.6.6"
+okHttpClient_version = "4.12.0"
+retrofit_version = "2.11.0"
+json_version = "1.8.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +42,14 @@ hilt-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", vers
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "ktxSerialization" }
 
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottieCompose" }
+
+okHttpClient = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttpClient_version" }
+httpLoggingInterceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttpClient_version" }
+
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit_version" }
+retrofit2GsonConverter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit_version" }
+
+json-serialization = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "json_version"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -82,4 +93,12 @@ hilt = [
 
 ksp = [
     "hilt-compiler"
+]
+http = [
+    "okHttpClient",
+    "httpLoggingInterceptor"
+]
+retrofit = [
+    "retrofit",
+    "retrofit2GsonConverter"
 ]

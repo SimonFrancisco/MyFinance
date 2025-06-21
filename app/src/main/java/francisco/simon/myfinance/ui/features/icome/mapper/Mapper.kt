@@ -7,9 +7,10 @@ fun Transaction.toIncome(): Income {
     return Income(
         transactionId = this.id,
         name = this.category.name,
-        amount = this.amount,
+        amount = this.amount.toBigDecimal(),
         comment = this.comment,
-        currency = this.account.currency
+        currency = this.account.currency,
+        emoji = this.category.emoji
     )
 }
 

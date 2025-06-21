@@ -1,15 +1,14 @@
 package francisco.simon.myfinance.ui.features.expense.mapper
 
-import francisco.simon.myfinance.core.mapper.toVectorRes
 import francisco.simon.myfinance.domain.entity.Transaction
 import francisco.simon.myfinance.ui.features.expense.model.Expense
 
 fun Transaction.toExpense(): Expense {
     return Expense(
         transactionId = this.id,
-        emojiRes = this.category.emoji.toVectorRes(),
+        emoji = this.category.emoji,
         name = this.category.name,
-        amount = this.amount,
+        amount = this.amount.toBigDecimal(),
         comment = this.comment,
         currency = this.account.currency
     )

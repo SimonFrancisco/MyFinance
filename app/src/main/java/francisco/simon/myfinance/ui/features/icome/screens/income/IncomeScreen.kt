@@ -2,13 +2,17 @@ package francisco.simon.myfinance.ui.features.icome.screens.income
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -16,7 +20,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -25,18 +31,24 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
+import francisco.simon.myfinance.core.components.RetryButton
 import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
 import francisco.simon.myfinance.ui.features.icome.model.Income
+import francisco.simon.myfinance.ui.navigation.IncomeGraph
+import francisco.simon.myfinance.ui.navigation.IncomeGraph.IncomeHistoryRoute
+import francisco.simon.myfinance.ui.navigation.LocalNavController
 
 @Composable
 fun IncomeScreen(appBarConfig: (AppBarState) -> Unit) {
+    val navController = LocalNavController.current
     LaunchedEffect(Unit) {
         appBarConfig(
             AppBarState(
                 titleRes = R.string.income_app_top_bar,
                 actionButton = ActionButton(R.drawable.ic_history) {
+                    navController.navigate(IncomeHistoryRoute)
                 }
             )
         )
@@ -44,16 +56,19 @@ fun IncomeScreen(appBarConfig: (AppBarState) -> Unit) {
     val viewModel: IncomeScreenViewModel = hiltViewModel()
     val state = viewModel.state.collectAsState()
     val currentState = state.value
-    IncomeScreenContent(currentState)
+    IncomeScreenContent(currentState, viewModel)
 }
 
 @Composable
 fun IncomeScreenContent(
-    state: IncomeScreenState
+    state: IncomeScreenState,
+    viewModel: IncomeScreenViewModel
 ) {
     when (state) {
         is IncomeScreenState.Error -> {
-
+            RetryButton(onClick = {
+                viewModel.retry()
+            })
         }
 
         is IncomeScreenState.Loading -> {
@@ -74,7 +89,7 @@ fun IncomeList(
         modifier = Modifier.fillMaxSize()
     ) {
         val sum = income.sumOf {
-            it.amount.toLong()
+            it.amount
         }
         CustomListItem(
             modifier = Modifier
@@ -110,12 +125,25 @@ fun IncomeList(
                         if (!income.comment.isNullOrEmpty()) {
                             Text(
                                 text = income.comment,
-                                style = MaterialTheme.typography.bodyLarge,
-
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 textAlign = TextAlign.Center
                             )
                         }
 
+                    },
+                    leadingContent = {
+                        Box(
+                            Modifier
+                                .size(24.dp)
+                                .clip(CircleShape)
+                                .background(MaterialTheme.colorScheme.secondaryContainer),
+                            contentAlignment = Alignment.Center
+
+                        ) {
+                            Text(income.emoji)
+                        }
+                        Spacer(Modifier.width(16.dp))
                     },
                     trailingContent = {
                         Text(

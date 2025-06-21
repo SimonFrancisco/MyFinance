@@ -1,9 +1,9 @@
 package francisco.simon.myfinance.domain.repository
 
 import francisco.simon.myfinance.domain.entity.Category
-import kotlinx.coroutines.flow.Flow
+import francisco.simon.myfinance.domain.utils.NetworkResult
 
 interface CategoryRepository {
 
-    fun getAllCategories(): Flow<List<Category>>
+    suspend fun getAllCategories(): NetworkResult<List<Category>>
 }

@@ -1,12 +1,12 @@
 package francisco.simon.myfinance.ui.features.expense.model
 
-import androidx.annotation.DrawableRes
+import java.math.BigDecimal
 
 data class Expense(
     val transactionId: Int,
-    @DrawableRes val emojiRes: Int,
+    val emoji: String,
     val name: String,
-    val amount: String,
+    val amount: BigDecimal,
     val currency:String,
     val comment: String? = null
 )

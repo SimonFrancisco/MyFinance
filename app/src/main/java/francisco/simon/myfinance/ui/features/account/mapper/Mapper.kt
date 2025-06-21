@@ -7,7 +7,7 @@ fun Account.toAccountUI(): AccountUI {
     return AccountUI(
         id = id,
         name = name,
-        balance = balance,
+        balance = balance.toBigDecimal(),
         currency = currency
     )
 }

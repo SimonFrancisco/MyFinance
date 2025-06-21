@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +31,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
+import francisco.simon.myfinance.core.components.RetryButton
 import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
@@ -53,16 +55,19 @@ fun AccountScreen(appBarConfig: (AppBarState) -> Unit) {
     val viewModel: AccountViewModel = hiltViewModel()
     val state = viewModel.state.collectAsState()
     val currentState = state.value
-    AccountScreenContent(currentState)
+    AccountScreenContent(currentState, viewModel)
 }
 
 @Composable
 fun AccountScreenContent(
-    state: AccountScreenState
+    state: AccountScreenState,
+    viewModel: AccountViewModel
 ) {
     when (state) {
         is AccountScreenState.Error -> {
-
+            RetryButton(onClick = {
+                viewModel.retry()
+            })
         }
 
         is AccountScreenState.Loading -> {
@@ -132,6 +137,7 @@ fun AccountScreenList(
             headlineContent = {
                 Text(
                     text = stringResource(R.string.currency),
+                    color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodyLarge
                 )
             },
