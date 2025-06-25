@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import francisco.simon.myfinance.core.mapper.toStringRes
 import francisco.simon.myfinance.domain.usecase.GetAccountUseCase
+import francisco.simon.myfinance.domain.utils.NetworkError
 import francisco.simon.myfinance.domain.utils.onError
 import francisco.simon.myfinance.domain.utils.onSuccess
 import francisco.simon.myfinance.ui.features.account.mapper.toAccountUI
@@ -39,7 +40,7 @@ class AccountViewModel @Inject constructor(
                 }
 
             }.onError { error ->
-                val errorRes = error.toStringRes()
+                val errorRes = (error as NetworkError).toStringRes()
                 _state.update {
                     AccountScreenState.Error(errorMessageRes = errorRes)
                 }

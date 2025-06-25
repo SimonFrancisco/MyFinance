@@ -5,7 +5,7 @@ import francisco.simon.myfinance.data.api.ApiService
 import francisco.simon.myfinance.data.mappers.toCategoryList
 import francisco.simon.myfinance.domain.entity.Category
 import francisco.simon.myfinance.domain.repository.CategoryRepository
-import francisco.simon.myfinance.domain.utils.NetworkError
+import francisco.simon.myfinance.domain.utils.Error
 import francisco.simon.myfinance.domain.utils.Result
 import francisco.simon.myfinance.domain.utils.map
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ class CategoryRepositoryImpl @Inject constructor(
     private val apiClient: ApiClient,
 ) : CategoryRepository {
 
-    override suspend fun getAllCategories(): Result<List<Category>, NetworkError> {
+    override suspend fun getAllCategories(): Result<List<Category>, Error> {
         return withContext(Dispatchers.IO) {
             apiClient.safeApiCall { apiService.getCategories() }.map { listCategoriesDto ->
                 listCategoriesDto.toCategoryList()

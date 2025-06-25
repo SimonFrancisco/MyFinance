@@ -8,6 +8,7 @@ import francisco.simon.myfinance.core.mapper.toStringRes
 import francisco.simon.myfinance.domain.model.TransactionModel
 import francisco.simon.myfinance.domain.usecase.GetAccountUseCase
 import francisco.simon.myfinance.domain.usecase.GetIncomeUseCase
+import francisco.simon.myfinance.domain.utils.NetworkError
 import francisco.simon.myfinance.domain.utils.onError
 import francisco.simon.myfinance.domain.utils.onSuccess
 import francisco.simon.myfinance.ui.features.icome.mapper.toListIncome
@@ -39,7 +40,7 @@ class IncomeScreenViewModel @Inject constructor(
         }
         viewModelScope.launch {
             getAccountUseCase().onError { error ->
-                val errorRes = error.toStringRes()
+                val errorRes = (error as NetworkError).toStringRes()
                 _state.update {
                     IncomeScreenState.Error(errorMessageRes = errorRes)
                 }
@@ -55,7 +56,7 @@ class IncomeScreenViewModel @Inject constructor(
                             IncomeScreenState.Success(income.toListIncome())
                         }
                     }.onError { error ->
-                        val errorRes = error.toStringRes()
+                        val errorRes = (error as NetworkError).toStringRes()
                         _state.update {
                             IncomeScreenState.Error(errorMessageRes = errorRes)
                         }

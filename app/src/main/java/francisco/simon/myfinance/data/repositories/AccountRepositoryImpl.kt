@@ -5,7 +5,7 @@ import francisco.simon.myfinance.data.api.ApiService
 import francisco.simon.myfinance.data.mappers.toAccount
 import francisco.simon.myfinance.domain.entity.Account
 import francisco.simon.myfinance.domain.repository.AccountRepository
-import francisco.simon.myfinance.domain.utils.NetworkError
+import francisco.simon.myfinance.domain.utils.Error
 import francisco.simon.myfinance.domain.utils.Result
 import francisco.simon.myfinance.domain.utils.map
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ class AccountRepositoryImpl @Inject constructor(
     private val apiClient: ApiClient,
 ) : AccountRepository {
 
-    override suspend fun getAccount(): Result<Account, NetworkError> {
+    override suspend fun getAccount(): Result<Account, Error> {
         return withContext(Dispatchers.IO) {
             apiClient.safeApiCall { apiService.getAccounts() }.map {listAccountsDto->
                 listAccountsDto.first().toAccount()

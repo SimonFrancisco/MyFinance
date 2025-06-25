@@ -3,7 +3,7 @@ package francisco.simon.myfinance.domain.usecase
 import francisco.simon.myfinance.domain.entity.Transaction
 import francisco.simon.myfinance.domain.model.TransactionModel
 import francisco.simon.myfinance.domain.repository.TransactionRepository
-import francisco.simon.myfinance.domain.utils.NetworkError
+import francisco.simon.myfinance.domain.utils.Error
 import francisco.simon.myfinance.domain.utils.Result
 import francisco.simon.myfinance.domain.utils.map
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +14,7 @@ import javax.inject.Inject
 class GetIncomeUseCase @Inject constructor(
     private val repository: TransactionRepository
 ) {
-    suspend operator fun invoke(transactionModel: TransactionModel): Flow<Result<List<Transaction>, NetworkError>> {
+    suspend operator fun invoke(transactionModel: TransactionModel): Flow<Result<List<Transaction>, Error>> {
         return repository.getTransactions(transactionModel).map { result ->
             result.map { transactions ->
                 transactions.filter { transaction ->

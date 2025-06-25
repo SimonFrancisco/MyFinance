@@ -8,6 +8,7 @@ import francisco.simon.myfinance.core.mapper.toStringRes
 import francisco.simon.myfinance.domain.model.TransactionModel
 import francisco.simon.myfinance.domain.usecase.GetAccountUseCase
 import francisco.simon.myfinance.domain.usecase.GetExpenseUseCase
+import francisco.simon.myfinance.domain.utils.NetworkError
 import francisco.simon.myfinance.domain.utils.onError
 import francisco.simon.myfinance.domain.utils.onSuccess
 import francisco.simon.myfinance.ui.features.expense.mapper.toListExpense
@@ -39,7 +40,7 @@ class ExpenseScreenViewModel @Inject constructor(
         }
         viewModelScope.launch {
             getAccountUseCase().onError { error ->
-                val errorRes = error.toStringRes()
+                val errorRes = (error as NetworkError).toStringRes()
                 _state.update {
                     ExpenseScreenState.Error(errorMessageRes = errorRes)
                 }
@@ -55,7 +56,7 @@ class ExpenseScreenViewModel @Inject constructor(
                             ExpenseScreenState.Success(expenses.toListExpense())
                         }
                     }.onError { error ->
-                        val errorRes = error.toStringRes()
+                        val errorRes = (error as NetworkError).toStringRes()
                         _state.update {
                             ExpenseScreenState.Error(errorMessageRes = errorRes)
                         }
