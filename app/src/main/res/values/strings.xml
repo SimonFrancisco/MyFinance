@@ -22,7 +22,9 @@
     <string name="error_null">Нет содержимого</string>
     <string name="error_server">Ошибка сервера. Попробуйте позже</string>
     <string name="try_again">Повторить</string>
-    <string name="beginning">Начало</string>
+    <string name="start">Начало</string>
     <string name="end">Конец</string>
     <string name="sum">Сумма</string>
+    <string name="ok">ОК</string>
+    <string name="exit">Закрыть</string>
 </resources>

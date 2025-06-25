@@ -65,7 +65,6 @@ class ExpenseScreenViewModel @Inject constructor(
                 }
             }
 
-
         }
 
     }

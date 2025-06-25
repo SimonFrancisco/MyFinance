@@ -122,7 +122,7 @@ fun ExpenseList(
                         },
                     headlineContent = {
                         Text(
-                            text = expense.name,
+                            text = expense.name,  //TODO add text overflow and make max line = 1, not only here
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurface,
                         )
