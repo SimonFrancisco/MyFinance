@@ -26,6 +26,12 @@ fun CategoryDto.toCategory(): Category {
     )
 }
 
+fun List<CategoryDto>.toCategoryList(): List<Category> {
+    return this.map {
+        it.toCategory()
+    }
+}
+
 
 fun Account.toAccountDto(): AccountDto {
     return AccountDto(

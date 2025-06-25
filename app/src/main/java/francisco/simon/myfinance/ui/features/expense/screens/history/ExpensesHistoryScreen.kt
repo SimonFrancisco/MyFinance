@@ -6,7 +6,6 @@ import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.NavigationButton
-import francisco.simon.myfinance.ui.navigation.ExpenseGraph.ExpensesHistoryRoute
 import francisco.simon.myfinance.ui.navigation.LocalNavController
 
 @Composable

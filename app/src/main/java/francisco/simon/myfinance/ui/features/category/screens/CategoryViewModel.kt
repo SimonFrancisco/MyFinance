@@ -3,11 +3,13 @@ package francisco.simon.myfinance.ui.features.category.screens
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import francisco.simon.myfinance.domain.entity.Category
+import francisco.simon.myfinance.core.mapper.toStringRes
 import francisco.simon.myfinance.domain.usecase.GetCategoriesUseCase
-import francisco.simon.myfinance.domain.utils.NetworkResult
+import francisco.simon.myfinance.domain.utils.onError
+import francisco.simon.myfinance.domain.utils.onSuccess
 import francisco.simon.myfinance.ui.features.category.mapper.toListCategoryUI
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,35 +21,28 @@ class CategoryViewModel @Inject constructor(
 
     private val _state: MutableStateFlow<CategoryScreenState> =
         MutableStateFlow(CategoryScreenState.Loading)
-    val state = _state
+    val state: StateFlow<CategoryScreenState> = _state
 
     init {
         loadCategories()
     }
 
     private fun loadCategories() {
+        _state.update {
+            CategoryScreenState.Loading
+        }
         viewModelScope.launch {
-            when (val categories = getCategoriesUseCase()) {
-                is NetworkResult.Error -> {
-                    _state.update {
-                        CategoryScreenState.Error(categories.message)
-                    }
+            getCategoriesUseCase().onSuccess { categories ->
+                _state.update {
+                    CategoryScreenState.Success(categories = categories.toListCategoryUI())
                 }
-
-                is NetworkResult.Exception -> {
-                    _state.update {
-                        CategoryScreenState.Error(categories.e.message.toString())
-
-                    }
-                }
-
-                is NetworkResult.Success<List<Category>> -> {
-                    _state.update {
-                        CategoryScreenState.Success(categories = categories.data.toListCategoryUI())
-
-                    }
+            }.onError { error ->
+                val errorRes = error.toStringRes()
+                _state.update {
+                    CategoryScreenState.Error(errorMessageRes = errorRes)
                 }
             }
+
         }
     }
 

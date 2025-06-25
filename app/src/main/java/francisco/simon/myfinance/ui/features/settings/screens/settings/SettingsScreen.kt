@@ -36,7 +36,7 @@ fun SettingsScreen(appBarConfig: (AppBarState) -> Unit) {
             )
         )
     }
-    val viewModel:SettingsViewModel = hiltViewModel()
+    val viewModel: SettingsViewModel = hiltViewModel()
     val state = viewModel.state.collectAsState()
     val currentState = state.value
     SettingsScreenContent(currentState)
@@ -45,14 +45,13 @@ fun SettingsScreen(appBarConfig: (AppBarState) -> Unit) {
 @Composable
 fun SettingsScreenContent(
     state: SettingsScreenState
-){
-    when(state){
+) {
+    when (state) {
         SettingsScreenState.Nothing -> {
             SettingsScreenList(fakeSettings)
         }
     }
 }
-
 
 
 @Composable

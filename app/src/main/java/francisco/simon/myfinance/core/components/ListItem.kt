@@ -14,10 +14,10 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CustomListItem(
+    modifier: Modifier = Modifier.background(Color.Transparent),
     leadingContent: @Composable (() -> Unit)? = null,
     headlineContent: @Composable () -> Unit,
     trailingContent: @Composable (() -> Unit)? = null,
-    modifier: Modifier = Modifier.background(Color.Transparent)
 ) {
     Row(
         modifier = modifier

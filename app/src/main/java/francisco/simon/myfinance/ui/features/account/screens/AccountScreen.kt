@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -31,7 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
-import francisco.simon.myfinance.core.components.RetryButton
+import francisco.simon.myfinance.core.components.RetryCall
 import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
@@ -65,9 +64,12 @@ fun AccountScreenContent(
 ) {
     when (state) {
         is AccountScreenState.Error -> {
-            RetryButton(onClick = {
-                viewModel.retry()
-            })
+            RetryCall(
+                errorRes = state.errorMessageRes,
+                onClick = {
+                    viewModel.retry()
+                },
+            )
         }
 
         is AccountScreenState.Loading -> {

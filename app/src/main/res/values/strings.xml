@@ -15,9 +15,13 @@
     <string name="currency">Валюта</string>
     <string name="search_bar_find_category">Найти статью</string>
     <string name="dark_theme">Тёмная тема</string>
-    <string name="error_no_internet">Couldn\'t connect to server, please check your internet connection!</string>
-    <string name="error_unknown">Something went wrong. Please try again later.</string>
-    <string name="try_again">Try again</string>
+    <string name="error_no_internet">Проблемы с сетью. Проверьте ваше подключение!</string>
+    <string name="error_unknown">Произошла неизвестная ошибка</string>
+    <string name="error_request_timeout">Истекло время ожидания.</string>
+    <string name="error_too_many_requests">Cлишком много запросов</string>
+    <string name="error_null">Нет содержимого</string>
+    <string name="error_server">Ошибка сервера. Попробуйте позже</string>
+    <string name="try_again">Повторить</string>
     <string name="beginning">Начало</string>
     <string name="end">Конец</string>
     <string name="sum">Сумма</string>

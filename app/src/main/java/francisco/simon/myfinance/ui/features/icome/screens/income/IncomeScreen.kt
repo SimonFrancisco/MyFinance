@@ -31,12 +31,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
-import francisco.simon.myfinance.core.components.RetryButton
+import francisco.simon.myfinance.core.components.RetryCall
 import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
 import francisco.simon.myfinance.ui.features.icome.model.Income
-import francisco.simon.myfinance.ui.navigation.IncomeGraph
 import francisco.simon.myfinance.ui.navigation.IncomeGraph.IncomeHistoryRoute
 import francisco.simon.myfinance.ui.navigation.LocalNavController
 
@@ -66,9 +65,12 @@ fun IncomeScreenContent(
 ) {
     when (state) {
         is IncomeScreenState.Error -> {
-            RetryButton(onClick = {
-                viewModel.retry()
-            })
+            RetryCall(
+                errorRes = state.errorMessageRes,
+                onClick = {
+                    viewModel.retry()
+                },
+            )
         }
 
         is IncomeScreenState.Loading -> {
@@ -103,7 +105,7 @@ fun IncomeList(
             },
             trailingContent = {
                 Text(
-                    text = "$sum ${income.first().currency.toCurrencySymbol()}",
+                    text = "$sum ${income.firstOrNull()?.currency?.toCurrencySymbol() ?: ""}",
                     style = MaterialTheme.typography.bodyLarge,
                 )
             },

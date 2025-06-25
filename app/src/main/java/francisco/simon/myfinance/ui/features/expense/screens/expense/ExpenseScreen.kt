@@ -31,12 +31,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
-import francisco.simon.myfinance.core.components.RetryButton
+import francisco.simon.myfinance.core.components.RetryCall
 import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
 import francisco.simon.myfinance.ui.features.expense.model.Expense
-import francisco.simon.myfinance.ui.navigation.ExpenseGraph
 import francisco.simon.myfinance.ui.navigation.ExpenseGraph.ExpensesHistoryRoute
 import francisco.simon.myfinance.ui.navigation.LocalNavController
 
@@ -66,9 +65,12 @@ fun ExpenseScreenContent(
 ) {
     when (state) {
         is ExpenseScreenState.Error -> {
-            RetryButton(onClick = {
-                viewModel.retry()
-            })
+            RetryCall(
+                errorRes = state.errorMessageRes,
+                onClick = {
+                    viewModel.retry()
+                },
+            )
         }
 
         is ExpenseScreenState.Loading -> {
@@ -103,7 +105,8 @@ fun ExpenseList(
             },
             trailingContent = {
                 Text(
-                    text = "$sum ${expenses.first().currency.toCurrencySymbol()}",
+                    // // TODO .first will throw an error if list is empty
+                    text = "$sum ${expenses.firstOrNull()?.currency?.toCurrencySymbol() ?: ""}",
                     style = MaterialTheme.typography.bodyLarge,
                 )
             },

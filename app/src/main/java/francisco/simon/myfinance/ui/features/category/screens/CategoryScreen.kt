@@ -33,7 +33,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -41,7 +40,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
-import francisco.simon.myfinance.core.components.RetryButton
+import francisco.simon.myfinance.core.components.RetryCall
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.ui.features.category.model.CategoryUI
 
@@ -69,11 +68,13 @@ fun CategoryScreenContent(
 ) {
     when (state) {
         is CategoryScreenState.Error -> {
-            RetryButton(onClick = {
-                viewModel.retry()
-            })
+            RetryCall(
+                errorRes = state.errorMessageRes,
+                onClick = {
+                    viewModel.retry()
+                },
+            )
         }
-
         is CategoryScreenState.Loading -> {
             FullScreenLoading()
         }
@@ -106,7 +107,7 @@ fun CategoryScreenList(
                         text = category.name,
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurface,
-                        )
+                    )
 
                 },
                 leadingContent = {

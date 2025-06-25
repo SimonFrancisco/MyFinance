@@ -2,9 +2,9 @@ package francisco.simon.myfinance.data.repositories
 
 import francisco.simon.myfinance.data.api.ApiClient
 import francisco.simon.myfinance.data.api.ApiService
-import francisco.simon.myfinance.data.mappers.toCategoryList
-import francisco.simon.myfinance.domain.entity.Category
-import francisco.simon.myfinance.domain.repository.CategoryRepository
+import francisco.simon.myfinance.data.mappers.toAccount
+import francisco.simon.myfinance.domain.entity.Account
+import francisco.simon.myfinance.domain.repository.AccountRepository
 import francisco.simon.myfinance.domain.utils.NetworkError
 import francisco.simon.myfinance.domain.utils.Result
 import francisco.simon.myfinance.domain.utils.map
@@ -12,15 +12,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class CategoryRepositoryImpl @Inject constructor(
+class AccountRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val apiClient: ApiClient,
-) : CategoryRepository {
+) : AccountRepository {
 
-    override suspend fun getAllCategories(): Result<List<Category>, NetworkError> {
+    override suspend fun getAccount(): Result<Account, NetworkError> {
         return withContext(Dispatchers.IO) {
-            apiClient.safeApiCall { apiService.getCategories() }.map { listCategoriesDto ->
-                listCategoriesDto.toCategoryList()
+            apiClient.safeApiCall { apiService.getAccounts() }.map {listAccountsDto->
+                listAccountsDto.first().toAccount()
             }
         }
     }

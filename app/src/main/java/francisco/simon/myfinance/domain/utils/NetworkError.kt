@@ -1,6 +1,10 @@
 package francisco.simon.myfinance.domain.utils
 
 enum class NetworkError : Error {
+    REQUEST_TIMEOUT,
+    TOO_MANY_REQUESTS,
     NO_INTERNET,
-    UNKNOWN
+    SERVER_ERROR,
+    UNKNOWN,
+    NULL,
 }
