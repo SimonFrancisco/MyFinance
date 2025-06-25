@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import francisco.simon.myfinance.R
+import francisco.simon.myfinance.ui.theme.Green
 import java.util.Calendar
 import java.util.Date
 
@@ -120,6 +121,13 @@ fun CustomDatePicker(
             showModeToggle = false,
             colors = DatePickerDefaults.colors(
                 containerColor = containerColor,
+                selectedDayContentColor = MaterialTheme.colorScheme.onSurface,
+                selectedDayContainerColor = Green,
+                todayDateBorderColor = Green,
+                todayContentColor = MaterialTheme.colorScheme.onSurface,
+                selectedYearContainerColor = Green,
+                selectedYearContentColor = MaterialTheme.colorScheme.onSurface,
+                currentYearContentColor = MaterialTheme.colorScheme.onSurface,
             )
         )
     }
