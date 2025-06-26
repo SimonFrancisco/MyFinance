@@ -36,8 +36,8 @@ import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
 import francisco.simon.myfinance.ui.features.icome.model.Income
-import francisco.simon.myfinance.ui.navigation.IncomeGraph.IncomeHistoryRoute
-import francisco.simon.myfinance.ui.navigation.LocalNavController
+import francisco.simon.myfinance.navigation.IncomeGraph.IncomeHistoryRoute
+import francisco.simon.myfinance.navigation.LocalNavController
 
 @Composable
 fun IncomeScreen(appBarConfig: (AppBarState) -> Unit) {

@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import francisco.simon.myfinance.core.mapper.toStringRes
 import francisco.simon.myfinance.domain.usecase.GetCategoriesUseCase
-import francisco.simon.myfinance.domain.utils.NetworkError
-import francisco.simon.myfinance.domain.utils.onError
-import francisco.simon.myfinance.domain.utils.onSuccess
+import francisco.simon.myfinance.core.domain.utils.NetworkError
+import francisco.simon.myfinance.core.domain.utils.onError
+import francisco.simon.myfinance.core.domain.utils.onSuccess
 import francisco.simon.myfinance.ui.features.category.mapper.toListCategoryUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.core.components.history
+package francisco.simon.myfinance.core.ui.history
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background

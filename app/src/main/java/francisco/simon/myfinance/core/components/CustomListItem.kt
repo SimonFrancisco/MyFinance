@@ -37,14 +37,17 @@ fun CustomListItem(
                 headlineContent.invoke()
             }
         }
-        // Trail section
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End,
-            modifier = Modifier.padding(start = 8.dp)
-        ) {
-            trailingContent?.invoke()
-        }
+        TrailSection(trailingContent)
     }
+}
 
+@Composable
+private fun TrailSection(trailingContent: @Composable() (() -> Unit)?) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.End,
+        modifier = Modifier.padding(start = 8.dp)
+    ) {
+        trailingContent?.invoke()
+    }
 }

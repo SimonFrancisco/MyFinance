@@ -1,15 +1,15 @@
-package francisco.simon.myfinance.core.components.history
+package francisco.simon.myfinance.core.ui.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import francisco.simon.myfinance.core.mapper.toStringRes
 import francisco.simon.myfinance.domain.entity.Account
 import francisco.simon.myfinance.domain.entity.Transaction
-import francisco.simon.myfinance.domain.utils.Error
-import francisco.simon.myfinance.domain.utils.NetworkError
-import francisco.simon.myfinance.domain.utils.Result
-import francisco.simon.myfinance.domain.utils.onError
-import francisco.simon.myfinance.domain.utils.onSuccess
+import francisco.simon.myfinance.core.domain.utils.Error
+import francisco.simon.myfinance.core.domain.utils.NetworkError
+import francisco.simon.myfinance.core.domain.utils.Result
+import francisco.simon.myfinance.core.domain.utils.onError
+import francisco.simon.myfinance.core.domain.utils.onSuccess
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -32,15 +32,10 @@ abstract class BaseHistoryViewModel : ViewModel() {
     ): Flow<Result<List<Transaction>, Error>>
 
     fun loadTransactions(startDate: String, endDate: String) {
-        _state.update {
-            HistoryScreenState.Loading
-        }
+        updateLoading()
         viewModelScope.launch {
             getAccount().onError { error ->
-                val errorRes = (error as NetworkError).toStringRes()
-                _state.update {
-                    HistoryScreenState.Error(errorMessageRes = errorRes)
-                }
+                updateError(error)
             }.onSuccess { account ->
                 getTransactions(
                     account = account,
@@ -52,14 +47,24 @@ abstract class BaseHistoryViewModel : ViewModel() {
                             HistoryScreenState.Success(transactions)
                         }
                     }.onError { error ->
-                        val errorRes = (error as NetworkError).toStringRes()
-                        _state.update {
-                            HistoryScreenState.Error(errorMessageRes = errorRes)
-                        }
+                        updateError(error)
                     }
 
                 }
             }
+        }
+    }
+
+    private fun updateError(error: Error) {
+        val errorRes = (error as NetworkError).toStringRes()
+        _state.update {
+            HistoryScreenState.Error(errorMessageRes = errorRes)
+        }
+    }
+
+    private fun updateLoading() {
+        _state.update {
+            HistoryScreenState.Loading
         }
     }
 

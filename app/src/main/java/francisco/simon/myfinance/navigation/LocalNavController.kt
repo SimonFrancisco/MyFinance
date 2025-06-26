@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.ui.navigation
+package francisco.simon.myfinance.navigation
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.navigation.NavController

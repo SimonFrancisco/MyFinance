@@ -54,35 +54,45 @@ fun AppTopBar(
             )
         },
         navigationIcon = {
-            val navigationButton = appBarState.navigationButton
-            if (navigationButton != null) {
-                IconButton(
-                    onClick = navigationButton.action
-
-                ) {
-                    Icon(
-                        painter = painterResource(navigationButton.icon),
-                        contentDescription = null
-                    )
-                }
-            }
+            NavigationIcon(appBarState)
         },
         actions = {
-            val actionButton = appBarState.actionButton
-            if (actionButton != null) {
-                IconButton(
-                    onClick = actionButton.action
-                ) {
-                    Icon(
-                        painter = painterResource(actionButton.icon),
-                        contentDescription = null
-                    )
-                }
-            }
+            ActionIcon(appBarState)
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = Green
         )
 
     )
+}
+
+@Composable
+private fun ActionIcon(appBarState: AppBarState) {
+    val actionButton = appBarState.actionButton
+    if (actionButton != null) {
+        IconButton(
+            onClick = actionButton.action
+        ) {
+            Icon(
+                painter = painterResource(actionButton.icon),
+                contentDescription = null
+            )
+        }
+    }
+}
+
+@Composable
+private fun NavigationIcon(appBarState: AppBarState) {
+    val navigationButton = appBarState.navigationButton
+    if (navigationButton != null) {
+        IconButton(
+            onClick = navigationButton.action
+
+        ) {
+            Icon(
+                painter = painterResource(navigationButton.icon),
+                contentDescription = null
+            )
+        }
+    }
 }

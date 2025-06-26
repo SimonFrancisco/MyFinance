@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.domain.utils
+package francisco.simon.myfinance.core.domain.utils
 
 
 typealias RootError = Error

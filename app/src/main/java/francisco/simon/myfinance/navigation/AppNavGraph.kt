@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.ui.navigation
+package francisco.simon.myfinance.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -16,13 +16,13 @@ import francisco.simon.myfinance.ui.features.icome.screens.history.IncomeHistory
 import francisco.simon.myfinance.ui.features.icome.screens.income.IncomeScreen
 import francisco.simon.myfinance.ui.features.settings.screens.settings.SettingsScreen
 import francisco.simon.myfinance.ui.features.splash.SplashScreen
-import francisco.simon.myfinance.ui.navigation.AccountGraph.AccountRoute
-import francisco.simon.myfinance.ui.navigation.CategoryGraph.CategoryRoute
-import francisco.simon.myfinance.ui.navigation.ExpenseGraph.ExpenseRoute
-import francisco.simon.myfinance.ui.navigation.ExpenseGraph.ExpensesHistoryRoute
-import francisco.simon.myfinance.ui.navigation.IncomeGraph.IncomeHistoryRoute
-import francisco.simon.myfinance.ui.navigation.IncomeGraph.IncomeRoute
-import francisco.simon.myfinance.ui.navigation.SettingsGraph.SettingsRoute
+import francisco.simon.myfinance.navigation.AccountGraph.AccountRoute
+import francisco.simon.myfinance.navigation.CategoryGraph.CategoryRoute
+import francisco.simon.myfinance.navigation.ExpenseGraph.ExpenseRoute
+import francisco.simon.myfinance.navigation.ExpenseGraph.ExpensesHistoryRoute
+import francisco.simon.myfinance.navigation.IncomeGraph.IncomeHistoryRoute
+import francisco.simon.myfinance.navigation.IncomeGraph.IncomeRoute
+import francisco.simon.myfinance.navigation.SettingsGraph.SettingsRoute
 
 @Composable
 fun AppNavGraph(

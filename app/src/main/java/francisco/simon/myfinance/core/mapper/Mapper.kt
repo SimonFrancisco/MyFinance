@@ -1,7 +1,7 @@
 package francisco.simon.myfinance.core.mapper
 
 import francisco.simon.myfinance.R
-import francisco.simon.myfinance.domain.utils.NetworkError
+import francisco.simon.myfinance.core.domain.utils.NetworkError
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId

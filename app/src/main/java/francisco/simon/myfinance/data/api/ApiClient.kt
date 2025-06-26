@@ -4,8 +4,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import dagger.hilt.android.qualifiers.ApplicationContext
-import francisco.simon.myfinance.domain.utils.NetworkError
-import francisco.simon.myfinance.domain.utils.Result
+import francisco.simon.myfinance.core.domain.utils.NetworkError
+import francisco.simon.myfinance.core.domain.utils.Result
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive

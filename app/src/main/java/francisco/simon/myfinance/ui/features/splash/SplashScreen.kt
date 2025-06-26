@@ -12,9 +12,9 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import francisco.simon.myfinance.R
-import francisco.simon.myfinance.ui.navigation.ExpenseGraph
-import francisco.simon.myfinance.ui.navigation.LocalNavController
-import francisco.simon.myfinance.ui.navigation.SplashRoute
+import francisco.simon.myfinance.navigation.ExpenseGraph
+import francisco.simon.myfinance.navigation.LocalNavController
+import francisco.simon.myfinance.navigation.SplashRoute
 import francisco.simon.myfinance.ui.theme.Green
 
 @Composable
@@ -24,13 +24,13 @@ fun SplashScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(Green),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.wallet_animation))
         val logoAnimationState = animateLottieCompositionAsState(composition = composition)
         LottieAnimation(
             composition = composition,
-            progress = { logoAnimationState.progress }
+            progress = { logoAnimationState.progress },
         )
         if (logoAnimationState.isAtEnd && logoAnimationState.isPlaying) {
             navController.navigate(ExpenseGraph){

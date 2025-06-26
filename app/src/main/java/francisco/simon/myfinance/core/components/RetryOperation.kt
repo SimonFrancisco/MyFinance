@@ -36,26 +36,35 @@ fun RetryCall(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = stringResource(errorRes),
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center,
-            )
+            ErrorText(errorRes)
             Spacer(modifier = Modifier.height(4.dp))
-            Button(
-                onClick = onClick,
-                shape = RectangleShape,
-                colors = ButtonDefaults.buttonColors().copy(contentColor = Black, containerColor = Green)
-            ) {
-                Text(
-                    text = stringResource(R.string.try_again),
-
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-            }
+            RetryButton(onClick)
         }
 
     }
+}
+
+@Composable
+private fun RetryButton(onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        shape = RectangleShape,
+        colors = ButtonDefaults.buttonColors().copy(contentColor = Black, containerColor = Green)
+    ) {
+        Text(
+            text = stringResource(R.string.try_again),
+            style = MaterialTheme.typography.bodyLarge,
+        )
+    }
+}
+
+@Composable
+private fun ErrorText(errorRes: Int) {
+    Text(
+        text = stringResource(errorRes),
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
+        style = MaterialTheme.typography.bodyLarge,
+        textAlign = TextAlign.Center,
+    )
 }

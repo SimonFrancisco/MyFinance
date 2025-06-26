@@ -5,9 +5,9 @@ import francisco.simon.myfinance.data.api.ApiService
 import francisco.simon.myfinance.data.mappers.toCategoryList
 import francisco.simon.myfinance.domain.entity.Category
 import francisco.simon.myfinance.domain.repository.CategoryRepository
-import francisco.simon.myfinance.domain.utils.Error
-import francisco.simon.myfinance.domain.utils.Result
-import francisco.simon.myfinance.domain.utils.map
+import francisco.simon.myfinance.core.domain.utils.Error
+import francisco.simon.myfinance.core.domain.utils.Result
+import francisco.simon.myfinance.core.domain.utils.map
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

@@ -36,8 +36,8 @@ import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
 import francisco.simon.myfinance.ui.features.expense.model.Expense
-import francisco.simon.myfinance.ui.navigation.ExpenseGraph.ExpensesHistoryRoute
-import francisco.simon.myfinance.ui.navigation.LocalNavController
+import francisco.simon.myfinance.navigation.ExpenseGraph.ExpensesHistoryRoute
+import francisco.simon.myfinance.navigation.LocalNavController
 
 @Composable
 fun ExpenseScreen(appBarConfig: (AppBarState) -> Unit) {

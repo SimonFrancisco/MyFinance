@@ -29,12 +29,12 @@ import francisco.simon.myfinance.core.components.navigationBar.mainTabs
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.AppTopBar
 import francisco.simon.myfinance.core.components.topBar.LocalAppBarState
-import francisco.simon.myfinance.ui.navigation.AccountGraph.AccountRoute
-import francisco.simon.myfinance.ui.navigation.AppNavGraph
-import francisco.simon.myfinance.ui.navigation.ExpenseGraph.ExpenseRoute
-import francisco.simon.myfinance.ui.navigation.IncomeGraph.IncomeRoute
-import francisco.simon.myfinance.ui.navigation.SplashRoute
-import francisco.simon.myfinance.ui.navigation.routeClass
+import francisco.simon.myfinance.navigation.AccountGraph.AccountRoute
+import francisco.simon.myfinance.navigation.AppNavGraph
+import francisco.simon.myfinance.navigation.ExpenseGraph.ExpenseRoute
+import francisco.simon.myfinance.navigation.IncomeGraph.IncomeRoute
+import francisco.simon.myfinance.navigation.SplashRoute
+import francisco.simon.myfinance.navigation.routeClass
 import francisco.simon.myfinance.ui.theme.Green
 import francisco.simon.myfinance.ui.theme.GreyLight
 import francisco.simon.myfinance.ui.theme.MyFinanceTheme
@@ -43,7 +43,6 @@ import francisco.simon.myfinance.ui.theme.MyFinanceTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         edgeToEdge()
-
         super.onCreate(savedInstanceState)
         setContent {
             MyFinanceTheme {
