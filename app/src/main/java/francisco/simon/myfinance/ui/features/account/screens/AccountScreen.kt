@@ -38,16 +38,13 @@ import francisco.simon.myfinance.ui.features.account.model.AccountUI
 
 @Composable
 fun AccountScreen(appBarConfig: (AppBarState) -> Unit) {
-
     LaunchedEffect(Unit) {
         appBarConfig(
             AppBarState(
                 titleRes = R.string.account_app_top_bar,
                 actionButton = ActionButton(
                     icon = R.drawable.ic_edit
-                ) {
-
-                }
+                ) {} // TODO
             )
         )
     }
@@ -58,7 +55,7 @@ fun AccountScreen(appBarConfig: (AppBarState) -> Unit) {
 }
 
 @Composable
-fun AccountScreenContent(
+private fun AccountScreenContent(
     state: AccountScreenState,
     viewModel: AccountViewModel
 ) {
@@ -71,11 +68,9 @@ fun AccountScreenContent(
                 },
             )
         }
-
         is AccountScreenState.Loading -> {
             FullScreenLoading()
         }
-
         is AccountScreenState.Success -> {
             AccountScreenList(state.account)
         }
@@ -83,51 +78,13 @@ fun AccountScreenContent(
 }
 
 @Composable
-fun AccountScreenList(
+private fun AccountScreenList(
     accountUI: AccountUI
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        CustomListItem(
-            modifier = Modifier
-                .height(57.dp)
-                .background(MaterialTheme.colorScheme.secondaryContainer)
-                .clickable {
-
-                },
-            headlineContent = {
-                Text(
-                    text = accountUI.name,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            },
-            trailingContent = {
-                Text(
-                    text = "${accountUI.balance} ${accountUI.currency.toCurrencySymbol()}",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Icon(
-                    painter = painterResource(R.drawable.ic_arrow_head),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(24.dp)
-                )
-            },
-            leadingContent = {
-                Image(
-                    imageVector = ImageVector.vectorResource(accountUI.emojiRes),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clip(CircleShape)
-                        .background(Color.White)
-
-                )
-                Spacer(Modifier.width(16.dp))
-            }
-        )
+        AccountContent(accountUI)
         HorizontalDivider()
         CustomListItem(
             modifier = Modifier
@@ -137,26 +94,94 @@ fun AccountScreenList(
 
                 },
             headlineContent = {
-                Text(
-                    text = stringResource(R.string.currency),
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.bodyLarge
-                )
+                CurrencyHeadingContent()
             },
             trailingContent = {
-                Text(
-                    text = accountUI.currency.toCurrencySymbol(),
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Icon(
-                    painter = painterResource(R.drawable.ic_arrow_head),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(24.dp)
-                )
+                CurrencyTrailingContent(accountUI)
             }
         )
 
     }
+}
+
+@Composable
+private fun CurrencyTrailingContent(accountUI: AccountUI) {
+    Text(
+        text = accountUI.currency.toCurrencySymbol(),
+        style = MaterialTheme.typography.bodyLarge,
+        modifier = Modifier.padding(end = 8.dp)
+    )
+    Icon(
+        painter = painterResource(R.drawable.ic_arrow_head),
+        contentDescription = null,
+        modifier = Modifier
+            .size(24.dp)
+    )
+}
+
+@Composable
+private fun CurrencyHeadingContent() {
+    Text(
+        text = stringResource(R.string.currency),
+        color = MaterialTheme.colorScheme.onSurface,
+        style = MaterialTheme.typography.bodyLarge
+    )
+}
+
+@Composable
+private fun AccountContent(accountUI: AccountUI) {
+    CustomListItem(
+        modifier = Modifier
+            .height(57.dp)
+            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .clickable {
+
+            },
+        headlineContent = {
+            AccountHeadingContent(accountUI)
+        },
+        trailingContent = {
+            AccountTrailingContent(accountUI)
+        },
+        leadingContent = {
+            AccountLeadingContent(accountUI)
+            Spacer(Modifier.width(16.dp))
+        }
+    )
+}
+
+@Composable
+private fun AccountHeadingContent(accountUI: AccountUI) {
+    Text(
+        text = accountUI.name,
+        style = MaterialTheme.typography.bodyLarge
+    )
+}
+
+@Composable
+private fun AccountLeadingContent(accountUI: AccountUI) {
+    Image(
+        imageVector = ImageVector.vectorResource(accountUI.emojiRes),
+        contentDescription = null,
+        modifier = Modifier
+            .size(24.dp)
+            .clip(CircleShape)
+            .background(Color.White)
+
+    )
+}
+
+@Composable
+private fun AccountTrailingContent(accountUI: AccountUI) {
+    Text(
+        text = "${accountUI.balance} ${accountUI.currency.toCurrencySymbol()}",
+        style = MaterialTheme.typography.bodyLarge,
+        modifier = Modifier.padding(end = 8.dp)
+    )
+    Icon(
+        painter = painterResource(R.drawable.ic_arrow_head),
+        contentDescription = null,
+        modifier = Modifier
+            .size(24.dp)
+    )
 }

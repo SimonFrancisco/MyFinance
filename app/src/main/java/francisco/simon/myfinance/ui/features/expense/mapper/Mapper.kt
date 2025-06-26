@@ -10,7 +10,7 @@ fun Transaction.toExpense(): Expense {
         name = this.category.name,
         amount = this.amount.toBigDecimal(),
         comment = this.comment,
-        currency = this.account.currency
+        currency = this.account.currency,
     )
 }
 

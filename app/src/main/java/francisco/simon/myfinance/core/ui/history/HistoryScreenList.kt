@@ -18,18 +18,18 @@ import java.time.LocalDate
 @Composable
 fun HistoryScreenList(
     transactions: List<Transaction>,
-    startDate: LocalDate,
+    startDate: MutableState<LocalDate>,
     showStartPicker: MutableState<Boolean>,
-    endDate: LocalDate,
+    endDate: MutableState<LocalDate>,
     showEndPicker: MutableState<Boolean>
 ) {
     val sum = transactions.sumOf {
         it.amount.toBigDecimal()
     }
     Column(Modifier.fillMaxSize()) {
-        StartInfo(startDate, showStartPicker)
+        StartInfo(startDate.value, showStartPicker)
         HorizontalDivider()
-        EndInfo(endDate, showEndPicker)
+        EndInfo(endDate.value, showEndPicker)
         HorizontalDivider()
         SumInfo(sum, transactions)
         LazyColumn {
@@ -41,6 +41,7 @@ fun HistoryScreenList(
     }
 
 }
+
 @Composable
 private fun SumInfo(
     sum: BigDecimal,

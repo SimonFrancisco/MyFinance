@@ -8,6 +8,6 @@ fun Account.toAccountUI(): AccountUI {
         id = id,
         name = name,
         balance = balance.toBigDecimal(),
-        currency = currency
+        currency = currency,
     )
 }

@@ -3,14 +3,14 @@ package francisco.simon.myfinance.ui.features.icome.screens.income
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import francisco.simon.myfinance.core.domain.utils.NetworkError
+import francisco.simon.myfinance.core.domain.utils.onError
+import francisco.simon.myfinance.core.domain.utils.onSuccess
 import francisco.simon.myfinance.core.mapper.toApiDate
 import francisco.simon.myfinance.core.mapper.toStringRes
 import francisco.simon.myfinance.domain.model.TransactionModel
 import francisco.simon.myfinance.domain.usecase.GetAccountUseCase
 import francisco.simon.myfinance.domain.usecase.GetIncomeUseCase
-import francisco.simon.myfinance.core.domain.utils.NetworkError
-import francisco.simon.myfinance.core.domain.utils.onError
-import francisco.simon.myfinance.core.domain.utils.onSuccess
 import francisco.simon.myfinance.ui.features.icome.mapper.toListIncome
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

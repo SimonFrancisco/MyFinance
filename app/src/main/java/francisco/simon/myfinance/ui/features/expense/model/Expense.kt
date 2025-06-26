@@ -8,5 +8,5 @@ data class Expense(
     val name: String,
     val amount: BigDecimal,
     val currency:String,
-    val comment: String? = null
+    val comment: String? = null,
 )

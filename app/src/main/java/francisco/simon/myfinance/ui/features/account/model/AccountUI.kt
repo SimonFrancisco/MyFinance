@@ -9,5 +9,5 @@ data class AccountUI (
     val name: String,
     val balance: BigDecimal,
     val currency: String,
-    @DrawableRes val emojiRes:Int = R.drawable.ic_money_bag
+    @DrawableRes val emojiRes:Int = R.drawable.ic_money_bag,
 )

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package francisco.simon.myfinance.ui.features.category.screens
 
 import androidx.compose.foundation.background
@@ -25,6 +27,7 @@ import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -33,6 +36,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -62,7 +66,7 @@ fun CategoryScreen(appBarConfig: (AppBarState) -> Unit) {
 }
 
 @Composable
-fun CategoryScreenContent(
+private fun CategoryScreenContent(
     state: CategoryScreenState,
     viewModel: CategoryViewModel
 ) {
@@ -78,7 +82,6 @@ fun CategoryScreenContent(
         is CategoryScreenState.Loading -> {
             FullScreenLoading()
         }
-
         is CategoryScreenState.Success -> {
             Column(modifier = Modifier.fillMaxSize()) {
                 SearchCategory()
@@ -91,7 +94,7 @@ fun CategoryScreenContent(
 
 
 @Composable
-fun CategoryScreenList(
+private fun CategoryScreenList(
     categories: List<CategoryUI>
 ) {
     LazyColumn {
@@ -100,26 +103,12 @@ fun CategoryScreenList(
                 modifier = Modifier
                     .height(70.dp)
                     .clickable {
-
-                    },
+                    } ,
                 headlineContent = {
-                    Text(
-                        text = category.name,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-
+                    CategoryHeadingContent(category)
                 },
                 leadingContent = {
-                    Box(
-                        Modifier
-                            .size(24.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.secondaryContainer),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(category.emoji)
-                    }
+                    CategoryLeadingContent(category)
                     Spacer(Modifier.width(16.dp))
                 }
             )
@@ -128,10 +117,31 @@ fun CategoryScreenList(
     }
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchCategory(
+private fun CategoryLeadingContent(category: CategoryUI) {
+    Box(
+        Modifier
+            .size(24.dp)
+            .clip(CircleShape)
+            .background(MaterialTheme.colorScheme.secondaryContainer),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(category.emoji)
+    }
+}
+
+@Composable
+private fun CategoryHeadingContent(category: CategoryUI) {
+    Text(
+        text = category.name,
+        style = MaterialTheme.typography.bodyLarge,
+        color = MaterialTheme.colorScheme.onSurface,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+    )
+}
+@Composable
+private fun SearchCategory(
     modifier: Modifier = Modifier
 ) {
     val query = rememberSaveable {
@@ -144,41 +154,42 @@ fun SearchCategory(
             .fillMaxWidth()
             .background(SearchBarDefaults.colors().containerColor),
         inputField = {
-            SearchBarDefaults.InputField(
-                modifier = Modifier.fillMaxHeight(),
-                query = query.value,
-                onQueryChange = {
-                    query.value = it
-                },
-                placeholder = {
-                    Text(
-                        stringResource(R.string.search_bar_find_category),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                },
-                onSearch = {
-
-                }, expanded = false,
-                onExpandedChange = {
-                },
-                trailingIcon = {
-                    IconButton(onClick = {
-
-                    }) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_trailing_icon),
-                            contentDescription = null,
-                            modifier = Modifier.size(48.dp)
-                        )
-                    }
-                }
-            )
+            SearchBarInputField(query)
         }, expanded = false,
         onExpandedChange = {
         }
-    ) {
+    ) {}
+}
 
+@Composable
+private fun SearchBarInputField(query: MutableState<String>) {
+    SearchBarDefaults.InputField(
+        modifier = Modifier.fillMaxHeight(),
+        query = query.value,
+        onQueryChange = {
+            query.value = it
+        },
+        placeholder = {
+            Text(
+                stringResource(R.string.search_bar_find_category),
+                style = MaterialTheme.typography.bodyLarge
+            )
+        },
+        onSearch = {}, expanded = false,
+        onExpandedChange = {},
+        trailingIcon = {
+            SearchBarTrailingIcon()
+        }
+    )
+}
+
+@Composable
+private fun SearchBarTrailingIcon() {
+    IconButton(onClick = {}) {
+        Icon(
+            painter = painterResource(R.drawable.ic_trailing_icon),
+            contentDescription = null,
+            modifier = Modifier.size(48.dp)
+        )
     }
-
-
 }

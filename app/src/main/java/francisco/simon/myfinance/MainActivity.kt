@@ -6,6 +6,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,6 +22,8 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +41,7 @@ import francisco.simon.myfinance.navigation.routeClass
 import francisco.simon.myfinance.ui.theme.Green
 import francisco.simon.myfinance.ui.theme.GreyLight
 import francisco.simon.myfinance.ui.theme.MyFinanceTheme
+import kotlin.reflect.KClass
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -49,9 +53,7 @@ class MainActivity : ComponentActivity() {
                 FinanceApp()
             }
         }
-
     }
-
     private fun edgeToEdge() {
         enableEdgeToEdge(
             navigationBarStyle = SystemBarStyle.light(
@@ -79,51 +81,78 @@ fun FinanceApp() {
     ) {
         Scaffold(
             bottomBar = {
-                if (currentBackStackEntry.routeClass() != SplashRoute::class) {
-                    AppNavigationBar(
-                        navController = navController,
-                        tabs = mainTabs
-                    )
-                }
-
+                BottomBarSettings(currentBackStackEntry, navController)
             },
             topBar = {
-                if (currentBackStackEntry.routeClass() != SplashRoute::class) {
-                    AppTopBar(
-                        appBarState = appBarState
-                    )
-                }
-
+                TopBarSettings(currentBackStackEntry, appBarState)
             },
             floatingActionButton = {
-                if (currentBackStackEntry.routeClass() in floatButtonScreens) {
-                    FloatingActionButton(
-                        containerColor = Green,
-                        shape = CircleShape,
-                        modifier = Modifier
-                            .size(56.dp),
-                        onClick = {
-
-                        }
-                    ) {
-                        Image(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_add),
-                            contentDescription = null
-                        )
-                    }
-                }
+                FloatingButtonSettings(currentBackStackEntry, floatButtonScreens)
             }
         ) { innerPadding ->
-            AppNavGraph(
-                navController = navController,
-                startDestination = SplashRoute,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
+            AppNavGraphSettings(navController, innerPadding)
+        }
+    }
+}
+
+@Composable
+private fun TopBarSettings(
+    currentBackStackEntry: NavBackStackEntry?,
+    appBarState: AppBarState
+) {
+    if (currentBackStackEntry.routeClass() != SplashRoute::class) {
+        AppTopBar(
+            appBarState = appBarState
+        )
+    }
+}
+
+@Composable
+private fun BottomBarSettings(
+    currentBackStackEntry: NavBackStackEntry?,
+    navController: NavHostController
+) {
+    if (currentBackStackEntry.routeClass() != SplashRoute::class) {
+        AppNavigationBar(
+            navController = navController,
+            tabs = mainTabs
+        )
+    }
+}
+
+@Composable
+private fun FloatingButtonSettings(
+    currentBackStackEntry: NavBackStackEntry?,
+    floatButtonScreens: List<KClass<out Any>>
+) {
+    if (currentBackStackEntry.routeClass() in floatButtonScreens) {
+        FloatingActionButton(
+            containerColor = Green,
+            shape = CircleShape,
+            modifier = Modifier
+                .size(56.dp),
+            onClick = {}  //TODO
+        ) {
+            Image(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_add),
+                contentDescription = null
             )
         }
     }
+}
 
+@Composable
+private fun AppNavGraphSettings(
+    navController: NavHostController,
+    innerPadding: PaddingValues
+) {
+    AppNavGraph(
+        navController = navController,
+        startDestination = SplashRoute,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding)
+    )
 }
 
 

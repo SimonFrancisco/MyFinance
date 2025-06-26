@@ -2,14 +2,14 @@ package francisco.simon.myfinance.core.ui.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import francisco.simon.myfinance.core.mapper.toStringRes
-import francisco.simon.myfinance.domain.entity.Account
-import francisco.simon.myfinance.domain.entity.Transaction
 import francisco.simon.myfinance.core.domain.utils.Error
 import francisco.simon.myfinance.core.domain.utils.NetworkError
 import francisco.simon.myfinance.core.domain.utils.Result
 import francisco.simon.myfinance.core.domain.utils.onError
 import francisco.simon.myfinance.core.domain.utils.onSuccess
+import francisco.simon.myfinance.core.mapper.toStringRes
+import francisco.simon.myfinance.domain.entity.Account
+import francisco.simon.myfinance.domain.entity.Transaction
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

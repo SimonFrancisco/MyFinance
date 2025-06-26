@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import francisco.simon.myfinance.R
@@ -35,9 +36,9 @@ import francisco.simon.myfinance.core.components.RetryCall
 import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
-import francisco.simon.myfinance.ui.features.icome.model.Income
 import francisco.simon.myfinance.navigation.IncomeGraph.IncomeHistoryRoute
 import francisco.simon.myfinance.navigation.LocalNavController
+import francisco.simon.myfinance.ui.features.icome.model.Income
 
 @Composable
 fun IncomeScreen(appBarConfig: (AppBarState) -> Unit) {
@@ -59,7 +60,7 @@ fun IncomeScreen(appBarConfig: (AppBarState) -> Unit) {
 }
 
 @Composable
-fun IncomeScreenContent(
+private fun IncomeScreenContent(
     state: IncomeScreenState,
     viewModel: IncomeScreenViewModel
 ) {
@@ -72,11 +73,9 @@ fun IncomeScreenContent(
                 },
             )
         }
-
         is IncomeScreenState.Loading -> {
             FullScreenLoading()
         }
-
         is IncomeScreenState.Success -> {
             IncomeList(state.income)
         }
@@ -84,32 +83,13 @@ fun IncomeScreenContent(
 }
 
 @Composable
-fun IncomeList(
-    income: List<Income>
+private fun IncomeList(
+    income: List<Income>,
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        val sum = income.sumOf {
-            it.amount
-        }
-        CustomListItem(
-            modifier = Modifier
-                .height(56.dp)
-                .background(MaterialTheme.colorScheme.secondaryContainer),
-            headlineContent = {
-                Text(
-                    text = stringResource(R.string.all_money),
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            },
-            trailingContent = {
-                Text(
-                    text = "$sum ${income.firstOrNull()?.currency?.toCurrencySymbol() ?: ""}",
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-            },
-        )
+        IncomeSumItem(income)
         HorizontalDivider()
         LazyColumn {
             items(income, key = { it.transactionId }) { income ->
@@ -120,51 +100,92 @@ fun IncomeList(
 
                         },
                     headlineContent = {
-                        Text(
-                            text = income.name,
-                            style = MaterialTheme.typography.bodyLarge,
-                        )
-                        if (!income.comment.isNullOrEmpty()) {
-                            Text(
-                                text = income.comment,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                textAlign = TextAlign.Center
-                            )
-                        }
+                        IncomeHeadingContent(income)
 
                     },
                     leadingContent = {
-                        Box(
-                            Modifier
-                                .size(24.dp)
-                                .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.secondaryContainer),
-                            contentAlignment = Alignment.Center
-
-                        ) {
-                            Text(income.emoji)
-                        }
+                        IncomeLeadingContent(income)
                         Spacer(Modifier.width(16.dp))
                     },
                     trailingContent = {
-                        Text(
-                            text = "${income.amount} ${income.currency.toCurrencySymbol()}",
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.padding(end = 8.dp)
-                        )
-                        Icon(
-                            painter = painterResource(R.drawable.ic_arrow_head),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(24.dp)
-                        )
-
+                        IncomeTrailingContent(income)
                     }
                 )
                 HorizontalDivider()
             }
         }
     }
+}
 
+@Composable
+private fun IncomeTrailingContent(income: Income) {
+    Text(
+        text = "${income.amount} ${income.currency.toCurrencySymbol()}",
+        style = MaterialTheme.typography.bodyLarge,
+        modifier = Modifier.padding(end = 8.dp)
+    )
+    Icon(
+        painter = painterResource(R.drawable.ic_arrow_head),
+        contentDescription = null,
+        modifier = Modifier
+            .size(24.dp)
+    )
+}
+
+@Composable
+private fun IncomeLeadingContent(income: Income) {
+    Box(
+        Modifier
+            .size(24.dp)
+            .clip(CircleShape)
+            .background(MaterialTheme.colorScheme.secondaryContainer),
+        contentAlignment = Alignment.Center
+
+    ) {
+        Text(income.emoji)
+    }
+}
+
+@Composable
+private fun IncomeHeadingContent(income: Income) {
+    Text(
+        text = income.name,
+        style = MaterialTheme.typography.bodyLarge,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
+    )
+    if (!income.comment.isNullOrEmpty()) {
+        Text(
+            text = income.comment,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+}
+
+@Composable
+private fun IncomeSumItem(income: List<Income>) {
+    val sum = income.sumOf {
+        it.amount
+    }
+    CustomListItem(
+        modifier = Modifier
+            .height(56.dp)
+            .background(MaterialTheme.colorScheme.secondaryContainer),
+        headlineContent = {
+            Text(
+                text = stringResource(R.string.all_money),
+                style = MaterialTheme.typography.bodyLarge
+            )
+        },
+        trailingContent = {
+            Text(
+                text = "$sum ${income.firstOrNull()?.currency?.toCurrencySymbol() ?: ""}",
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        },
+    )
 }

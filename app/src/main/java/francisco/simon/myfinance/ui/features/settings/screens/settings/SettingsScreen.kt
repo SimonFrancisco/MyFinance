@@ -15,6 +15,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,7 +44,7 @@ fun SettingsScreen(appBarConfig: (AppBarState) -> Unit) {
 }
 
 @Composable
-fun SettingsScreenContent(
+private fun SettingsScreenContent(
     state: SettingsScreenState
 ) {
     when (state) {
@@ -55,7 +56,7 @@ fun SettingsScreenContent(
 
 
 @Composable
-fun SettingsScreenList(
+private fun SettingsScreenList(
     settingsOptions: List<String> = fakeSettings
 ) {
     val checked = remember {
@@ -64,54 +65,63 @@ fun SettingsScreenList(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-
         LazyColumn {
             item {
-                CustomListItem(
-                    modifier = Modifier
-                        .height(56.dp),
-                    headlineContent = {
-                        Text(
-                            text = stringResource(R.string.dark_theme),
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    },
-                    trailingContent = {
-                        Switch(
-                            modifier = Modifier
-                                .height(32.dp)
-                                .width(52.dp),
-                            checked = checked.value, onCheckedChange = {
-                                checked.value = it
-                            }
-                        )
-                    },
-                )
+                SwitchItem(checked)
                 HorizontalDivider()
             }
             items(settingsOptions) { setting ->
-                CustomListItem(
-                    modifier = Modifier
-                        .height(56.dp)
-                        .clickable {
-
-                        },
-                    headlineContent = {
-                        Text(text = setting, style = MaterialTheme.typography.bodyLarge)
-                    },
-                    trailingContent = {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_arrow_right),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(24.dp)
-                        )
-                    },
-                )
+                SettingsItem(setting)
                 HorizontalDivider()
             }
         }
     }
+}
+
+@Composable
+private fun SettingsItem(setting: String) {
+    CustomListItem(
+        modifier = Modifier
+            .height(56.dp)
+            .clickable {
+
+            },
+        headlineContent = {
+            Text(text = setting, style = MaterialTheme.typography.bodyLarge)
+        },
+        trailingContent = {
+            Icon(
+                painter = painterResource(R.drawable.ic_arrow_right),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(24.dp)
+            )
+        },
+    )
+}
+
+@Composable
+private fun SwitchItem(checked: MutableState<Boolean>) {
+    CustomListItem(
+        modifier = Modifier
+            .height(56.dp),
+        headlineContent = {
+            Text(
+                text = stringResource(R.string.dark_theme),
+                style = MaterialTheme.typography.bodyLarge
+            )
+        },
+        trailingContent = {
+            Switch(
+                modifier = Modifier
+                    .height(32.dp)
+                    .width(52.dp),
+                checked = checked.value, onCheckedChange = {
+                    checked.value = it
+                }
+            )
+        },
+    )
 }
 
 private val fakeSettings = listOf(

@@ -129,7 +129,7 @@ private fun datePickerState(
 ): DatePickerState {
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = initialDateMillis,
-        yearRange = IntRange(2020, 2030),
+        yearRange = IntRange(2000, 2099),
         selectableDates = object : SelectableDates {
             override fun isSelectableDate(utcTimeMillis: Long): Boolean {
                 val minCheck = minDateMillis?.let { utcTimeMillis >= it } ?: true

@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
@@ -91,13 +91,16 @@ private fun HeadingContent(transaction: Transaction) {
         text = transaction.category.name,
         style = MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onSurface,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
     )
     if (!transaction.comment.isNullOrEmpty()) {
         Text(
             text = transaction.comment,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
         )
     }
 }

@@ -3,14 +3,16 @@ package francisco.simon.myfinance.ui.features.expense.screens.expense
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import francisco.simon.myfinance.core.mapper.toApiDate
-import francisco.simon.myfinance.core.mapper.toStringRes
-import francisco.simon.myfinance.domain.model.TransactionModel
-import francisco.simon.myfinance.domain.usecase.GetAccountUseCase
-import francisco.simon.myfinance.domain.usecase.GetExpenseUseCase
+import francisco.simon.myfinance.core.domain.utils.Error
 import francisco.simon.myfinance.core.domain.utils.NetworkError
 import francisco.simon.myfinance.core.domain.utils.onError
 import francisco.simon.myfinance.core.domain.utils.onSuccess
+import francisco.simon.myfinance.core.mapper.toApiDate
+import francisco.simon.myfinance.core.mapper.toStringRes
+import francisco.simon.myfinance.domain.entity.Transaction
+import francisco.simon.myfinance.domain.model.TransactionModel
+import francisco.simon.myfinance.domain.usecase.GetAccountUseCase
+import francisco.simon.myfinance.domain.usecase.GetExpenseUseCase
 import francisco.simon.myfinance.ui.features.expense.mapper.toListExpense
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,15 +37,10 @@ class ExpenseScreenViewModel @Inject constructor(
     }
 
     private fun loadExpenses() {
-        _state.update {
-            ExpenseScreenState.Loading
-        }
+        updateLoading()
         viewModelScope.launch {
             getAccountUseCase().onError { error ->
-                val errorRes = (error as NetworkError).toStringRes()
-                _state.update {
-                    ExpenseScreenState.Error(errorMessageRes = errorRes)
-                }
+                updateError(error)
             }.onSuccess { account ->
                 val transactionModel = TransactionModel(
                     accountId = account.id,
@@ -52,21 +49,33 @@ class ExpenseScreenViewModel @Inject constructor(
                 )
                 getExpenseUseCase(transactionModel).collectLatest { result ->
                     result.onSuccess { expenses ->
-                        _state.update {
-                            ExpenseScreenState.Success(expenses.toListExpense())
-                        }
+                        updateSuccess(expenses)
                     }.onError { error ->
-                        val errorRes = (error as NetworkError).toStringRes()
-                        _state.update {
-                            ExpenseScreenState.Error(errorMessageRes = errorRes)
-                        }
+                        updateError(error)
                     }
 
                 }
             }
-
         }
+    }
 
+    private fun updateSuccess(expenses: List<Transaction>) {
+        _state.update {
+            ExpenseScreenState.Success(expenses.toListExpense())
+        }
+    }
+
+    private fun updateError(error: Error) {
+        val errorRes = (error as NetworkError).toStringRes()
+        _state.update {
+            ExpenseScreenState.Error(errorMessageRes = errorRes)
+        }
+    }
+
+    private fun updateLoading() {
+        _state.update {
+            ExpenseScreenState.Loading
+        }
     }
 
     fun retry() {
