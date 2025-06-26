@@ -1,15 +1,17 @@
 package francisco.simon.myfinance.core.ui.history
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import francisco.simon.myfinance.core.components.CustomDatePicker
 import francisco.simon.myfinance.core.components.FullScreenLoading
@@ -64,23 +66,31 @@ private fun HistoryScreenContent(
     showStartPicker: MutableState<Boolean>,
     showEndPicker: MutableState<Boolean>
 ) {
-    when (val currentState = state.value) {
-        is HistoryScreenState.Error -> {
-            RetryHistoryButton(currentState.errorMessageRes, viewModel, startDate.value, endDate.value)
-        }
-        is HistoryScreenState.Loading -> {
-            FullScreenLoading()
-        }
-        is HistoryScreenState.Success -> {
-            HistoryScreenList(
-                currentState.transactions,
-                startDate,
-                showStartPicker,
-                endDate,
-                showEndPicker
-            )
+    Column(modifier = Modifier.fillMaxSize()) {
+        StartInfo(startDate.value, showStartPicker)
+        HorizontalDivider()
+        EndInfo(endDate.value, showEndPicker)
+        HorizontalDivider()
+        when (val currentState = state.value) {
+            is HistoryScreenState.Error -> {
+                RetryHistoryButton(
+                    currentState.errorMessageRes,
+                    viewModel,
+                    startDate.value,
+                    endDate.value
+                )
+            }
+            is HistoryScreenState.Loading -> {
+                FullScreenLoading()
+            }
+            is HistoryScreenState.Success -> {
+                HistoryScreenList(
+                    currentState.transactions
+                )
+            }
         }
     }
+
 }
 
 @Composable

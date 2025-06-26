@@ -4,7 +4,7 @@ package francisco.simon.myfinance.core.domain.utils
 typealias RootError = Error
 typealias EmptyResult<E> = Result<Unit, E>
 
-sealed interface Result<out T, out E : Error> {
+sealed interface Result<out T, out E : RootError> {
     data class Success<out T>(val data: T) : Result<T, Nothing>
     data class Error<out E : RootError>(val error: E) : Result<Nothing, E>
 }
