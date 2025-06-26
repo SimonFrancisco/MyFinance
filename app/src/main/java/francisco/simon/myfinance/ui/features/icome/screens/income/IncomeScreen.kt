@@ -19,7 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
@@ -54,7 +54,7 @@ fun IncomeScreen(appBarConfig: (AppBarState) -> Unit) {
         )
     }
     val viewModel: IncomeScreenViewModel = hiltViewModel()
-    val state = viewModel.state.collectAsState()
+    val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     IncomeScreenContent(currentState, viewModel)
 }

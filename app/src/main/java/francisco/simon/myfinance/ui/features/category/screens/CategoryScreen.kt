@@ -39,7 +39,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
@@ -58,9 +57,7 @@ fun CategoryScreen(appBarConfig: (AppBarState) -> Unit) {
         )
     }
     val viewModel: CategoryViewModel = hiltViewModel()
-    val state = viewModel.state.collectAsStateWithLifecycle(
-        minActiveState = Lifecycle.State.RESUMED
-    )
+    val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     CategoryScreenContent(currentState, viewModel)
 }
