@@ -1,5 +1,6 @@
 package francisco.simon.myfinance.core.components.navigationBar
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -18,9 +19,13 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph
 import androidx.navigation.compose.currentBackStackEntryAsState
-import francisco.simon.myfinance.ui.navigation.routeClass
+import francisco.simon.myfinance.navigation.routeClass
 import francisco.simon.myfinance.ui.theme.Green
 
+/**
+ * Navigation bar - main function
+ * @author Simon Francisco
+ */
 @Composable
 fun AppNavigationBar(
     navController: NavController,
@@ -36,38 +41,61 @@ fun AppNavigationBar(
             it.graph::class == closestNavGraphClass
         }
         tabs.forEach { tab ->
-            NavigationBarItem(
-                selected = currentTab == tab,
-                onClick = {
-                    if (currentTab != null) {
-                        navController.navigate(tab.graph) {
-                            popUpTo(currentTab.graph) {
-                                inclusive = true
-                                saveState = true
-                            }
-                            restoreState = true
-                        }
-                    }
-                },
-                icon = {
-                    Icon(
-                        painter = painterResource(tab.iconRes),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(16.dp)
-                    )
-                },
-                label = {
-                    Text(
-                        text = stringResource(tab.labelRes),
-                        style = MaterialTheme.typography.labelMedium
-                    )
-                },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = Green,
-                    selectedTextColor = Color.Black
-                )
-            )
+            NavigationItem(currentTab, tab, navController)
         }
     }
+}
+
+/**
+ * Settings for each nav item
+ * @author Simon Francisco
+ */
+@Composable
+private fun RowScope.NavigationItem(
+    currentTab: AppTab?,
+    tab: AppTab,
+    navController: NavController
+) {
+    NavigationBarItem(
+        selected = currentTab == tab,
+        onClick = {
+            if (currentTab != null) {
+                navController.navigate(tab.graph) {
+                    popUpTo(currentTab.graph) {
+                        inclusive = true
+                        saveState = true
+                    }
+                    restoreState = true
+                }
+            }
+        },
+        icon = {
+            NavigationBarIcon(tab)
+        },
+        label = {
+            NavigationBarLabel(tab)
+        },
+        colors = NavigationBarItemDefaults.colors(
+            selectedIconColor = Green,
+            selectedTextColor = Color.Black
+        )
+    )
+}
+
+@Composable
+private fun NavigationBarLabel(tab: AppTab) {
+    Text(
+        text = stringResource(tab.labelRes),
+        style = MaterialTheme.typography.labelMedium
+    )
+}
+
+@Composable
+private fun NavigationBarIcon(tab: AppTab) {
+    Icon(
+        painter = painterResource(tab.iconRes),
+        contentDescription = null,
+        modifier = Modifier
+            .size(16.dp)
+    )
 }

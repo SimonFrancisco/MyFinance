@@ -19,27 +19,31 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
-import francisco.simon.myfinance.core.components.RetryButton
+import francisco.simon.myfinance.core.components.RetryCall
 import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
-import francisco.simon.myfinance.ui.features.expense.model.Expense
-import francisco.simon.myfinance.ui.navigation.ExpenseGraph
-import francisco.simon.myfinance.ui.navigation.ExpenseGraph.ExpensesHistoryRoute
-import francisco.simon.myfinance.ui.navigation.LocalNavController
+import francisco.simon.myfinance.navigation.ExpenseGraph.ExpensesHistoryRoute
+import francisco.simon.myfinance.navigation.LocalNavController
+import francisco.simon.myfinance.ui.features.expense.model.ExpenseUI
 
+/**
+ * Expense Screen, separate concerns to avoid unnecessary recompositions and
+ * keep code logic short
+ * @author Simon Francisco
+ */
 @Composable
 fun ExpenseScreen(appBarConfig: (AppBarState) -> Unit) {
     val navController = LocalNavController.current
@@ -54,21 +58,24 @@ fun ExpenseScreen(appBarConfig: (AppBarState) -> Unit) {
         )
     }
     val viewModel: ExpenseScreenViewModel = hiltViewModel()
-    val state = viewModel.state.collectAsState()
+    val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     ExpenseScreenContent(currentState, viewModel)
 }
 
 @Composable
-fun ExpenseScreenContent(
+private fun ExpenseScreenContent(
     state: ExpenseScreenState,
-    viewModel: ExpenseScreenViewModel
+    viewModel: ExpenseScreenViewModel,
 ) {
     when (state) {
         is ExpenseScreenState.Error -> {
-            RetryButton(onClick = {
-                viewModel.retry()
-            })
+            RetryCall(
+                errorRes = state.errorMessageRes,
+                onClick = {
+                    viewModel.retry()
+                },
+            )
         }
 
         is ExpenseScreenState.Loading -> {
@@ -76,89 +83,35 @@ fun ExpenseScreenContent(
         }
 
         is ExpenseScreenState.Success -> {
-            ExpenseList(state.expenses)
+            ExpenseList(state.expens)
         }
     }
 }
 
 @Composable
-fun ExpenseList(
-    expenses: List<Expense>
+private fun ExpenseList(
+    expens: List<ExpenseUI>,
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        val sum = expenses.sumOf {
-            it.amount
-        }
-        CustomListItem(
-            modifier = Modifier
-                .height(56.dp)
-                .background(MaterialTheme.colorScheme.secondaryContainer),
-            headlineContent = {
-                Text(
-                    text = stringResource(R.string.all_money),
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            },
-            trailingContent = {
-                Text(
-                    text = "$sum ${expenses.first().currency.toCurrencySymbol()}",
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-            },
-        )
+        ExpenseSumItem(expens)
         HorizontalDivider()
         LazyColumn {
-            items(expenses, key = { it.transactionId }) { expense ->
+            items(expens, key = { it.transactionId }) { expense ->
                 CustomListItem(
                     modifier = Modifier
                         .height(70.dp)
-                        .clickable {
-
-                        },
+                        .clickable {},
                     headlineContent = {
-                        Text(
-                            text = expense.name,
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurface,
-                        )
-                        if (!expense.comment.isNullOrEmpty()) {
-                            Text(
-                                text = expense.comment,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                textAlign = TextAlign.Center
-                            )
-                        }
-
+                        ExpenseHeadingContent(expense)
                     },
                     leadingContent = {
-                        Box(
-                            Modifier
-                                .size(24.dp)
-                                .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.secondaryContainer),
-                            contentAlignment = Alignment.Center
-
-                        ) {
-                            Text(expense.emoji)
-                        }
+                        ExpenseLeadingContent(expense)
                         Spacer(Modifier.width(16.dp))
                     },
                     trailingContent = {
-                        Text(
-                            text = "${expense.amount} ${expense.currency.toCurrencySymbol()}",
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.padding(end = 8.dp)
-                        )
-                        Icon(
-                            painter = painterResource(R.drawable.ic_arrow_head),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(24.dp)
-                        )
-
+                        ExpenseTrailingContent(expense)
                     }
                 )
                 HorizontalDivider()
@@ -166,4 +119,77 @@ fun ExpenseList(
         }
     }
 
+}
+
+@Composable
+private fun ExpenseTrailingContent(expenseUI: ExpenseUI) {
+    Text(
+        text = "${expenseUI.amount} ${expenseUI.currency.toCurrencySymbol()}",
+        style = MaterialTheme.typography.bodyLarge,
+        modifier = Modifier.padding(end = 8.dp)
+    )
+    Icon(
+        painter = painterResource(R.drawable.ic_arrow_head),
+        contentDescription = null,
+        modifier = Modifier
+            .size(24.dp)
+    )
+}
+
+@Composable
+private fun ExpenseLeadingContent(expenseUI: ExpenseUI) {
+    Box(
+        Modifier
+            .size(24.dp)
+            .clip(CircleShape)
+            .background(MaterialTheme.colorScheme.secondaryContainer),
+        contentAlignment = Alignment.Center
+
+    ) {
+        Text(expenseUI.emoji)
+    }
+}
+
+@Composable
+private fun ExpenseHeadingContent(expenseUI: ExpenseUI) {
+    Text(
+        text = expenseUI.name,
+        style = MaterialTheme.typography.bodyLarge,
+        color = MaterialTheme.colorScheme.onSurface,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
+    )
+    if (!expenseUI.comment.isNullOrEmpty()) {
+        Text(
+            text = expenseUI.comment,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+}
+
+@Composable
+private fun ExpenseSumItem(expens: List<ExpenseUI>) {
+    val sum = expens.sumOf {
+        it.amount
+    }
+    CustomListItem(
+        modifier = Modifier
+            .height(56.dp)
+            .background(MaterialTheme.colorScheme.secondaryContainer),
+        headlineContent = {
+            Text(
+                text = stringResource(R.string.all_money),
+                style = MaterialTheme.typography.bodyLarge
+            )
+        },
+        trailingContent = {
+            Text(
+                text = "$sum ${expens.firstOrNull()?.currency?.toCurrencySymbol() ?: ""}",
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        },
+    )
 }

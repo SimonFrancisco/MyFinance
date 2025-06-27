@@ -3,9 +3,13 @@ package francisco.simon.myfinance.ui.features.account.screens
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import francisco.simon.myfinance.core.domain.utils.Error
+import francisco.simon.myfinance.core.domain.utils.NetworkError
+import francisco.simon.myfinance.core.domain.utils.onError
+import francisco.simon.myfinance.core.domain.utils.onSuccess
+import francisco.simon.myfinance.core.mapper.toStringRes
 import francisco.simon.myfinance.domain.entity.Account
 import francisco.simon.myfinance.domain.usecase.GetAccountUseCase
-import francisco.simon.myfinance.domain.utils.NetworkResult
 import francisco.simon.myfinance.ui.features.account.mapper.toAccountUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,6 +17,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for accounts, works with state
+ * @param getAccountUseCase
+ * @author Simon Francisco
+ */
 @HiltViewModel
 class AccountViewModel @Inject constructor(
     private val getAccountUseCase: GetAccountUseCase
@@ -28,31 +37,37 @@ class AccountViewModel @Inject constructor(
     }
 
     private fun loadAccount() {
+        updateLoading()
         viewModelScope.launch {
-            when (val account = getAccountUseCase()) {
-                is NetworkResult.Error -> {
-                    _state.update {
-                        AccountScreenState.Error(account.message)
-                    }
-                }
-                is NetworkResult.Exception -> {
-                    _state.update {
-                        AccountScreenState.Error(account.e.message.toString())
-                    }
-                }
-                is NetworkResult.Success<Account> -> {
-                    _state.update {
-                        AccountScreenState.Success(account.data.toAccountUI())
-                    }
-
-                }
+            getAccountUseCase().onSuccess { account ->
+                updateSuccess(account)
+            }.onError { error ->
+                updateError(error)
             }
-
-
         }
 
     }
-    fun retry(){
+
+    private fun updateError(error: Error) {
+        val errorRes = (error as NetworkError).toStringRes()
+        _state.update {
+            AccountScreenState.Error(errorMessageRes = errorRes)
+        }
+    }
+
+    private fun updateSuccess(account: Account) {
+        _state.update {
+            AccountScreenState.Success(account.toAccountUI())
+        }
+    }
+
+    private fun updateLoading() {
+        _state.update {
+            AccountScreenState.Loading
+        }
+    }
+
+    fun retry() {
         loadAccount()
     }
 }

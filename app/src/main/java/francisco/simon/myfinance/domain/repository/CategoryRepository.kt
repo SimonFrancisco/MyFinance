@@ -1,9 +1,10 @@
 package francisco.simon.myfinance.domain.repository
 
+import francisco.simon.myfinance.core.domain.utils.Error
+import francisco.simon.myfinance.core.domain.utils.Result
 import francisco.simon.myfinance.domain.entity.Category
-import francisco.simon.myfinance.domain.utils.NetworkResult
 
 interface CategoryRepository {
 
-    suspend fun getAllCategories(): NetworkResult<List<Category>>
+    suspend fun getAllCategories(): Result<List<Category>, Error>
 }

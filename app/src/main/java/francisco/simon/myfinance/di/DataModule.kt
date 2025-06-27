@@ -5,14 +5,21 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import francisco.simon.myfinance.data.repositories.CategoryRepositoryImpl
-import francisco.simon.myfinance.data.repositories.TransactionRepositoryImpl
 import francisco.simon.myfinance.data.api.ApiFactory
 import francisco.simon.myfinance.data.api.ApiService
+import francisco.simon.myfinance.data.repositories.AccountRepositoryImpl
+import francisco.simon.myfinance.data.repositories.CategoryRepositoryImpl
+import francisco.simon.myfinance.data.repositories.TransactionRepositoryImpl
+import francisco.simon.myfinance.domain.repository.AccountRepository
 import francisco.simon.myfinance.domain.repository.CategoryRepository
 import francisco.simon.myfinance.domain.repository.TransactionRepository
 import javax.inject.Singleton
 
+/**
+ * Hilt module that binds repositories to their implementations and
+ * provides implementations for object creation. Singleton is used.
+ * @author Simon Francisco
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 internal interface DataModule {
@@ -22,6 +29,9 @@ internal interface DataModule {
 
     @[Singleton Binds]
     fun bindCategoryRepository(impl: CategoryRepositoryImpl): CategoryRepository
+
+    @[Singleton Binds]
+    fun bindAccountRepository(impl: AccountRepositoryImpl): AccountRepository
 
     companion object {
         @[Singleton Provides]

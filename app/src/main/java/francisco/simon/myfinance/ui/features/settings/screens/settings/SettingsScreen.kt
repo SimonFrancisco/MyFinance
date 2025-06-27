@@ -15,7 +15,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -23,10 +23,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 
+/**
+ * Settings Screen, separate concerns to avoid unnecessary recompositions and
+ * keep code logic short
+ * @author Simon Francisco
+ */
 @Composable
 fun SettingsScreen(appBarConfig: (AppBarState) -> Unit) {
     LaunchedEffect(Unit) {
@@ -36,17 +42,17 @@ fun SettingsScreen(appBarConfig: (AppBarState) -> Unit) {
             )
         )
     }
-    val viewModel:SettingsViewModel = hiltViewModel()
-    val state = viewModel.state.collectAsState()
+    val viewModel: SettingsViewModel = hiltViewModel()
+    val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     SettingsScreenContent(currentState)
 }
 
 @Composable
-fun SettingsScreenContent(
+private fun SettingsScreenContent(
     state: SettingsScreenState
-){
-    when(state){
+) {
+    when (state) {
         SettingsScreenState.Nothing -> {
             SettingsScreenList(fakeSettings)
         }
@@ -54,9 +60,8 @@ fun SettingsScreenContent(
 }
 
 
-
 @Composable
-fun SettingsScreenList(
+private fun SettingsScreenList(
     settingsOptions: List<String> = fakeSettings
 ) {
     val checked = remember {
@@ -65,56 +70,69 @@ fun SettingsScreenList(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-
         LazyColumn {
             item {
-                CustomListItem(
-                    modifier = Modifier
-                        .height(56.dp),
-                    headlineContent = {
-                        Text(
-                            text = stringResource(R.string.dark_theme),
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    },
-                    trailingContent = {
-                        Switch(
-                            modifier = Modifier
-                                .height(32.dp)
-                                .width(52.dp),
-                            checked = checked.value, onCheckedChange = {
-                                checked.value = it
-                            }
-                        )
-                    },
-                )
+                SwitchItem(checked)
                 HorizontalDivider()
             }
             items(settingsOptions) { setting ->
-                CustomListItem(
-                    modifier = Modifier
-                        .height(56.dp)
-                        .clickable {
-
-                        },
-                    headlineContent = {
-                        Text(text = setting, style = MaterialTheme.typography.bodyLarge)
-                    },
-                    trailingContent = {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_arrow_right),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(24.dp)
-                        )
-                    },
-                )
+                SettingsItem(setting)
                 HorizontalDivider()
             }
         }
     }
 }
 
+@Composable
+private fun SettingsItem(setting: String) {
+    CustomListItem(
+        modifier = Modifier
+            .height(56.dp)
+            .clickable {
+
+            },
+        headlineContent = {
+            Text(text = setting, style = MaterialTheme.typography.bodyLarge)
+        },
+        trailingContent = {
+            Icon(
+                painter = painterResource(R.drawable.ic_arrow_right),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(24.dp)
+            )
+        },
+    )
+}
+
+@Composable
+private fun SwitchItem(checked: MutableState<Boolean>) {
+    CustomListItem(
+        modifier = Modifier
+            .height(56.dp),
+        headlineContent = {
+            Text(
+                text = stringResource(R.string.dark_theme),
+                style = MaterialTheme.typography.bodyLarge
+            )
+        },
+        trailingContent = {
+            Switch(
+                modifier = Modifier
+                    .height(32.dp)
+                    .width(52.dp),
+                checked = checked.value, onCheckedChange = {
+                    checked.value = it
+                }
+            )
+        },
+    )
+}
+
+/**
+ * Create fake settings for now
+ * @author Simon Francisco
+ */
 private val fakeSettings = listOf(
     "Основной цвет",
     "Звуки",
