@@ -8,6 +8,10 @@ import francisco.simon.myfinance.navigation.AccountGraph
 import francisco.simon.myfinance.navigation.AccountGraph.AccountRoute
 import francisco.simon.myfinance.ui.features.account.screens.AccountScreen
 
+/**
+ * Extension function for Account nav graph, it contains all needed routes
+ * @author Simon Francisco
+ */
 fun NavGraphBuilder.accountNavGraph(appBarState: AppBarState) {
     navigation<AccountGraph>(startDestination = AccountRoute) {
         composable<AccountRoute> {

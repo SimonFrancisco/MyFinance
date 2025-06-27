@@ -8,6 +8,10 @@ import francisco.simon.myfinance.navigation.SettingsGraph
 import francisco.simon.myfinance.navigation.SettingsGraph.SettingsRoute
 import francisco.simon.myfinance.ui.features.settings.screens.settings.SettingsScreen
 
+/**
+ * Extension function for Settings nav graph, it contains all needed routes
+ * @author Simon Francisco
+ */
 fun NavGraphBuilder.settingsNavGraph(appBarState: AppBarState) {
     navigation<SettingsGraph>(startDestination = SettingsRoute) {
         composable<SettingsRoute> {

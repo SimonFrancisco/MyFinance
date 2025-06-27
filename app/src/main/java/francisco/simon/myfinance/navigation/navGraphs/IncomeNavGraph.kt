@@ -10,6 +10,10 @@ import francisco.simon.myfinance.navigation.IncomeGraph.IncomeRoute
 import francisco.simon.myfinance.ui.features.income.screens.history.IncomeHistoryScreen
 import francisco.simon.myfinance.ui.features.income.screens.income.IncomeScreen
 
+/**
+ * Extension function for Income nav graph, it contains all needed routes
+ * @author Simon Francisco
+ */
 fun NavGraphBuilder.incomeNavGraph(appBarState: AppBarState) {
     navigation<IncomeGraph>(startDestination = IncomeRoute) {
         composable<IncomeRoute> {

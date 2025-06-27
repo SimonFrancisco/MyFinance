@@ -14,6 +14,10 @@ import francisco.simon.myfinance.navigation.navGraphs.incomeNavGraph
 import francisco.simon.myfinance.navigation.navGraphs.settingsNavGraph
 import francisco.simon.myfinance.ui.features.splash.SplashScreen
 
+/**
+ * App nav graph for the whole app, it contains all needed graphs
+ * @author Simon Francisco
+ */
 @Composable
 fun AppNavGraph(
     navController: NavHostController,
