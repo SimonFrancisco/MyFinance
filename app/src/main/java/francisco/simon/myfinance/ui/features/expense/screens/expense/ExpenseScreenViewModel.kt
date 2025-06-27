@@ -21,7 +21,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Instant
 import javax.inject.Inject
-
+/**
+ * ViewModel for expenses, works with state
+ * @param getExpenseUseCase
+ * @param getAccountUseCase
+ * @author Simon Francisco
+ */
 @HiltViewModel
 class ExpenseScreenViewModel @Inject constructor(
     private val getExpenseUseCase: GetExpenseUseCase,
@@ -53,7 +58,6 @@ class ExpenseScreenViewModel @Inject constructor(
                     }.onError { error ->
                         updateError(error)
                     }
-
                 }
             }
         }

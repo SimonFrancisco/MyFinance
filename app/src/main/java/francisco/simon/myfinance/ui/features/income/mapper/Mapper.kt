@@ -3,6 +3,10 @@ package francisco.simon.myfinance.ui.features.income.mapper
 import francisco.simon.myfinance.domain.entity.Transaction
 import francisco.simon.myfinance.ui.features.income.model.IncomeUI
 
+/**
+ *  Mapper from domain to ui
+ *  @author Simon Francisco
+ */
 fun Transaction.toIncome(): IncomeUI {
     return IncomeUI(
         transactionId = this.id,

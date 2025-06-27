@@ -8,7 +8,10 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-
+/**
+ * ViewModel for settings, works with state
+ * @author Simon Francisco
+ */
 @HiltViewModel
 class SettingsViewModel @Inject constructor() : ViewModel() {
 

@@ -47,6 +47,11 @@ import francisco.simon.myfinance.core.components.RetryCall
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.ui.features.category.model.CategoryUI
 
+/**
+ * Category Screen, separate concerns to avoid unnecessary recompositions and
+ * keep code logic short
+ * @author Simon Francisco
+ */
 @Composable
 fun CategoryScreen(appBarConfig: (AppBarState) -> Unit) {
     LaunchedEffect(Unit) {

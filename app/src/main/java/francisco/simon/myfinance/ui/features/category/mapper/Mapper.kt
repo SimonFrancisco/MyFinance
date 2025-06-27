@@ -3,6 +3,10 @@ package francisco.simon.myfinance.ui.features.category.mapper
 import francisco.simon.myfinance.domain.entity.Category
 import francisco.simon.myfinance.ui.features.category.model.CategoryUI
 
+/**
+ *  Mapper from domain to ui
+ *  @author Simon Francisco
+ */
 
 fun Category.toCategoryUI(): CategoryUI {
     return CategoryUI(

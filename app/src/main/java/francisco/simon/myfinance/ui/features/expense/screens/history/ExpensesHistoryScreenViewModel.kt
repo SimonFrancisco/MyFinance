@@ -12,6 +12,12 @@ import francisco.simon.myfinance.domain.usecase.GetExpenseUseCase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+/**
+ * ViewModel for Expense history screen, state in base view model
+ * @param getExpenseUseCase
+ * @param getAccountUseCase
+ * @author Simon Francisco
+ */
 @HiltViewModel
 class ExpensesHistoryScreenViewModel @Inject constructor(
     private val getExpenseUseCase: GetExpenseUseCase,

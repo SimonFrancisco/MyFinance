@@ -4,6 +4,10 @@ import androidx.annotation.DrawableRes
 import francisco.simon.myfinance.R
 import java.math.BigDecimal
 
+/**
+ * Separate UI model
+ * @author Simon Francisco
+ */
 data class AccountUI (
     val id: Int,
     val name: String,

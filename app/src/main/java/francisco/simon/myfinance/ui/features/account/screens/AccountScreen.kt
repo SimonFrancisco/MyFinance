@@ -36,6 +36,11 @@ import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
 import francisco.simon.myfinance.ui.features.account.model.AccountUI
 
+/**
+ * Account Screen, separate concerns to avoid unnecessary recompositions and
+ * keep code logic short
+ * @author Simon Francisco
+ */
 @Composable
 fun AccountScreen(appBarConfig: (AppBarState) -> Unit) {
     LaunchedEffect(Unit) {

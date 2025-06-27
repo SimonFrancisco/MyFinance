@@ -40,6 +40,11 @@ import francisco.simon.myfinance.navigation.IncomeGraph.IncomeHistoryRoute
 import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.ui.features.income.model.IncomeUI
 
+/**
+ * Income Screen, separate concerns to avoid unnecessary recompositions and
+ * keep code logic short
+ * @author Simon Francisco
+ */
 @Composable
 fun IncomeScreen(appBarConfig: (AppBarState) -> Unit) {
     val navController = LocalNavController.current

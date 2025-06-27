@@ -12,7 +12,12 @@ import francisco.simon.myfinance.domain.usecase.GetIncomeUseCase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-
+/**
+ * ViewModel for Income history screen, states in base view model
+ * @param getIncomeUseCase
+ * @param getAccountUseCase
+ * @author Simon Francisco
+ */
 @HiltViewModel
 class IncomeHistoryScreenViewModel @Inject constructor(
     private val getIncomeUseCase: GetIncomeUseCase,

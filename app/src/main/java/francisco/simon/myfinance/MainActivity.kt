@@ -43,6 +43,7 @@ import francisco.simon.myfinance.ui.theme.GreyLight
 import francisco.simon.myfinance.ui.theme.MyFinanceTheme
 import kotlin.reflect.KClass
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +55,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
     private fun edgeToEdge() {
         enableEdgeToEdge(
             navigationBarStyle = SystemBarStyle.light(
@@ -68,6 +70,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ * The whole app functionality is joined here.
+ * @author Simon Francisco
+ */
 @Composable
 fun FinanceApp() {
     val navController = rememberNavController()

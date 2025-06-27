@@ -28,6 +28,11 @@ import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 
+/**
+ * Settings Screen, separate concerns to avoid unnecessary recompositions and
+ * keep code logic short
+ * @author Simon Francisco
+ */
 @Composable
 fun SettingsScreen(appBarConfig: (AppBarState) -> Unit) {
     LaunchedEffect(Unit) {
@@ -124,6 +129,10 @@ private fun SwitchItem(checked: MutableState<Boolean>) {
     )
 }
 
+/**
+ * Create fake settings for now
+ * @author Simon Francisco
+ */
 private val fakeSettings = listOf(
     "Основной цвет",
     "Звуки",

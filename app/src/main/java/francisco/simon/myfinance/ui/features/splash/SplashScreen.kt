@@ -17,6 +17,10 @@ import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.navigation.SplashRoute
 import francisco.simon.myfinance.ui.theme.Green
 
+/**
+ * Splash screen with Lottie
+ * @author Simon Francisco
+ */
 @Composable
 fun SplashScreen() {
     val navController = LocalNavController.current

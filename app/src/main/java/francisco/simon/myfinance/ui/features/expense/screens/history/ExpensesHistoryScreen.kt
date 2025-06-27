@@ -20,9 +20,7 @@ fun ExpensesHistoryScreen(appBarConfig: (AppBarState) -> Unit) {
                 navigationButton = NavigationButton.Back {
                     navController.popBackStack()
                 },
-                actionButton = ActionButton(R.drawable.ic_analysis) {
-
-                }
+                actionButton = ActionButton(R.drawable.ic_analysis) {}
             )
         )
     }

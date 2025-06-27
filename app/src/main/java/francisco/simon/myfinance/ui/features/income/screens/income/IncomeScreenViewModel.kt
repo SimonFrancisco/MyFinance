@@ -3,11 +3,13 @@ package francisco.simon.myfinance.ui.features.income.screens.income
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import francisco.simon.myfinance.core.domain.utils.Error
 import francisco.simon.myfinance.core.domain.utils.NetworkError
 import francisco.simon.myfinance.core.domain.utils.onError
 import francisco.simon.myfinance.core.domain.utils.onSuccess
 import francisco.simon.myfinance.core.mapper.toApiDate
 import francisco.simon.myfinance.core.mapper.toStringRes
+import francisco.simon.myfinance.domain.entity.Transaction
 import francisco.simon.myfinance.domain.model.TransactionModel
 import francisco.simon.myfinance.domain.usecase.GetAccountUseCase
 import francisco.simon.myfinance.domain.usecase.GetIncomeUseCase
@@ -20,6 +22,12 @@ import kotlinx.coroutines.launch
 import java.time.Instant
 import javax.inject.Inject
 
+/**
+ * ViewModel for income, works with state
+ * @param getIncomeUseCase
+ * @param getAccountUseCase
+ * @author Simon Francisco
+ */
 @HiltViewModel
 class IncomeScreenViewModel @Inject constructor(
     private val getIncomeUseCase: GetIncomeUseCase,
@@ -35,15 +43,10 @@ class IncomeScreenViewModel @Inject constructor(
     }
 
     private fun loadIncome() {
-        _state.update {
-            IncomeScreenState.Loading
-        }
+        updateLoading()
         viewModelScope.launch {
             getAccountUseCase().onError { error ->
-                val errorRes = (error as NetworkError).toStringRes()
-                _state.update {
-                    IncomeScreenState.Error(errorMessageRes = errorRes)
-                }
+                updateError(error)
             }.onSuccess { account ->
                 val transactionModel = TransactionModel(
                     accountId = account.id,
@@ -52,19 +55,32 @@ class IncomeScreenViewModel @Inject constructor(
                 )
                 getIncomeUseCase(transactionModel).collectLatest { result ->
                     result.onSuccess { income ->
-                        _state.update {
-                            IncomeScreenState.Success(income.toListIncome())
-                        }
+                        updateSuccess(income)
                     }.onError { error ->
-                        val errorRes = (error as NetworkError).toStringRes()
-                        _state.update {
-                            IncomeScreenState.Error(errorMessageRes = errorRes)
-                        }
+                        updateError(error)
                     }
-
                 }
             }
 
+        }
+    }
+
+    private fun updateSuccess(income: List<Transaction>) {
+        _state.update {
+            IncomeScreenState.Success(income.toListIncome())
+        }
+    }
+
+    private fun updateError(error: Error) {
+        val errorRes = (error as NetworkError).toStringRes()
+        _state.update {
+            IncomeScreenState.Error(errorMessageRes = errorRes)
+        }
+    }
+
+    private fun updateLoading() {
+        _state.update {
+            IncomeScreenState.Loading
         }
     }
 

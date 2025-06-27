@@ -39,6 +39,11 @@ import francisco.simon.myfinance.navigation.ExpenseGraph.ExpensesHistoryRoute
 import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.ui.features.expense.model.ExpenseUI
 
+/**
+ * Expense Screen, separate concerns to avoid unnecessary recompositions and
+ * keep code logic short
+ * @author Simon Francisco
+ */
 @Composable
 fun ExpenseScreen(appBarConfig: (AppBarState) -> Unit) {
     val navController = LocalNavController.current
