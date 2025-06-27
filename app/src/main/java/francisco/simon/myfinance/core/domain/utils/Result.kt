@@ -1,6 +1,10 @@
 package francisco.simon.myfinance.core.domain.utils
 
-
+/**
+ * Result class and mappers for all kinds of operations
+ * Two subtypes: Success and Error
+ * @author Simon Francisco
+ */
 typealias RootError = Error
 typealias EmptyResult<E> = Result<Unit, E>
 
@@ -9,7 +13,10 @@ sealed interface Result<out T, out E : RootError> {
     data class Error<out E : RootError>(val error: E) : Result<Nothing, E>
 }
 
-
+/**
+ * Maps Result and returns Result with mapped value
+ * @author Simon Francisco
+ */
 inline fun <T, E : Error, R> Result<T, E>.map(map: (T) -> R): Result<R, E> {
     return when (this) {
         is Result.Error -> Result.Error(error)
@@ -17,6 +24,10 @@ inline fun <T, E : Error, R> Result<T, E>.map(map: (T) -> R): Result<R, E> {
     }
 }
 
+/**
+ * Gives access to object found in Success
+ * @author Simon Francisco
+ */
 inline fun <T, E : Error> Result<T, E>.onSuccess(action: (T) -> Unit): Result<T, E> {
     return when (this) {
         is Result.Error -> this
@@ -27,6 +38,10 @@ inline fun <T, E : Error> Result<T, E>.onSuccess(action: (T) -> Unit): Result<T,
     }
 }
 
+/**
+ * Gives access to returned error
+ * @author Simon Francisco
+ */
 inline fun <T, E : Error> Result<T, E>.onError(action: (E) -> Unit): Result<T, E> {
     return when (this) {
         is Result.Error -> {
@@ -37,6 +52,10 @@ inline fun <T, E : Error> Result<T, E>.onError(action: (E) -> Unit): Result<T, E
     }
 }
 
+/**
+ * If no result is empty
+ * @author Simon Francisco
+ */
 fun <T, E : Error> Result<T, E>.asEmptyDataResult(): EmptyResult<E> {
     return map {}
 }

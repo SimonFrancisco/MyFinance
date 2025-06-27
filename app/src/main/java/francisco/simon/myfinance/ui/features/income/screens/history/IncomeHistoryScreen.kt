@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.ui.features.icome.screens.history
+package francisco.simon.myfinance.ui.features.income.screens.history
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

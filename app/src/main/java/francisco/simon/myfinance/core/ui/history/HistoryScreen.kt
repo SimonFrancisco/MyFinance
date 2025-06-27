@@ -21,6 +21,11 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Date
 
+/**
+ * History screen, it takes a base view model.
+ *
+ * @author Simon Francisco
+ */
 @Composable
 fun HistoryScreen(
     viewModel: BaseHistoryViewModel,
@@ -57,6 +62,11 @@ fun HistoryScreen(
     )
 }
 
+/**
+ * Separate History screen content to avoid extra recompositions
+ *
+ * @author Simon Francisco
+ */
 @Composable
 private fun HistoryScreenContent(
     state: State<HistoryScreenState>,
@@ -111,6 +121,11 @@ private fun RetryHistoryButton(
     )
 }
 
+/**
+ * Date picker for choosing end date
+ *
+ * @author Simon Francisco
+ */
 @Composable
 private fun EndDatePicker(
     endDate: MutableState<LocalDate>,
@@ -137,6 +152,11 @@ private fun EndDatePicker(
 
 }
 
+/**
+ * Date picker for choosing start date
+ *
+ * @author Simon Francisco
+ */
 @Composable
 private fun StartDatePicker(
     startDate: MutableState<LocalDate>,

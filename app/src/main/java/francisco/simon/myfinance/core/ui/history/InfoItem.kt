@@ -13,6 +13,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import francisco.simon.myfinance.core.components.CustomListItem
 
+/**
+ * Custom info item before the list items
+ *
+ * @author Simon Francisco
+ */
 @Composable
 fun InfoItem(
     @StringRes leadingTextResId: Int,

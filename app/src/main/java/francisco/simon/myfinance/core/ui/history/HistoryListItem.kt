@@ -26,6 +26,15 @@ import francisco.simon.myfinance.core.mapper.toCurrencySymbol
 import francisco.simon.myfinance.core.mapper.toDateAndTime
 import francisco.simon.myfinance.domain.entity.Transaction
 
+/**
+ * Settings for every item history list.
+ *
+ * @see TrailingContent
+ * @see LeadingContent
+ * @see HeadingContent
+ *
+ * @author Simon Francisco
+ */
 @Composable
 fun HistoryListItem(transaction: Transaction) {
     CustomListItem(

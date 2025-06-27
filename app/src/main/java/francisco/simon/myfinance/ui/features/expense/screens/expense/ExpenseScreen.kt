@@ -37,7 +37,7 @@ import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
 import francisco.simon.myfinance.navigation.ExpenseGraph.ExpensesHistoryRoute
 import francisco.simon.myfinance.navigation.LocalNavController
-import francisco.simon.myfinance.ui.features.expense.model.Expense
+import francisco.simon.myfinance.ui.features.expense.model.ExpenseUI
 
 @Composable
 fun ExpenseScreen(appBarConfig: (AppBarState) -> Unit) {
@@ -78,22 +78,22 @@ private fun ExpenseScreenContent(
         }
 
         is ExpenseScreenState.Success -> {
-            ExpenseList(state.expenses)
+            ExpenseList(state.expens)
         }
     }
 }
 
 @Composable
 private fun ExpenseList(
-    expenses: List<Expense>,
+    expens: List<ExpenseUI>,
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        ExpenseSumItem(expenses)
+        ExpenseSumItem(expens)
         HorizontalDivider()
         LazyColumn {
-            items(expenses, key = { it.transactionId }) { expense ->
+            items(expens, key = { it.transactionId }) { expense ->
                 CustomListItem(
                     modifier = Modifier
                         .height(70.dp)
@@ -117,9 +117,9 @@ private fun ExpenseList(
 }
 
 @Composable
-private fun ExpenseTrailingContent(expense: Expense) {
+private fun ExpenseTrailingContent(expenseUI: ExpenseUI) {
     Text(
-        text = "${expense.amount} ${expense.currency.toCurrencySymbol()}",
+        text = "${expenseUI.amount} ${expenseUI.currency.toCurrencySymbol()}",
         style = MaterialTheme.typography.bodyLarge,
         modifier = Modifier.padding(end = 8.dp)
     )
@@ -132,7 +132,7 @@ private fun ExpenseTrailingContent(expense: Expense) {
 }
 
 @Composable
-private fun ExpenseLeadingContent(expense: Expense) {
+private fun ExpenseLeadingContent(expenseUI: ExpenseUI) {
     Box(
         Modifier
             .size(24.dp)
@@ -141,22 +141,22 @@ private fun ExpenseLeadingContent(expense: Expense) {
         contentAlignment = Alignment.Center
 
     ) {
-        Text(expense.emoji)
+        Text(expenseUI.emoji)
     }
 }
 
 @Composable
-private fun ExpenseHeadingContent(expense: Expense) {
+private fun ExpenseHeadingContent(expenseUI: ExpenseUI) {
     Text(
-        text = expense.name,
+        text = expenseUI.name,
         style = MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onSurface,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis
     )
-    if (!expense.comment.isNullOrEmpty()) {
+    if (!expenseUI.comment.isNullOrEmpty()) {
         Text(
-            text = expense.comment,
+            text = expenseUI.comment,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1,
@@ -166,8 +166,8 @@ private fun ExpenseHeadingContent(expense: Expense) {
 }
 
 @Composable
-private fun ExpenseSumItem(expenses: List<Expense>) {
-    val sum = expenses.sumOf {
+private fun ExpenseSumItem(expens: List<ExpenseUI>) {
+    val sum = expens.sumOf {
         it.amount
     }
     CustomListItem(
@@ -182,7 +182,7 @@ private fun ExpenseSumItem(expenses: List<Expense>) {
         },
         trailingContent = {
             Text(
-                text = "$sum ${expenses.firstOrNull()?.currency?.toCurrencySymbol() ?: ""}",
+                text = "$sum ${expens.firstOrNull()?.currency?.toCurrencySymbol() ?: ""}",
                 style = MaterialTheme.typography.bodyLarge,
             )
         },

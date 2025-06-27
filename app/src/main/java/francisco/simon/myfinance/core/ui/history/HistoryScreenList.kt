@@ -15,6 +15,12 @@ import francisco.simon.myfinance.domain.entity.Transaction
 import java.math.BigDecimal
 import java.time.LocalDate
 
+/**
+ * History screen list
+ * Viewmodel state updates only affect SumInfo and downwards
+ *
+ * @author Simon Francisco
+ */
 @Composable
 fun HistoryScreenList(
     transactions: List<Transaction>,

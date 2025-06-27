@@ -22,6 +22,10 @@ import francisco.simon.myfinance.ui.theme.Green
 import java.util.Calendar
 import java.util.Date
 
+/**
+ * The date picker supports day, month and year.
+ * @author Simon Francisco
+ */
 @Composable
 fun CustomDatePicker(
     selectedDate: Date?,
@@ -98,6 +102,10 @@ private fun DismissButton(onDismiss: () -> Unit, textColor: Color) {
     }
 }
 
+/**
+ * Customise the colors of the date picker
+ * @author Simon Francisco
+ */
 @Composable
 private fun DatePickerSettings(
     datePickerState: DatePickerState,

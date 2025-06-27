@@ -7,7 +7,11 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-
+/**
+ * Mappers used across the app
+ *
+ * @author Simon Francisco
+ */
 fun String.toCurrencySymbol(): String {
     return when (this) {
         "RUB" -> "₽"
@@ -36,7 +40,11 @@ fun String.toDateAndTime(): String {
     return instant.atZone(ZoneId.systemDefault()).toLocalDateTime().format(dateFormat)
 }
 
-
+/**
+ * Map network errors to string resources
+ *
+ * @author Simon Francisco
+ */
 fun NetworkError.toStringRes(): Int {
     return when (this) {
         NetworkError.NO_INTERNET -> R.string.error_no_internet

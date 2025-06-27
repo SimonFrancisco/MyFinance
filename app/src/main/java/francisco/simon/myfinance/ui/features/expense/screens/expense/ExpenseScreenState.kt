@@ -1,10 +1,10 @@
 package francisco.simon.myfinance.ui.features.expense.screens.expense
 
 import androidx.annotation.StringRes
-import francisco.simon.myfinance.ui.features.expense.model.Expense
+import francisco.simon.myfinance.ui.features.expense.model.ExpenseUI
 
 sealed class ExpenseScreenState {
     data object Loading : ExpenseScreenState()
-    data class Success(val expenses: List<Expense>) : ExpenseScreenState()
+    data class Success(val expens: List<ExpenseUI>) : ExpenseScreenState()
     data class Error(@StringRes val errorMessageRes: Int) : ExpenseScreenState()
 }

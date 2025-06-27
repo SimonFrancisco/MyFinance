@@ -23,6 +23,11 @@ import francisco.simon.myfinance.R
 import francisco.simon.myfinance.ui.theme.Black
 import francisco.simon.myfinance.ui.theme.Green
 
+/**
+ * Retry operation when state is Failure,
+ * it shows error reason and a retry button!
+ * @author Simon Francisco
+ */
 @Composable
 fun RetryCall(
     @StringRes errorRes: Int,

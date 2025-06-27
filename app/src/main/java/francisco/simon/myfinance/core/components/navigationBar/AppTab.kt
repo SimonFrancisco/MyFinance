@@ -9,6 +9,12 @@ import francisco.simon.myfinance.navigation.ExpenseGraph
 import francisco.simon.myfinance.navigation.IncomeGraph
 import francisco.simon.myfinance.navigation.SettingsGraph
 
+/***
+ * Tabs for app navigation bar, each tab has an icon, a label and the graph
+ * it should be attached to!
+ *
+ * @author Simon Francisco
+ */
 
 data class AppTab(
     @DrawableRes val iconRes: Int,
@@ -16,6 +22,10 @@ data class AppTab(
     val graph: Any
 )
 
+/**
+ * List of tabs we see in nav bar
+ * @author Simon Francisco
+ */
 val mainTabs = listOf<AppTab>(
     AppTab(
         iconRes = R.drawable.ic_downtrend,

@@ -22,6 +22,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import francisco.simon.myfinance.navigation.routeClass
 import francisco.simon.myfinance.ui.theme.Green
 
+/**
+ * Navigation bar - main function
+ * @author Simon Francisco
+ */
 @Composable
 fun AppNavigationBar(
     navController: NavController,
@@ -42,6 +46,10 @@ fun AppNavigationBar(
     }
 }
 
+/**
+ * Settings for each nav item
+ * @author Simon Francisco
+ */
 @Composable
 private fun RowScope.NavigationItem(
     currentTab: AppTab?,

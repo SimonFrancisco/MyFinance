@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.ui.features.icome.screens.history
+package francisco.simon.myfinance.ui.features.income.screens.history
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import francisco.simon.myfinance.core.domain.utils.Error

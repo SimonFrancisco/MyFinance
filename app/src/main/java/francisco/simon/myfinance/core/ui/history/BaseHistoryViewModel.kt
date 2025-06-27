@@ -17,6 +17,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+/**
+ * Base view model for history screen. Making use of inheritance and polymorphism.
+ * Transaction type (income/expense) automatically changes according to the screen calling it.
+ * @author Simon Francisco
+ */
 abstract class BaseHistoryViewModel : ViewModel() {
 
     private val _state =

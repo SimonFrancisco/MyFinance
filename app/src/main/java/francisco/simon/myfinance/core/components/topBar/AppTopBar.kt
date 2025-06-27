@@ -19,6 +19,10 @@ import androidx.compose.ui.res.stringResource
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.ui.theme.Green
 
+/***
+ * The navigation buttons supports two actions: Close and Back
+ * @author Simon Francisco
+ */
 
 abstract class NavigationButton(
     @DrawableRes val icon: Int,
@@ -31,6 +35,12 @@ abstract class NavigationButton(
 
 class ActionButton(@DrawableRes val icon: Int, val action: () -> Unit)
 
+
+/***
+ * General App bar state that is changed according to the screen being showed!
+ * Check nav graphs
+ * @author Simon Francisco
+ */
 class AppBarState(
     @StringRes titleRes: Int,
     navigationButton: NavigationButton? = null,

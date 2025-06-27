@@ -10,6 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+/**
+ * List item that is used across the app
+ * @author Simon Francisco
+ */
 @Composable
 fun CustomListItem(
     modifier: Modifier = Modifier,
