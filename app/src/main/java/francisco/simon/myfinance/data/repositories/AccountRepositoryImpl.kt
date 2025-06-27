@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
- * Implementation of Account repository, operations are run in Dispatcher IO
+ * Implementation of Account repository, operations happen in Dispatcher IO
  * @param apiService
  * @param apiClient
  * @author Simon Francisco

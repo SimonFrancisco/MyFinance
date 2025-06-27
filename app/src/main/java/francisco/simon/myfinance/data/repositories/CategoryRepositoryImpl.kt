@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
- * Implementation of Category repository, operations are run in Dispatcher IO
+ * Implementation of Category repository, operations happen in Dispatcher IO
  * @param apiService
  * @param apiClient
  * @author Simon Francisco
