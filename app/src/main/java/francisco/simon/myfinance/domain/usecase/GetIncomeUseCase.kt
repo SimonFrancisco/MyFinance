@@ -10,7 +10,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-
+/**
+ * Gets transactions and filters income out
+ * @author Simon Francisco
+ */
 class GetIncomeUseCase @Inject constructor(
     private val repository: TransactionRepository
 ) {
