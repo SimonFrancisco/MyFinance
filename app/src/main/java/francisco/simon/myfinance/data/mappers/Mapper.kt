@@ -7,7 +7,10 @@ import francisco.simon.myfinance.domain.entity.Account
 import francisco.simon.myfinance.domain.entity.Category
 import francisco.simon.myfinance.domain.entity.Transaction
 
-
+/**
+ * Mappers from Data to Domain and vice-versa
+ * @author Simon Francisco
+ */
 fun Category.toCategoryDto(): CategoryDto {
     return CategoryDto(
         id = id,

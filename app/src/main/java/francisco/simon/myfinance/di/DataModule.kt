@@ -15,6 +15,11 @@ import francisco.simon.myfinance.domain.repository.CategoryRepository
 import francisco.simon.myfinance.domain.repository.TransactionRepository
 import javax.inject.Singleton
 
+/**
+ * Hilt module that binds repositories to their implementations and
+ * provides implementations for object creation. Singleton is used.
+ * @author Simon Francisco
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 internal interface DataModule {

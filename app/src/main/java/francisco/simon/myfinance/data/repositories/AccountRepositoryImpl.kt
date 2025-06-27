@@ -12,6 +12,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Implementation of Account repository, operations are run in Dispatcher IO
+ * @param apiService
+ * @param apiClient
+ * @author Simon Francisco
+ */
 class AccountRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val apiClient: ApiClient,

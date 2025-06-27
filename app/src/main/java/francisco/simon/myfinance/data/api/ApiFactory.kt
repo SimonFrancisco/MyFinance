@@ -7,6 +7,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
+/**
+ * Creates api service with needed settings
+ * API KEY is taken from local.properties, replace BuildConfig.API_KEY with your token
+ * @author Simon Francisco
+ */
 object ApiFactory {
     private const val TOKEN_FORMAT = "Bearer ${BuildConfig.API_KEY}"
 
@@ -17,7 +22,7 @@ object ApiFactory {
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()
                 .addHeader("accept", "application/json")
-                .addHeader("Authorization", TOKEN_FORMAT) // Use your token
+                .addHeader("Authorization", TOKEN_FORMAT)
             chain.proceed(request.build())
         }.build()
 

@@ -12,6 +12,12 @@ import kotlinx.coroutines.ensureActive
 import retrofit2.Response
 import javax.inject.Inject
 
+/**
+ * Api client for safe api call
+ * It repeats operation 3 times if we get http code 500..599
+ *
+ * @author Simon Francisco
+ */
 class ApiClient @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
@@ -56,6 +62,10 @@ class ApiClient @Inject constructor(
 
     }
 
+    /**
+     * Checks internet connection
+     *@author Simon Francisco
+     */
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

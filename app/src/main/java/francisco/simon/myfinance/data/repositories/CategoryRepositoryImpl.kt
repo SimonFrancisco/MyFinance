@@ -12,6 +12,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Implementation of Category repository, operations are run in Dispatcher IO
+ * @param apiService
+ * @param apiClient
+ * @author Simon Francisco
+ */
 class CategoryRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val apiClient: ApiClient,

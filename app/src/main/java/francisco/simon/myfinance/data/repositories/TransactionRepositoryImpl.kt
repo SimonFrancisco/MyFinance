@@ -15,6 +15,12 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+/**
+ * Implementation of Transaction repository, operations are run in Dispatcher IO
+ * @param apiService
+ * @param apiClient
+ * @author Simon Francisco
+ */
 class TransactionRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val apiClient: ApiClient

@@ -2,6 +2,10 @@ package francisco.simon.myfinance.data.dto
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Data transfer object for Transaction
+ * @author Simon Francisco
+ */
 data class TransactionDto(
     @SerializedName("id")
     val id: Int,
