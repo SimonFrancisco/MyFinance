@@ -25,6 +25,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
+import francisco.simon.myfinance.core.components.topBar.AppBarState
+import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
 
 /**
  * Settings Screen, separate concerns to avoid unnecessary recompositions and
@@ -32,7 +34,11 @@ import francisco.simon.myfinance.core.components.CustomListItem
  * @author Simon Francisco
  */
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(appBarState: MutableState<AppBarState>) {
+    UpdateAppBarState(
+        appBarState = appBarState,
+        titleRes = R.string.settings_app_top_bar,
+        )
     val viewModel: SettingsViewModel = hiltViewModel()
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
