@@ -1,7 +1,6 @@
 package francisco.simon.myfinance
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -20,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
@@ -82,7 +80,6 @@ fun FinanceApp() {
     val appBarState = remember(currentBackStackEntry) {
         appBarStateUpdate(currentBackStackEntry.routeClass(), navController)
     }
-    Log.d("FinanceApp", stringResource(appBarState.titleRes))
     val floatButtonScreens = listOf(
         IncomeRoute::class, ExpenseRoute::class, AccountRoute::class
     )
