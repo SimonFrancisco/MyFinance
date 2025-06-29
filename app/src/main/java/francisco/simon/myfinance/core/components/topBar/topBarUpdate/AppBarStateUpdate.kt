@@ -1,5 +1,9 @@
-package francisco.simon.myfinance.core.ui.history.appBar
+package francisco.simon.myfinance.core.components.topBar.topBarUpdate
 
+import androidx.annotation.StringRes
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.SideEffect
 import androidx.navigation.NavController
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.topBar.ActionButton
@@ -14,6 +18,22 @@ import francisco.simon.myfinance.navigation.IncomeGraph.IncomeRoute
 import francisco.simon.myfinance.navigation.SettingsGraph.SettingsRoute
 import kotlin.reflect.KClass
 
+@Composable
+fun UpdateAppBarState(
+    appBarState: MutableState<AppBarState>,
+    @StringRes titleRes: Int,
+    navigationButton: NavigationButton? = null,
+    actionButton: ActionButton? = null
+) {
+    SideEffect {
+        appBarState.value = AppBarState(
+            titleRes = titleRes,
+            navigationButton = navigationButton,
+            actionButton = actionButton
+        )
+    }
+}
+
 fun appBarStateUpdate(route: KClass<*>?, navController: NavController): AppBarState {
     return when (route) {
         IncomeRoute::class -> {
@@ -24,6 +44,7 @@ fun appBarStateUpdate(route: KClass<*>?, navController: NavController): AppBarSt
                 }
             )
         }
+
         IncomeHistoryRoute::class -> {
             AppBarState(
                 titleRes = R.string.history_app_top_bar,
@@ -33,6 +54,7 @@ fun appBarStateUpdate(route: KClass<*>?, navController: NavController): AppBarSt
                 actionButton = ActionButton(R.drawable.ic_analysis) {}
             )
         }
+
         ExpenseRoute::class -> {
             AppBarState(
                 titleRes = R.string.expense_app_top_bar,

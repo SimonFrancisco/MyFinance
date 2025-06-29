@@ -43,6 +43,8 @@ import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
 import francisco.simon.myfinance.core.components.RetryCall
+import francisco.simon.myfinance.core.components.topBar.AppBarState
+import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.ui.features.category.model.CategoryUI
 
 /**
@@ -51,7 +53,11 @@ import francisco.simon.myfinance.ui.features.category.model.CategoryUI
  * @author Simon Francisco
  */
 @Composable
-fun CategoryScreen() {
+fun CategoryScreen(appBarState: MutableState<AppBarState>) {
+    UpdateAppBarState(
+        appBarState = appBarState,
+        titleRes = R.string.category_app_top_bar
+    )
     val viewModel: CategoryViewModel = hiltViewModel()
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
@@ -72,9 +78,11 @@ private fun CategoryScreenContent(
                 },
             )
         }
+
         is CategoryScreenState.Loading -> {
             FullScreenLoading()
         }
+
         is CategoryScreenState.Success -> {
             Column(modifier = Modifier.fillMaxSize()) {
                 SearchCategory()
@@ -96,7 +104,7 @@ private fun CategoryScreenList(
                 modifier = Modifier
                     .height(70.dp)
                     .clickable {
-                    } ,
+                    },
                 headlineContent = {
                     CategoryHeadingContent(category)
                 },
@@ -133,6 +141,7 @@ private fun CategoryHeadingContent(category: CategoryUI) {
         overflow = TextOverflow.Ellipsis,
     )
 }
+
 @Composable
 private fun SearchCategory(
     modifier: Modifier = Modifier

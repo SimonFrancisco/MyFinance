@@ -14,7 +14,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
@@ -30,7 +32,6 @@ import francisco.simon.myfinance.core.components.navigationBar.AppNavigationBar
 import francisco.simon.myfinance.core.components.navigationBar.mainTabs
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.AppTopBar
-import francisco.simon.myfinance.core.ui.history.appBar.appBarStateUpdate
 import francisco.simon.myfinance.navigation.AccountGraph.AccountRoute
 import francisco.simon.myfinance.navigation.AppNavGraph
 import francisco.simon.myfinance.navigation.ExpenseGraph.ExpenseRoute
@@ -77,8 +78,8 @@ class MainActivity : ComponentActivity() {
 fun FinanceApp() {
     val navController = rememberNavController()
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
-    val appBarState = remember(currentBackStackEntry) {
-        appBarStateUpdate(currentBackStackEntry.routeClass(), navController)
+    val appBarState = remember {
+        mutableStateOf(AppBarState(R.string.expense_app_top_bar))
     }
     val floatButtonScreens = listOf(
         IncomeRoute::class, ExpenseRoute::class, AccountRoute::class
@@ -88,7 +89,7 @@ fun FinanceApp() {
             BottomBarSettings(currentBackStackEntry, navController)
         },
         topBar = {
-            TopBarSettings(currentBackStackEntry, appBarState)
+            TopBarSettings(currentBackStackEntry, appBarState.value)
         },
         floatingActionButton = {
             FloatingButtonSettings(currentBackStackEntry, floatButtonScreens)
@@ -96,6 +97,7 @@ fun FinanceApp() {
     ) { innerPadding ->
         AppNavGraphSettings(
             navController = navController,
+            appBarState = appBarState,
             innerPadding = innerPadding,
         )
     }
@@ -151,10 +153,12 @@ private fun FloatingButtonSettings(
 @Composable
 private fun AppNavGraphSettings(
     navController: NavHostController,
+    appBarState: MutableState<AppBarState>,
     innerPadding: PaddingValues,
 ) {
     AppNavGraph(
         navController = navController,
+        appBarState = appBarState,
         startDestination = SplashRoute,
         modifier = Modifier
             .fillMaxSize()
