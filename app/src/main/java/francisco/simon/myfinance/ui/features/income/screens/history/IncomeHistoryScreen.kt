@@ -9,6 +9,7 @@ import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.NavigationButton
 import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.core.ui.history.HistoryScreen
+import francisco.simon.myfinance.core.ui.utils.safePopBackStack
 import francisco.simon.myfinance.navigation.LocalNavController
 
 @Composable
@@ -18,7 +19,7 @@ fun IncomeHistoryScreen(appBarState: MutableState<AppBarState>) {
         appBarState = appBarState,
         titleRes = R.string.history_app_top_bar,
         navigationButton = NavigationButton.Back {
-            navController.popBackStack()
+            navController.safePopBackStack()
         },
         actionButton = ActionButton(R.drawable.ic_analysis) {}
     )
