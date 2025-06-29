@@ -10,10 +10,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import francisco.simon.myfinance.R
@@ -41,15 +37,11 @@ class ActionButton(@DrawableRes val icon: Int, val action: () -> Unit)
  * Check nav graphs
  * @author Simon Francisco
  */
-class AppBarState(
-    @StringRes titleRes: Int,
-    navigationButton: NavigationButton? = null,
-    actionButton: ActionButton? = null
-) {
-    var titleRes by mutableIntStateOf(titleRes)
-    var navigationButton by mutableStateOf(navigationButton)
-    var actionButton by mutableStateOf(actionButton)
-}
+data class AppBarState(
+    @StringRes val titleRes: Int,
+    val navigationButton: NavigationButton? = null,
+    val actionButton: ActionButton? = null
+)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

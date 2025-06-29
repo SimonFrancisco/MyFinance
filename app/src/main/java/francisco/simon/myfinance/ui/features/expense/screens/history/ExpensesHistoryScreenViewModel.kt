@@ -23,6 +23,7 @@ class ExpensesHistoryScreenViewModel @Inject constructor(
     private val getExpenseUseCase: GetExpenseUseCase,
     private val getAccountUseCase: GetAccountUseCase
 ) : BaseHistoryViewModel() {
+
     override suspend fun getAccount(): Result<Account, Error> {
         return getAccountUseCase()
     }

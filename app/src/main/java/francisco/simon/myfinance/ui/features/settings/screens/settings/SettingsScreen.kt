@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,7 +25,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
-import francisco.simon.myfinance.core.components.topBar.AppBarState
 
 /**
  * Settings Screen, separate concerns to avoid unnecessary recompositions and
@@ -34,14 +32,7 @@ import francisco.simon.myfinance.core.components.topBar.AppBarState
  * @author Simon Francisco
  */
 @Composable
-fun SettingsScreen(appBarConfig: (AppBarState) -> Unit) {
-    LaunchedEffect(Unit) {
-        appBarConfig(
-            AppBarState(
-                titleRes = R.string.settings_app_top_bar,
-            )
-        )
-    }
+fun SettingsScreen() {
     val viewModel: SettingsViewModel = hiltViewModel()
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
