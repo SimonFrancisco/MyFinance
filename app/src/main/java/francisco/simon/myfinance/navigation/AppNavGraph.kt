@@ -6,7 +6,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import francisco.simon.myfinance.core.components.topBar.LocalAppBarState
 import francisco.simon.myfinance.navigation.navGraphs.accountNavGraph
 import francisco.simon.myfinance.navigation.navGraphs.categoryNavGraph
 import francisco.simon.myfinance.navigation.navGraphs.expenseNavGraph
@@ -23,9 +22,7 @@ fun AppNavGraph(
     navController: NavHostController,
     startDestination: Any,
     modifier: Modifier = Modifier,
-
 ) {
-    val appBarState = LocalAppBarState.current
     CompositionLocalProvider(
         LocalNavController provides navController,
     ) {
@@ -37,11 +34,11 @@ fun AppNavGraph(
             composable<SplashRoute> {
                 SplashScreen()
             }
-            expenseNavGraph(appBarState)
-            incomeNavGraph(appBarState)
-            accountNavGraph(appBarState)
-            categoryNavGraph(appBarState)
-            settingsNavGraph(appBarState)
+            expenseNavGraph()
+            incomeNavGraph()
+            accountNavGraph()
+            categoryNavGraph()
+            settingsNavGraph()
         }
     }
 }

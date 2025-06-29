@@ -18,7 +18,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,11 +31,7 @@ import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
 import francisco.simon.myfinance.core.components.RetryCall
-import francisco.simon.myfinance.core.components.topBar.ActionButton
-import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
-import francisco.simon.myfinance.navigation.ExpenseGraph.ExpensesHistoryRoute
-import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.ui.features.expense.model.ExpenseUI
 
 /**
@@ -45,18 +40,8 @@ import francisco.simon.myfinance.ui.features.expense.model.ExpenseUI
  * @author Simon Francisco
  */
 @Composable
-fun ExpenseScreen(appBarConfig: (AppBarState) -> Unit) {
-    val navController = LocalNavController.current
-    LaunchedEffect(Unit) {
-        appBarConfig(
-            AppBarState(
-                titleRes = R.string.expense_app_top_bar,
-                actionButton = ActionButton(R.drawable.ic_history) {
-                    navController.navigate(ExpensesHistoryRoute)
-                }
-            )
-        )
-    }
+fun ExpenseScreen() {
+
     val viewModel: ExpenseScreenViewModel = hiltViewModel()
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value

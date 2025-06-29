@@ -16,7 +16,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -31,8 +30,6 @@ import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
 import francisco.simon.myfinance.core.components.RetryCall
-import francisco.simon.myfinance.core.components.topBar.ActionButton
-import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
 import francisco.simon.myfinance.ui.features.account.model.AccountUI
 
@@ -42,17 +39,7 @@ import francisco.simon.myfinance.ui.features.account.model.AccountUI
  * @author Simon Francisco
  */
 @Composable
-fun AccountScreen(appBarConfig: (AppBarState) -> Unit) {
-    LaunchedEffect(Unit) {
-        appBarConfig(
-            AppBarState(
-                titleRes = R.string.account_app_top_bar,
-                actionButton = ActionButton(
-                    icon = R.drawable.ic_edit
-                ) {} // TODO
-            )
-        )
-    }
+fun AccountScreen() {
     val viewModel: AccountViewModel = hiltViewModel()
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
@@ -73,9 +60,11 @@ private fun AccountScreenContent(
                 },
             )
         }
+
         is AccountScreenState.Loading -> {
             FullScreenLoading()
         }
+
         is AccountScreenState.Success -> {
             AccountScreenList(state.account)
         }

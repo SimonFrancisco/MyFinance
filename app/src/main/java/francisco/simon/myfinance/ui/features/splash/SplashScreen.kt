@@ -42,6 +42,7 @@ fun SplashScreen() {
                     inclusive = true
                 }
             }
+
         }
     }
 }

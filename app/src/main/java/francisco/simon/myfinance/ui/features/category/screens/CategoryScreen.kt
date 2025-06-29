@@ -26,7 +26,6 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -44,7 +43,6 @@ import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
 import francisco.simon.myfinance.core.components.RetryCall
-import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.ui.features.category.model.CategoryUI
 
 /**
@@ -53,14 +51,7 @@ import francisco.simon.myfinance.ui.features.category.model.CategoryUI
  * @author Simon Francisco
  */
 @Composable
-fun CategoryScreen(appBarConfig: (AppBarState) -> Unit) {
-    LaunchedEffect(Unit) {
-        appBarConfig(
-            AppBarState(
-                titleRes = R.string.category_app_top_bar
-            )
-        )
-    }
+fun CategoryScreen() {
     val viewModel: CategoryViewModel = hiltViewModel()
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value

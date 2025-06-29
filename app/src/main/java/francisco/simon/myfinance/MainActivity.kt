@@ -1,6 +1,7 @@
 package francisco.simon.myfinance
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -14,12 +15,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
@@ -31,7 +32,7 @@ import francisco.simon.myfinance.core.components.navigationBar.AppNavigationBar
 import francisco.simon.myfinance.core.components.navigationBar.mainTabs
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.AppTopBar
-import francisco.simon.myfinance.core.components.topBar.LocalAppBarState
+import francisco.simon.myfinance.core.ui.history.appBar.appBarStateUpdate
 import francisco.simon.myfinance.navigation.AccountGraph.AccountRoute
 import francisco.simon.myfinance.navigation.AppNavGraph
 import francisco.simon.myfinance.navigation.ExpenseGraph.ExpenseRoute
@@ -77,28 +78,31 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun FinanceApp() {
     val navController = rememberNavController()
-    val appBarState = remember { AppBarState(R.string.expense_app_top_bar) }
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
+    val appBarState = remember(currentBackStackEntry) {
+        appBarStateUpdate(currentBackStackEntry.routeClass(), navController)
+    }
+    Log.d("FinanceApp", stringResource(appBarState.titleRes))
     val floatButtonScreens = listOf(
         IncomeRoute::class, ExpenseRoute::class, AccountRoute::class
     )
-    CompositionLocalProvider(
-        LocalAppBarState provides appBarState
-    ) {
-        Scaffold(
-            bottomBar = {
-                BottomBarSettings(currentBackStackEntry, navController)
-            },
-            topBar = {
-                TopBarSettings(currentBackStackEntry, appBarState)
-            },
-            floatingActionButton = {
-                FloatingButtonSettings(currentBackStackEntry, floatButtonScreens)
-            }
-        ) { innerPadding ->
-            AppNavGraphSettings(navController, innerPadding)
+    Scaffold(
+        bottomBar = {
+            BottomBarSettings(currentBackStackEntry, navController)
+        },
+        topBar = {
+            TopBarSettings(currentBackStackEntry, appBarState)
+        },
+        floatingActionButton = {
+            FloatingButtonSettings(currentBackStackEntry, floatButtonScreens)
         }
+    ) { innerPadding ->
+        AppNavGraphSettings(
+            navController = navController,
+            innerPadding = innerPadding,
+        )
     }
+
 }
 
 @Composable
@@ -150,7 +154,7 @@ private fun FloatingButtonSettings(
 @Composable
 private fun AppNavGraphSettings(
     navController: NavHostController,
-    innerPadding: PaddingValues
+    innerPadding: PaddingValues,
 ) {
     AppNavGraph(
         navController = navController,
