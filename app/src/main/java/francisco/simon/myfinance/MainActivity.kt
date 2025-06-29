@@ -1,6 +1,7 @@
 package francisco.simon.myfinance
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -21,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
@@ -89,6 +91,8 @@ fun FinanceApp() {
             BottomBarSettings(currentBackStackEntry, navController)
         },
         topBar = {
+            Log.d("FinanceApp", stringResource(appBarState.value.titleRes))
+
             TopBarSettings(currentBackStackEntry, appBarState.value)
         },
         floatingActionButton = {
