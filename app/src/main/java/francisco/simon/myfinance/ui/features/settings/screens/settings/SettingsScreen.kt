@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,6 +26,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.topBar.AppBarState
+import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
 
 /**
  * Settings Screen, separate concerns to avoid unnecessary recompositions and
@@ -34,14 +34,11 @@ import francisco.simon.myfinance.core.components.topBar.AppBarState
  * @author Simon Francisco
  */
 @Composable
-fun SettingsScreen(appBarConfig: (AppBarState) -> Unit) {
-    LaunchedEffect(Unit) {
-        appBarConfig(
-            AppBarState(
-                titleRes = R.string.settings_app_top_bar,
-            )
+fun SettingsScreen(appBarState: MutableState<AppBarState>) {
+    UpdateAppBarState(
+        appBarState = appBarState,
+        titleRes = R.string.settings_app_top_bar,
         )
-    }
     val viewModel: SettingsViewModel = hiltViewModel()
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
@@ -117,6 +114,7 @@ private fun SwitchItem(checked: MutableState<Boolean>) {
             )
         },
         trailingContent = {
+            // TODO change color
             Switch(
                 modifier = Modifier
                     .height(32.dp)

@@ -26,7 +26,6 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -45,6 +44,7 @@ import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
 import francisco.simon.myfinance.core.components.RetryCall
 import francisco.simon.myfinance.core.components.topBar.AppBarState
+import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.ui.features.category.model.CategoryUI
 
 /**
@@ -53,14 +53,11 @@ import francisco.simon.myfinance.ui.features.category.model.CategoryUI
  * @author Simon Francisco
  */
 @Composable
-fun CategoryScreen(appBarConfig: (AppBarState) -> Unit) {
-    LaunchedEffect(Unit) {
-        appBarConfig(
-            AppBarState(
-                titleRes = R.string.category_app_top_bar
-            )
-        )
-    }
+fun CategoryScreen(appBarState: MutableState<AppBarState>) {
+    UpdateAppBarState(
+        appBarState = appBarState,
+        titleRes = R.string.category_app_top_bar
+    )
     val viewModel: CategoryViewModel = hiltViewModel()
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
@@ -72,26 +69,29 @@ private fun CategoryScreenContent(
     state: CategoryScreenState,
     viewModel: CategoryViewModel
 ) {
-    when (state) {
-        is CategoryScreenState.Error -> {
-            RetryCall(
-                errorRes = state.errorMessageRes,
-                onClick = {
-                    viewModel.retry()
-                },
-            )
-        }
-        is CategoryScreenState.Loading -> {
-            FullScreenLoading()
-        }
-        is CategoryScreenState.Success -> {
-            Column(modifier = Modifier.fillMaxSize()) {
-                SearchCategory()
-                HorizontalDivider()
+    Column(modifier = Modifier.fillMaxSize()) {
+        SearchCategory(viewModel = viewModel)
+        HorizontalDivider()
+        when (state) {
+            is CategoryScreenState.Error -> {
+                RetryCall(
+                    errorRes = state.errorMessageRes,
+                    onClick = {
+                        viewModel.retry()
+                    },
+                )
+            }
+
+            is CategoryScreenState.Loading -> {
+                FullScreenLoading()
+            }
+
+            is CategoryScreenState.Success -> {
                 CategoryScreenList(state.categories)
             }
         }
     }
+
 }
 
 
@@ -105,7 +105,7 @@ private fun CategoryScreenList(
                 modifier = Modifier
                     .height(70.dp)
                     .clickable {
-                    } ,
+                    },
                 headlineContent = {
                     CategoryHeadingContent(category)
                 },
@@ -142,9 +142,11 @@ private fun CategoryHeadingContent(category: CategoryUI) {
         overflow = TextOverflow.Ellipsis,
     )
 }
+
 @Composable
 private fun SearchCategory(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: CategoryViewModel
 ) {
     val query = rememberSaveable {
         mutableStateOf("")
@@ -156,7 +158,7 @@ private fun SearchCategory(
             .fillMaxWidth()
             .background(SearchBarDefaults.colors().containerColor),
         inputField = {
-            SearchBarInputField(query)
+            SearchBarInputField(query, viewModel)
         }, expanded = false,
         onExpandedChange = {
         }
@@ -164,12 +166,13 @@ private fun SearchCategory(
 }
 
 @Composable
-private fun SearchBarInputField(query: MutableState<String>) {
+private fun SearchBarInputField(query: MutableState<String>, viewModel: CategoryViewModel) {
     SearchBarDefaults.InputField(
         modifier = Modifier.fillMaxHeight(),
         query = query.value,
         onQueryChange = {
             query.value = it
+            viewModel.searchCategory(query.value)
         },
         placeholder = {
             Text(

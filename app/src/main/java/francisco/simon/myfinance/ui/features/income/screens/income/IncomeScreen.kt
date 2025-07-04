@@ -18,7 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,7 +35,9 @@ import francisco.simon.myfinance.core.components.FullScreenLoading
 import francisco.simon.myfinance.core.components.RetryCall
 import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
+import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
+import francisco.simon.myfinance.core.ui.utils.UpdateWhenGoingBack
 import francisco.simon.myfinance.navigation.IncomeGraph.IncomeHistoryRoute
 import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.ui.features.income.model.IncomeUI
@@ -46,23 +48,26 @@ import francisco.simon.myfinance.ui.features.income.model.IncomeUI
  * @author Simon Francisco
  */
 @Composable
-fun IncomeScreen(appBarConfig: (AppBarState) -> Unit) {
+fun IncomeScreen(appBarState: MutableState<AppBarState>) {
     val navController = LocalNavController.current
-    LaunchedEffect(Unit) {
-        appBarConfig(
-            AppBarState(
-                titleRes = R.string.income_app_top_bar,
-                actionButton = ActionButton(R.drawable.ic_history) {
-                    navController.navigate(IncomeHistoryRoute)
-                }
-            )
-        )
-    }
+    UpdateAppBarState(
+        appBarState = appBarState,
+        titleRes = R.string.income_app_top_bar,
+        actionButton = ActionButton(R.drawable.ic_history) {
+            navController.navigate(IncomeHistoryRoute)
+        }
+
+    )
     val viewModel: IncomeScreenViewModel = hiltViewModel()
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     IncomeScreenContent(currentState, viewModel)
+    UpdateWhenGoingBack {
+        viewModel.retry()
+    }
 }
+
+
 
 @Composable
 private fun IncomeScreenContent(
@@ -78,9 +83,11 @@ private fun IncomeScreenContent(
                 },
             )
         }
+
         is IncomeScreenState.Loading -> {
             FullScreenLoading()
         }
+
         is IncomeScreenState.Success -> {
             IncomeList(state.incomeUI)
         }

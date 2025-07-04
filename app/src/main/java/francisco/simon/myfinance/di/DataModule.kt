@@ -1,12 +1,16 @@
 package francisco.simon.myfinance.di
 
+import android.content.Context
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import francisco.simon.myfinance.data.api.ApiFactory
-import francisco.simon.myfinance.data.api.ApiService
+import francisco.simon.myfinance.data.data_source.network.api.ApiFactory
+import francisco.simon.myfinance.data.data_source.network.api.ApiService
+import francisco.simon.myfinance.data.data_source.local.db.CategoriesDao
+import francisco.simon.myfinance.data.data_source.local.db.CategoryDatabase
 import francisco.simon.myfinance.data.repositories.AccountRepositoryImpl
 import francisco.simon.myfinance.data.repositories.CategoryRepositoryImpl
 import francisco.simon.myfinance.data.repositories.TransactionRepositoryImpl
@@ -37,6 +41,16 @@ internal interface DataModule {
         @[Singleton Provides]
         fun provideApiService(): ApiService {
             return ApiFactory.apiService
+        }
+
+        @[Singleton Provides]
+        fun provideCategoryDatabase(@ApplicationContext context: Context): CategoryDatabase {
+            return CategoryDatabase.getInstance(context)
+        }
+
+        @[Singleton Provides]
+        fun provideCategoriesDao(database: CategoryDatabase): CategoriesDao {
+            return database.categoryDao()
         }
     }
 

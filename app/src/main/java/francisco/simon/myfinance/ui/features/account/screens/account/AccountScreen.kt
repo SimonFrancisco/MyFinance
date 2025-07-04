@@ -1,8 +1,7 @@
-package francisco.simon.myfinance.ui.features.account.screens
+package francisco.simon.myfinance.ui.features.account.screens.account
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +15,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableIntState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -33,7 +35,11 @@ import francisco.simon.myfinance.core.components.FullScreenLoading
 import francisco.simon.myfinance.core.components.RetryCall
 import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
+import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
+import francisco.simon.myfinance.core.ui.utils.UpdateWhenGoingBack
+import francisco.simon.myfinance.navigation.AccountGraph
+import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.ui.features.account.model.AccountUI
 
 /**
@@ -41,28 +47,43 @@ import francisco.simon.myfinance.ui.features.account.model.AccountUI
  * keep code logic short
  * @author Simon Francisco
  */
+private const val NON_EXISTING_ACCOUNT_ID = -1
+
 @Composable
-fun AccountScreen(appBarConfig: (AppBarState) -> Unit) {
-    LaunchedEffect(Unit) {
-        appBarConfig(
-            AppBarState(
-                titleRes = R.string.account_app_top_bar,
-                actionButton = ActionButton(
-                    icon = R.drawable.ic_edit
-                ) {} // TODO
-            )
-        )
+fun AccountScreen(appBarState: MutableState<AppBarState>) {
+    val navController = LocalNavController.current
+    val accountIdState = remember {
+        mutableIntStateOf(NON_EXISTING_ACCOUNT_ID)
     }
+    UpdateAppBarState(
+        appBarState = appBarState,
+        titleRes = R.string.account_app_top_bar,
+        actionButton = ActionButton(
+            icon = R.drawable.ic_edit
+        ) {
+            if (accountIdState.intValue != NON_EXISTING_ACCOUNT_ID) {
+                navController.navigate(AccountGraph.AccountEditRoute(accountIdState.intValue))
+            }
+        }
+    )
     val viewModel: AccountViewModel = hiltViewModel()
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
-    AccountScreenContent(currentState, viewModel)
+    AccountScreenContent(
+        state = currentState,
+        viewModel = viewModel,
+        accountIdState = accountIdState,
+    )
+    UpdateWhenGoingBack {
+        viewModel.retry()
+    }
 }
 
 @Composable
 private fun AccountScreenContent(
     state: AccountScreenState,
-    viewModel: AccountViewModel
+    viewModel: AccountViewModel,
+    accountIdState: MutableIntState,
 ) {
     when (state) {
         is AccountScreenState.Error -> {
@@ -73,10 +94,13 @@ private fun AccountScreenContent(
                 },
             )
         }
+
         is AccountScreenState.Loading -> {
             FullScreenLoading()
         }
+
         is AccountScreenState.Success -> {
+            accountIdState.intValue = state.account.id
             AccountScreenList(state.account)
         }
     }
@@ -94,10 +118,7 @@ private fun AccountScreenList(
         CustomListItem(
             modifier = Modifier
                 .height(56.dp)
-                .background(MaterialTheme.colorScheme.secondaryContainer)
-                .clickable {
-
-                },
+                .background(MaterialTheme.colorScheme.secondaryContainer),
             headlineContent = {
                 CurrencyHeadingContent()
             },
@@ -138,10 +159,7 @@ private fun AccountContent(accountUI: AccountUI) {
     CustomListItem(
         modifier = Modifier
             .height(57.dp)
-            .background(MaterialTheme.colorScheme.secondaryContainer)
-            .clickable {
-
-            },
+            .background(MaterialTheme.colorScheme.secondaryContainer),
         headlineContent = {
             AccountHeadingContent(accountUI)
         },

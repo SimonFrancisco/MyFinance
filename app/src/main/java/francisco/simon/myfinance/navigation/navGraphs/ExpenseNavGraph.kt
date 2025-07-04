@@ -1,5 +1,6 @@
 package francisco.simon.myfinance.navigation.navGraphs
 
+import androidx.compose.runtime.MutableState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
@@ -14,26 +15,13 @@ import francisco.simon.myfinance.ui.features.expense.screens.history.ExpensesHis
  * Extension function for Expense nav graph, it contains all needed routes
  * @author Simon Francisco
  */
-fun NavGraphBuilder.expenseNavGraph(appBarState: AppBarState) {
+fun NavGraphBuilder.expenseNavGraph(appBarState: MutableState<AppBarState>) {
     navigation<ExpenseGraph>(startDestination = ExpenseRoute) {
         composable<ExpenseRoute> {
-            ExpenseScreen {
-                with(appBarState) {
-                    titleRes = it.titleRes
-                    navigationButton = it.navigationButton
-                    actionButton = it.actionButton
-                }
-
-            }
+            ExpenseScreen(appBarState)
         }
         composable<ExpensesHistoryRoute> {
-            ExpensesHistoryScreen {
-                with(appBarState) {
-                    titleRes = it.titleRes
-                    navigationButton = it.navigationButton
-                    actionButton = it.actionButton
-                }
-            }
+            ExpensesHistoryScreen(appBarState)
         }
     }
 }
