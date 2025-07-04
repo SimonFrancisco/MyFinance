@@ -19,6 +19,8 @@ import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.NavigationButton
 import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.core.ui.utils.EventConsumer
+import francisco.simon.myfinance.core.ui.utils.MonitorAccount
+import francisco.simon.myfinance.core.ui.utils.MonitorAccount.Commands.UPDATE_ACCOUNT
 import francisco.simon.myfinance.core.ui.utils.safePopBackStack
 import francisco.simon.myfinance.domain.model.AccountUpdateRequestModel
 import francisco.simon.myfinance.navigation.LocalNavController
@@ -71,6 +73,7 @@ fun AccountEditScreen(
                     currency = it.currency,
                     balance = it.balance
                 )
+                MonitorAccount.event(UPDATE_ACCOUNT)
             }
         }
     )

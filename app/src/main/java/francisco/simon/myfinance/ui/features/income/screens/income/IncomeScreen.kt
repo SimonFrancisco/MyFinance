@@ -37,6 +37,7 @@ import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
+import francisco.simon.myfinance.core.ui.utils.UpdateWhenGoingBack
 import francisco.simon.myfinance.navigation.IncomeGraph.IncomeHistoryRoute
 import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.ui.features.income.model.IncomeUI
@@ -61,7 +62,12 @@ fun IncomeScreen(appBarState: MutableState<AppBarState>) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     IncomeScreenContent(currentState, viewModel)
+    UpdateWhenGoingBack {
+        viewModel.retry()
+    }
 }
+
+
 
 @Composable
 private fun IncomeScreenContent(
@@ -77,9 +83,11 @@ private fun IncomeScreenContent(
                 },
             )
         }
+
         is IncomeScreenState.Loading -> {
             FullScreenLoading()
         }
+
         is IncomeScreenState.Success -> {
             IncomeList(state.incomeUI)
         }

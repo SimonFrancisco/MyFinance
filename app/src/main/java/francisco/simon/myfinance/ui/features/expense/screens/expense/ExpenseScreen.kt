@@ -36,6 +36,7 @@ import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
+import francisco.simon.myfinance.core.ui.utils.UpdateWhenGoingBack
 import francisco.simon.myfinance.navigation.ExpenseGraph.ExpensesHistoryRoute
 import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.ui.features.expense.model.ExpenseUI
@@ -59,6 +60,9 @@ fun ExpenseScreen(appBarState: MutableState<AppBarState>) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     ExpenseScreenContent(currentState, viewModel)
+    UpdateWhenGoingBack {
+        viewModel.retry()
+    }
 }
 
 @Composable

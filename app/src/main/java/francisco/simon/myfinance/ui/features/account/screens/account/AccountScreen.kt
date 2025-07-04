@@ -37,6 +37,7 @@ import francisco.simon.myfinance.core.components.topBar.ActionButton
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
+import francisco.simon.myfinance.core.ui.utils.UpdateWhenGoingBack
 import francisco.simon.myfinance.navigation.AccountGraph
 import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.ui.features.account.model.AccountUI
@@ -73,6 +74,9 @@ fun AccountScreen(appBarState: MutableState<AppBarState>) {
         viewModel = viewModel,
         accountIdState = accountIdState,
     )
+    UpdateWhenGoingBack {
+        viewModel.retry()
+    }
 }
 
 @Composable
@@ -90,9 +94,11 @@ private fun AccountScreenContent(
                 },
             )
         }
+
         is AccountScreenState.Loading -> {
             FullScreenLoading()
         }
+
         is AccountScreenState.Success -> {
             accountIdState.intValue = state.account.id
             AccountScreenList(state.account)
