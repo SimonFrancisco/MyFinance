@@ -26,6 +26,11 @@ object MonitorAccount {
     }
 }
 
+/**
+ * Propagate change only if account was edited.
+ * This doesn't affect just changing tabs without changes in account.
+ * @author Simon Francisco
+ */
 @Composable
 fun UpdateWhenGoingBack(onGoBack: () -> Unit) {
     val version by MonitorAccount.version.collectAsStateWithLifecycle()

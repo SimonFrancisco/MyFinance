@@ -114,6 +114,7 @@ private fun SwitchItem(checked: MutableState<Boolean>) {
             )
         },
         trailingContent = {
+            // TODO change color
             Switch(
                 modifier = Modifier
                     .height(32.dp)

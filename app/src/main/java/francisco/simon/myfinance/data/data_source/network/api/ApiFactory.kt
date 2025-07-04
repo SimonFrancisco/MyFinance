@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.data.api
+package francisco.simon.myfinance.data.data_source.network.api
 
 import francisco.simon.myfinance.BuildConfig
 import okhttp3.OkHttpClient

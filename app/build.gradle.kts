@@ -86,5 +86,7 @@ dependencies {
 
     implementation(libs.lottie.compose)
 
+    implementation(libs.room.core)
+
 
 }
