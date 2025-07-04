@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.ui.features.account.screens
+package francisco.simon.myfinance.ui.features.account.screens.account
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

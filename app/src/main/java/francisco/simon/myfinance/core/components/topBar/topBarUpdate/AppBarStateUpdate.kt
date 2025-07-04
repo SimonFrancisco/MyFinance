@@ -34,6 +34,11 @@ fun UpdateAppBarState(
     }
 }
 
+/**
+ * For testing purposes, not production ready because fun size is directly proportional
+ * to the number of screens and logic is apart from each screen!
+ * @author Simon Francisco
+ */
 fun appBarStateUpdate(route: KClass<*>?, navController: NavController): AppBarState {
     return when (route) {
         IncomeRoute::class -> {

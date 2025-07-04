@@ -1,10 +1,14 @@
 package francisco.simon.myfinance.data.api
 
+import francisco.simon.myfinance.data.dto.AccountByIdDto
 import francisco.simon.myfinance.data.dto.AccountDto
+import francisco.simon.myfinance.data.dto.AccountUpdateRequestDto
 import francisco.simon.myfinance.data.dto.CategoryDto
 import francisco.simon.myfinance.data.dto.TransactionDto
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -25,4 +29,15 @@ interface ApiService {
 
     @GET("accounts")
     suspend fun getAccounts(): Response<List<AccountDto>>
+
+    @GET("accounts/{id}")
+    suspend fun getAccountById(
+        @Path("id") accountId: Int
+    ): Response<AccountByIdDto>
+
+    @PUT("accounts/{id}")
+    suspend fun updateAccount(
+        @Path("id") accountId: Int,
+        @Body updateAccountBody: AccountUpdateRequestDto
+    ): Response<AccountDto>
 }

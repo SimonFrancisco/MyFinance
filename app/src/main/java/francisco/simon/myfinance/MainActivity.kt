@@ -32,7 +32,6 @@ import francisco.simon.myfinance.core.components.navigationBar.AppNavigationBar
 import francisco.simon.myfinance.core.components.navigationBar.mainTabs
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.AppTopBar
-import francisco.simon.myfinance.navigation.AccountGraph.AccountRoute
 import francisco.simon.myfinance.navigation.AppNavGraph
 import francisco.simon.myfinance.navigation.ExpenseGraph.ExpenseRoute
 import francisco.simon.myfinance.navigation.IncomeGraph.IncomeRoute
@@ -82,7 +81,7 @@ fun FinanceApp() {
         mutableStateOf(AppBarState(R.string.expense_app_top_bar))
     }
     val floatButtonScreens = listOf(
-        IncomeRoute::class, ExpenseRoute::class, AccountRoute::class
+        IncomeRoute::class, ExpenseRoute::class
     )
     Scaffold(
         bottomBar = {

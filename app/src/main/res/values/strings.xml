@@ -27,4 +27,10 @@
     <string name="sum">Сумма</string>
     <string name="ok">ОК</string>
     <string name="exit">Закрыть</string>
+    <string name="balance">Баланс</string>
+    <string name="account_name">Название счёта</string>
+    <string name="russian_ruble">Российский рубль</string>
+    <string name="american_dollar">Американский доллар</string>
+    <string name="euro">Евро</string>
+    <string name="cancel">Отмена</string>
 </resources>

@@ -63,6 +63,7 @@ private fun RowScope.NavigationItem(
                 navController.navigate(tab.graph) {
                     popUpTo(currentTab.graph) {
                         saveState = true
+                        inclusive = true
                     }
                     launchSingleTop = true
                     restoreState = true

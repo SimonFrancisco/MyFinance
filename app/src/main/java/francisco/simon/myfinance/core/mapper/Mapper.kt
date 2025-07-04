@@ -14,8 +14,10 @@ import java.time.format.DateTimeFormatter
  */
 fun String.toCurrencySymbol(): String {
     return when (this) {
+        "USD" -> "$"
+        "EUR" -> "€"
         "RUB" -> "₽"
-        else -> ""
+        else -> this
     }
 }
 
@@ -29,7 +31,7 @@ fun LocalDate.toApiDate(): String {
     return this.format(dateFormat)
 }
 
-fun LocalDate.toDateWritten():String{
+fun LocalDate.toDateWritten(): String {
     val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy 'г.'")
     return this.format(dateFormatter)
 }
