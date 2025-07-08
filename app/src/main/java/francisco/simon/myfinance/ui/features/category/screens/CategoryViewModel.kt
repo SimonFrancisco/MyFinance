@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+// TODO migrate to complete offline work
 /**
  * ViewModel for categories, works with state
  * @param getCategoriesUseCase
