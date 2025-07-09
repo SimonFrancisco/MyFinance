@@ -2,10 +2,6 @@ package francisco.simon.myfinance.ui.features.account.screens.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
 import francisco.simon.myfinance.core.domain.utils.Error
 import francisco.simon.myfinance.core.domain.utils.NetworkError
 import francisco.simon.myfinance.core.domain.utils.onError
@@ -22,10 +18,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-@HiltViewModel(assistedFactory = AccountEditViewModel.Factory::class)
-class AccountEditViewModel @AssistedInject constructor(
-    @Assisted private val accountId: Int,
+class AccountEditViewModel @Inject constructor(
+    private val accountId: Int,
     private val getAccountByIdUseCase: GetAccountByIdUseCase,
     private val updateAccountUseCase: UpdateAccountUseCase,
 ) : ViewModel() {
@@ -122,8 +118,8 @@ class AccountEditViewModel @AssistedInject constructor(
     }
 
 
-    @AssistedFactory
+    /*@AssistedFactory
     interface Factory {
         fun create(accountId: Int): AccountEditViewModel
-    }
+    }*/
 }

@@ -1,6 +1,5 @@
 package francisco.simon.myfinance.ui.features.income.screens.history
 
-import dagger.hilt.android.lifecycle.HiltViewModel
 import francisco.simon.myfinance.core.domain.utils.Error
 import francisco.simon.myfinance.core.domain.utils.Result
 import francisco.simon.myfinance.core.ui.history.BaseHistoryViewModel
@@ -18,7 +17,6 @@ import javax.inject.Inject
  * @param getAccountUseCase
  * @author Simon Francisco
  */
-@HiltViewModel
 class IncomeHistoryScreenViewModel @Inject constructor(
     private val getIncomeUseCase: GetIncomeUseCase,
     private val getAccountUseCase: GetAccountUseCase

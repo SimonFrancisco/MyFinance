@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
 }
@@ -71,8 +70,6 @@ dependencies {
 
     androidTestImplementation(libs.bundles.android.test)
 
-    implementation(libs.bundles.hilt)
-
     implementation(libs.bundles.serialization)
 
     ksp(libs.bundles.ksp)
@@ -87,6 +84,8 @@ dependencies {
     implementation(libs.lottie.compose)
 
     implementation(libs.room.core)
+
+    implementation(libs.dagger2)
 
 
 }

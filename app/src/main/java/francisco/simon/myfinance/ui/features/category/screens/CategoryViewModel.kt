@@ -2,7 +2,6 @@ package francisco.simon.myfinance.ui.features.category.screens
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import francisco.simon.myfinance.core.domain.utils.Error
 import francisco.simon.myfinance.core.domain.utils.NetworkError
 import francisco.simon.myfinance.core.domain.utils.onError
@@ -21,6 +20,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 // TODO migrate to complete offline work
 /**
  * ViewModel for categories, works with state
@@ -28,7 +28,6 @@ import javax.inject.Inject
  * @param searchCategoriesUseCase
  * @author Simon Francisco
  */
-@HiltViewModel
 class CategoryViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase,
     private val searchCategoriesUseCase: SearchCategoriesUseCase

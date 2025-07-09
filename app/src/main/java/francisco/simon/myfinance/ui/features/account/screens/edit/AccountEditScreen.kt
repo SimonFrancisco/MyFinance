@@ -1,4 +1,3 @@
-
 package francisco.simon.myfinance.ui.features.account.screens.edit
 
 import androidx.compose.foundation.layout.Column
@@ -9,8 +8,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.FullScreenLoading
 import francisco.simon.myfinance.core.components.RetryCall
@@ -23,6 +22,7 @@ import francisco.simon.myfinance.core.ui.utils.MonitorAccount
 import francisco.simon.myfinance.core.ui.utils.MonitorAccount.Commands.UPDATE_ACCOUNT
 import francisco.simon.myfinance.core.ui.utils.safePopBackStack
 import francisco.simon.myfinance.domain.model.AccountUpdateRequestModel
+import francisco.simon.myfinance.getApplicationComponent
 import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.ui.features.account.screens.edit.component.BottomSheet
 
@@ -33,9 +33,13 @@ fun AccountEditScreen(
     appBarState: MutableState<AppBarState>
 ) {
     val navController = LocalNavController.current
-    val viewModel = hiltViewModel<AccountEditViewModel, AccountEditViewModel.Factory> { factory ->
-        factory.create(accountId)
-    }
+    val component = getApplicationComponent()
+        .getAccountEditComponentFactory()
+        .create(accountId)
+
+    val viewModel: AccountEditViewModel = viewModel(
+        factory = component.getViewModelFactory()
+    )
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
 

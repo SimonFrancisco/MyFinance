@@ -27,8 +27,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
@@ -38,6 +38,7 @@ import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.core.mapper.toCurrencySymbol
 import francisco.simon.myfinance.core.ui.utils.UpdateWhenGoingBack
+import francisco.simon.myfinance.getApplicationComponent
 import francisco.simon.myfinance.navigation.AccountGraph
 import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.ui.features.account.model.AccountUI
@@ -66,7 +67,8 @@ fun AccountScreen(appBarState: MutableState<AppBarState>) {
             }
         }
     )
-    val viewModel: AccountViewModel = hiltViewModel()
+    val component = getApplicationComponent()
+    val viewModel: AccountViewModel = viewModel(factory = component.getViewModelFactory())
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     AccountScreenContent(

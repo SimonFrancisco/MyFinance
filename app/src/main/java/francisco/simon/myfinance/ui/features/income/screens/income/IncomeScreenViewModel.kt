@@ -2,7 +2,6 @@ package francisco.simon.myfinance.ui.features.income.screens.income
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import francisco.simon.myfinance.core.domain.utils.Error
 import francisco.simon.myfinance.core.domain.utils.NetworkError
 import francisco.simon.myfinance.core.domain.utils.onError
@@ -28,7 +27,6 @@ import javax.inject.Inject
  * @param getAccountUseCase
  * @author Simon Francisco
  */
-@HiltViewModel
 class IncomeScreenViewModel @Inject constructor(
     private val getIncomeUseCase: GetIncomeUseCase,
     private val getAccountUseCase: GetAccountUseCase

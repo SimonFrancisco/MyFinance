@@ -27,7 +27,6 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import dagger.hilt.android.AndroidEntryPoint
 import francisco.simon.myfinance.core.components.navigationBar.AppNavigationBar
 import francisco.simon.myfinance.core.components.navigationBar.mainTabs
 import francisco.simon.myfinance.core.components.topBar.AppBarState
@@ -43,7 +42,6 @@ import francisco.simon.myfinance.ui.theme.MyFinanceTheme
 import kotlin.reflect.KClass
 
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         edgeToEdge()

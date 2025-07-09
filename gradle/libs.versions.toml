@@ -1,6 +1,6 @@
 [versions]
 agp = "8.10.1"
-kotlin = "2.1.21"
+kotlin = "2.2.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -9,15 +9,14 @@ lifecycleRuntimeKtx = "2.9.1"
 activityCompose = "1.10.1"
 composeBom = "2025.06.01"
 navigationCompose = "2.9.1"
-ksp = "2.1.21-2.0.1"
-hilt = "2.56.2"
-hiltNavCompose = "1.2.0"
-ktxSerialization = "1.8.0"
-lottieCompose = "6.6.6"
-okHttpClient_version = "4.12.0"
-retrofit_version = "2.11.0"
-json_version = "1.8.0"
+ksp = "2.2.0-2.0.2"
+ktxSerialization = "1.9.0"
+lottieCompose = "6.6.7"
+okHttpClient_version = "5.0.0"
+retrofit_version = "3.0.0"
+json_version = "1.9.0"
 room_version = "2.7.2"
+dagger2_version = "2.56.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,10 +35,6 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
-hilt-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavCompose" }
-
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "ktxSerialization" }
 
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottieCompose" }
@@ -55,12 +50,15 @@ json-serialization = {group = "org.jetbrains.kotlinx", name = "kotlinx-serializa
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
 room-core = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
 
+dagger2 = { group = "com.google.dagger", name = "dagger", version.ref = "dagger2_version" }
+dagger2-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger2_version" }
+dagger2-android-processor = { group = "com.google.dagger", name = "dagger-android-processor", version.ref = "dagger2_version" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 
@@ -91,14 +89,11 @@ compose-debug = [
     "androidx-ui-test-manifest"
 ]
 
-hilt = [
-    "hilt",
-    "hilt-compose"
-]
 
 ksp = [
-    "hilt-compiler",
-    "room-compiler"
+    "room-compiler",
+    "dagger2-compiler",
+    "dagger2-android-processor"
 ]
 http = [
     "okHttpClient",

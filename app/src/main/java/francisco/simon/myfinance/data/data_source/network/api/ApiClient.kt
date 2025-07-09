@@ -3,7 +3,6 @@ package francisco.simon.myfinance.data.data_source.network.api
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import dagger.hilt.android.qualifiers.ApplicationContext
 import francisco.simon.myfinance.core.domain.utils.NetworkError
 import francisco.simon.myfinance.core.domain.utils.Result
 import kotlinx.coroutines.currentCoroutineContext
@@ -19,7 +18,7 @@ import javax.inject.Inject
  * @author Simon Francisco
  */
 class ApiClient @Inject constructor(
-    @ApplicationContext private val context: Context
+    private val context: Context
 ) {
     suspend fun <T> safeApiCall(
         execute: suspend () -> Response<T>,
@@ -44,6 +43,7 @@ class ApiClient @Inject constructor(
                         Result.Error(NetworkError.NULL)
                     }
                 }
+
                 REQUEST_TIMEOUT_CODE -> return Result.Error(NetworkError.REQUEST_TIMEOUT)
                 TOO_MANY_REQUESTS_CODE -> return Result.Error(NetworkError.TOO_MANY_REQUESTS)
                 in SERVER_ERROR_CODE_RANGE -> {

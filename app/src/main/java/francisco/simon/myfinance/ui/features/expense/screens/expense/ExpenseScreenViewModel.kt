@@ -2,7 +2,6 @@ package francisco.simon.myfinance.ui.features.expense.screens.expense
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import francisco.simon.myfinance.core.domain.utils.Error
 import francisco.simon.myfinance.core.domain.utils.NetworkError
 import francisco.simon.myfinance.core.domain.utils.onError
@@ -21,13 +20,13 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Instant
 import javax.inject.Inject
+
 /**
  * ViewModel for expenses, works with state
  * @param getExpenseUseCase
  * @param getAccountUseCase
  * @author Simon Francisco
  */
-@HiltViewModel
 class ExpenseScreenViewModel @Inject constructor(
     private val getExpenseUseCase: GetExpenseUseCase,
     private val getAccountUseCase: GetAccountUseCase

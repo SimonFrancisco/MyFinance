@@ -37,14 +37,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.FullScreenLoading
 import francisco.simon.myfinance.core.components.RetryCall
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
+import francisco.simon.myfinance.getApplicationComponent
 import francisco.simon.myfinance.ui.features.category.model.CategoryUI
 
 /**
@@ -58,7 +59,10 @@ fun CategoryScreen(appBarState: MutableState<AppBarState>) {
         appBarState = appBarState,
         titleRes = R.string.category_app_top_bar
     )
-    val viewModel: CategoryViewModel = hiltViewModel()
+    val component = getApplicationComponent()
+    val viewModel: CategoryViewModel = viewModel(
+        factory = component.getViewModelFactory()
+    )
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     CategoryScreenContent(currentState, viewModel)

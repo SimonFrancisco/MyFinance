@@ -21,12 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.myfinance.R
 import francisco.simon.myfinance.core.components.CustomListItem
 import francisco.simon.myfinance.core.components.topBar.AppBarState
 import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
+import francisco.simon.myfinance.getApplicationComponent
 
 /**
  * Settings Screen, separate concerns to avoid unnecessary recompositions and
@@ -38,8 +39,11 @@ fun SettingsScreen(appBarState: MutableState<AppBarState>) {
     UpdateAppBarState(
         appBarState = appBarState,
         titleRes = R.string.settings_app_top_bar,
-        )
-    val viewModel: SettingsViewModel = hiltViewModel()
+    )
+    val component = getApplicationComponent()
+    val viewModel: SettingsViewModel = viewModel(
+        factory = component.getViewModelFactory()
+    )
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     SettingsScreenContent(currentState)

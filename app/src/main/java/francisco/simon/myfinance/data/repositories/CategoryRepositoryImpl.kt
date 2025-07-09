@@ -3,9 +3,9 @@ package francisco.simon.myfinance.data.repositories
 import francisco.simon.myfinance.core.domain.utils.Error
 import francisco.simon.myfinance.core.domain.utils.Result
 import francisco.simon.myfinance.core.domain.utils.map
+import francisco.simon.myfinance.data.data_source.local.db.CategoriesDao
 import francisco.simon.myfinance.data.data_source.network.api.ApiClient
 import francisco.simon.myfinance.data.data_source.network.api.ApiService
-import francisco.simon.myfinance.data.data_source.local.db.CategoriesDao
 import francisco.simon.myfinance.data.data_source.toCategoryDbModel
 import francisco.simon.myfinance.data.data_source.toListCategory
 import francisco.simon.myfinance.data.mappers.toCategoryList
