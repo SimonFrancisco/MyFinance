@@ -17,7 +17,6 @@ import francisco.simon.myfinance.domain.model.AccountUpdateRequestModel
  * @author Simon Francisco
  */
 
-
 fun CategoryDto.toCategory(): Category {
     return Category(
         id = id,

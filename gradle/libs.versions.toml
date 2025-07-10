@@ -64,12 +64,13 @@ plugin-kotlin-compose = { module = "org.jetbrains.kotlin.plugin.compose:org.jetb
 plugin-ksp = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 plugin-kotlin-serialization = { module = "org.jetbrains.kotlin.plugin.serialization:org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin" }
 plugin-android-library = { module = "com.android.library:com.android.library.gradle.plugin", version.ref = "agp" }
+plugin-kotlin-jvm = { module = "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin", version.ref = "kotlin" }
 
 
 [plugins]
 custom-android-application = { id = "custom-android-application" }
 custom-android-library = { id = "custom-android-library" }
-
+custom-kotlin-library = {id = "custom-kotlin-library"}
 
 [bundles]
 compose = [
