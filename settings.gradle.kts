@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MyFinance"
 include(":app")
- 
+include(":template:android-library")
