@@ -7,6 +7,7 @@ import francisco.simon.myfinance.core.domain.utils.NetworkError
 import francisco.simon.myfinance.core.domain.utils.onError
 import francisco.simon.myfinance.core.domain.utils.onSuccess
 import francisco.simon.myfinance.core.mapper.toStringRes
+import francisco.simon.myfinance.di.AccountIdQualifier
 import francisco.simon.myfinance.domain.entity.Account
 import francisco.simon.myfinance.domain.model.AccountUpdateRequestModel
 import francisco.simon.myfinance.domain.usecase.GetAccountByIdUseCase
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AccountEditViewModel @Inject constructor(
-    private val accountId: Int,
+    @AccountIdQualifier private val accountId: Int,
     private val getAccountByIdUseCase: GetAccountByIdUseCase,
     private val updateAccountUseCase: UpdateAccountUseCase,
 ) : ViewModel() {

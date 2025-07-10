@@ -12,7 +12,7 @@ interface AccountEditSubComponent {
     @Subcomponent.Factory
     interface Factory {
         fun create(
-            @BindsInstance accountId: Int
+            @[BindsInstance AccountIdQualifier] accountId: Int
         ): AccountEditSubComponent
     }
 }

@@ -1,25 +1,17 @@
 import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.custom.android.application)
 }
 
 android {
     namespace = "francisco.simon.myfinance"
-    compileSdk = 35
 
     defaultConfig {
         applicationId = "francisco.simon.myfinance"
-        minSdk = 26
-        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         val localProperties = Properties()
         localProperties.load(project.rootProject.file("local.properties").inputStream())
         buildConfigField(
@@ -27,31 +19,9 @@ android {
             "API_KEY",
             "\"${localProperties.getProperty("API_KEY")}\""
         )
+        buildConfigField("String", "BASE_URL", "\"https://shmr-finance.ru/api/v1/\"")
     }
 
-    buildTypes {
-        debug {
-            buildConfigField("String", "BASE_URL", "\"https://shmr-finance.ru/api/v1/\"")
-        }
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
 }
 
 dependencies {
