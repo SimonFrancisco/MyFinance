@@ -1,8 +1,8 @@
 plugins {
     id("org.jetbrains.kotlin.android")
     id("com.android.library")
-}
 
+}
 android {
     compileSdk = Const.TargetSdk
 

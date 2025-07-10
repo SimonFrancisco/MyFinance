@@ -1,6 +1,6 @@
 package francisco.simon.myfinance.ui.features.category.mapper
 
-import francisco.simon.myfinance.domain.entity.Category
+import francisco.simon.core.domain.entity.Category
 import francisco.simon.myfinance.ui.features.category.model.CategoryUI
 
 /**

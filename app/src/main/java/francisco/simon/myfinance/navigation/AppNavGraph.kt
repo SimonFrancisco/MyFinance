@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import francisco.simon.myfinance.core.components.topBar.AppBarState
+import francisco.simon.myfinance.core.ui.topBar.AppBarState
 import francisco.simon.myfinance.navigation.navGraphs.accountNavGraph
 import francisco.simon.myfinance.navigation.navGraphs.categoryNavGraph
 import francisco.simon.myfinance.navigation.navGraphs.expenseNavGraph

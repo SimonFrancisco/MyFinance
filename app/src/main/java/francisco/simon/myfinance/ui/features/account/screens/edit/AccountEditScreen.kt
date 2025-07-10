@@ -10,18 +10,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import francisco.simon.core.domain.model.AccountUpdateRequestModel
+import francisco.simon.core.ui.utils.MonitorAccount
+import francisco.simon.core.ui.utils.MonitorAccount.Commands.UPDATE_ACCOUNT
+import francisco.simon.core.ui.utils.safePopBackStack
 import francisco.simon.myfinance.R
-import francisco.simon.myfinance.core.components.FullScreenLoading
-import francisco.simon.myfinance.core.components.RetryCall
-import francisco.simon.myfinance.core.components.topBar.ActionButton
-import francisco.simon.myfinance.core.components.topBar.AppBarState
-import francisco.simon.myfinance.core.components.topBar.NavigationButton
-import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
-import francisco.simon.myfinance.core.ui.utils.EventConsumer
-import francisco.simon.myfinance.core.ui.utils.MonitorAccount
-import francisco.simon.myfinance.core.ui.utils.MonitorAccount.Commands.UPDATE_ACCOUNT
-import francisco.simon.myfinance.core.ui.utils.safePopBackStack
-import francisco.simon.myfinance.domain.model.AccountUpdateRequestModel
+import francisco.simon.myfinance.core.ui.topBar.ActionButton
+import francisco.simon.myfinance.core.ui.topBar.AppBarState
+import francisco.simon.myfinance.core.ui.topBar.NavigationButton
+import francisco.simon.myfinance.core.ui.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.getApplicationComponent
 import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.ui.features.account.screens.edit.component.BottomSheet
@@ -81,7 +78,7 @@ fun AccountEditScreen(
             }
         }
     )
-    EventConsumer(channel = viewModel.exitChannel) {
+    francisco.simon.core.ui.utils.EventConsumer(channel = viewModel.exitChannel) {
         navController.popBackStack()
     }
     AccountEditScreenContent(
@@ -114,7 +111,7 @@ private fun AccountEditScreenContent(
         )
         when (currentState) {
             is AccountEditScreenState.Error -> {
-                RetryCall(
+                francisco.simon.core.ui.components.RetryCall(
                     errorRes = currentState.errorMessageRes
                 ) {
                     updateModelState.value?.let {
@@ -125,7 +122,7 @@ private fun AccountEditScreenContent(
             }
 
             is AccountEditScreenState.Loading -> {
-                FullScreenLoading()
+                francisco.simon.core.ui.components.FullScreenLoading()
             }
 
             is AccountEditScreenState.Success -> {

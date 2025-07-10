@@ -28,15 +28,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.myfinance.R
-import francisco.simon.myfinance.core.components.CustomListItem
-import francisco.simon.myfinance.core.components.FullScreenLoading
-import francisco.simon.myfinance.core.components.RetryCall
-import francisco.simon.myfinance.core.components.topBar.ActionButton
-import francisco.simon.myfinance.core.components.topBar.AppBarState
-import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
-import francisco.simon.myfinance.core.mapper.toCurrencySymbol
-import francisco.simon.myfinance.core.ui.utils.UpdateWhenGoingBack
+import francisco.simon.myfinance.core.ui.topBar.ActionButton
+import francisco.simon.myfinance.core.ui.topBar.AppBarState
+import francisco.simon.myfinance.core.ui.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.getApplicationComponent
 import francisco.simon.myfinance.navigation.ExpenseGraph.ExpensesHistoryRoute
 import francisco.simon.myfinance.navigation.LocalNavController
@@ -64,7 +60,7 @@ fun ExpenseScreen(appBarState: MutableState<AppBarState>) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     ExpenseScreenContent(currentState, viewModel)
-    UpdateWhenGoingBack {
+    francisco.simon.core.ui.utils.UpdateWhenGoingBack {
         viewModel.retry()
     }
 }
@@ -76,7 +72,7 @@ private fun ExpenseScreenContent(
 ) {
     when (state) {
         is ExpenseScreenState.Error -> {
-            RetryCall(
+            francisco.simon.core.ui.components.RetryCall(
                 errorRes = state.errorMessageRes,
                 onClick = {
                     viewModel.retry()
@@ -85,11 +81,11 @@ private fun ExpenseScreenContent(
         }
 
         is ExpenseScreenState.Loading -> {
-            FullScreenLoading()
+            francisco.simon.core.ui.components.FullScreenLoading()
         }
 
         is ExpenseScreenState.Success -> {
-            ExpenseList(state.expens)
+            ExpenseList(state.expenses)
         }
     }
 }
@@ -105,7 +101,7 @@ private fun ExpenseList(
         HorizontalDivider()
         LazyColumn {
             items(expens, key = { it.transactionId }) { expense ->
-                CustomListItem(
+                francisco.simon.core.ui.components.CustomListItem(
                     modifier = Modifier
                         .height(70.dp)
                         .clickable {},
@@ -181,7 +177,7 @@ private fun ExpenseSumItem(expens: List<ExpenseUI>) {
     val sum = expens.sumOf {
         it.amount
     }
-    CustomListItem(
+    francisco.simon.core.ui.components.CustomListItem(
         modifier = Modifier
             .height(56.dp)
             .background(MaterialTheme.colorScheme.secondaryContainer),

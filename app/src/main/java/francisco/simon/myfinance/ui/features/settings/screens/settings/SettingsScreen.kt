@@ -24,9 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.myfinance.R
-import francisco.simon.myfinance.core.components.CustomListItem
-import francisco.simon.myfinance.core.components.topBar.AppBarState
-import francisco.simon.myfinance.core.components.topBar.topBarUpdate.UpdateAppBarState
+import francisco.simon.myfinance.core.ui.topBar.AppBarState
+import francisco.simon.myfinance.core.ui.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.getApplicationComponent
 
 /**
@@ -86,7 +85,7 @@ private fun SettingsScreenList(
 
 @Composable
 private fun SettingsItem(setting: String) {
-    CustomListItem(
+    francisco.simon.core.ui.components.CustomListItem(
         modifier = Modifier
             .height(56.dp)
             .clickable {
@@ -108,7 +107,7 @@ private fun SettingsItem(setting: String) {
 
 @Composable
 private fun SwitchItem(checked: MutableState<Boolean>) {
-    CustomListItem(
+    francisco.simon.core.ui.components.CustomListItem(
         modifier = Modifier
             .height(56.dp),
         headlineContent = {

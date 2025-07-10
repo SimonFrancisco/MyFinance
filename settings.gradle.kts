@@ -24,3 +24,7 @@ rootProject.name = "MyFinance"
 include(":app")
 include(":template:android-library")
 include(":template:kotlin-library")
+include(":core:domain")
+include(":core:data")
+include(":core:ui")
+include(":feature:category")

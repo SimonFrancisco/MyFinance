@@ -27,18 +27,18 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import francisco.simon.myfinance.core.components.navigationBar.AppNavigationBar
-import francisco.simon.myfinance.core.components.navigationBar.mainTabs
-import francisco.simon.myfinance.core.components.topBar.AppBarState
-import francisco.simon.myfinance.core.components.topBar.AppTopBar
+import francisco.simon.core.ui.theme.Green
+import francisco.simon.core.ui.theme.GreyLight
+import francisco.simon.core.ui.theme.MyFinanceTheme
+import francisco.simon.myfinance.core.ui.navigationBar.AppNavigationBar
+import francisco.simon.myfinance.core.ui.navigationBar.mainTabs
+import francisco.simon.myfinance.core.ui.topBar.AppBarState
+import francisco.simon.myfinance.core.ui.topBar.AppTopBar
 import francisco.simon.myfinance.navigation.AppNavGraph
 import francisco.simon.myfinance.navigation.ExpenseGraph.ExpenseRoute
 import francisco.simon.myfinance.navigation.IncomeGraph.IncomeRoute
 import francisco.simon.myfinance.navigation.SplashRoute
 import francisco.simon.myfinance.navigation.routeClass
-import francisco.simon.myfinance.ui.theme.Green
-import francisco.simon.myfinance.ui.theme.GreyLight
-import francisco.simon.myfinance.ui.theme.MyFinanceTheme
 import kotlin.reflect.KClass
 
 

@@ -22,12 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import francisco.simon.core.domain.model.AccountUpdateRequestModel
 import francisco.simon.myfinance.R
-import francisco.simon.myfinance.core.components.CustomListItem
-import francisco.simon.myfinance.domain.model.AccountUpdateRequestModel
 import francisco.simon.myfinance.ui.features.account.screens.edit.utils.Currency
-import francisco.simon.myfinance.ui.theme.GreyBottomSheet
-import francisco.simon.myfinance.ui.theme.Red
 
 @Composable
 private fun CurrencyPickerBottomSheet(
@@ -40,10 +37,10 @@ private fun CurrencyPickerBottomSheet(
         sheetState = sheetState,
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         tonalElevation = 2.dp,
-        containerColor = GreyBottomSheet
+        containerColor = francisco.simon.core.ui.theme.GreyBottomSheet
     ) {
         Currency.entries.forEach { currency ->
-            CustomListItem(
+            francisco.simon.core.ui.components.CustomListItem(
                 modifier = Modifier
                     .height(
                         72.dp
@@ -69,13 +66,13 @@ private fun CurrencyPickerBottomSheet(
             )
             HorizontalDivider()
         }
-        CustomListItem(
+        francisco.simon.core.ui.components.CustomListItem(
             modifier = Modifier
                 .height(
                     72.dp
                 )
                 .background(
-                    Red
+                    francisco.simon.core.ui.theme.Red
                 )
                 .clickable {
                     onDismissRequest()

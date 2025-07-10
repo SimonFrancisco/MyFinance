@@ -25,17 +25,16 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import francisco.simon.core.domain.model.AccountUpdateRequestModel
+import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.myfinance.R
-import francisco.simon.myfinance.core.components.CustomListItem
-import francisco.simon.myfinance.core.mapper.toCurrencySymbol
-import francisco.simon.myfinance.domain.model.AccountUpdateRequestModel
 
 
 @Composable
 fun AccountEditScreenBalance(
     updateModelState: MutableState<AccountUpdateRequestModel?>
 ) {
-    CustomListItem(
+    francisco.simon.core.ui.components.CustomListItem(
         modifier = Modifier.height(
             57.dp
         ),
@@ -74,7 +73,7 @@ fun AccountEditScreenBalance(
 fun AccountEditScreenName(
     updateModelState: MutableState<AccountUpdateRequestModel?>
 ) {
-    CustomListItem(
+    francisco.simon.core.ui.components.CustomListItem(
         modifier = Modifier.height(
             57.dp
         ),
@@ -121,7 +120,7 @@ fun AccountEdiScreenCurrency(
     updateModelState: MutableState<AccountUpdateRequestModel?>,
     onClick: () -> Unit
 ) {
-    CustomListItem(
+    francisco.simon.core.ui.components.CustomListItem(
         modifier = Modifier
             .height(56.dp)
             .clickable {

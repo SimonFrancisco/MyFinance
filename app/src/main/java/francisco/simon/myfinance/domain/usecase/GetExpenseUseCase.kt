@@ -1,11 +1,11 @@
 package francisco.simon.myfinance.domain.usecase
 
-import francisco.simon.myfinance.core.domain.utils.Error
-import francisco.simon.myfinance.core.domain.utils.Result
-import francisco.simon.myfinance.core.domain.utils.map
-import francisco.simon.myfinance.domain.entity.Transaction
-import francisco.simon.myfinance.domain.model.TransactionModel
-import francisco.simon.myfinance.domain.repository.TransactionRepository
+import francisco.simon.core.domain.entity.Transaction
+import francisco.simon.core.domain.model.TransactionModel
+import francisco.simon.core.domain.repository.TransactionRepository
+import francisco.simon.core.domain.utils.Error
+import francisco.simon.core.domain.utils.Result
+import francisco.simon.core.domain.utils.map
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

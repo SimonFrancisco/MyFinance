@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.toRoute
-import francisco.simon.myfinance.core.components.topBar.AppBarState
+import francisco.simon.myfinance.core.ui.topBar.AppBarState
 import francisco.simon.myfinance.navigation.AccountGraph
 import francisco.simon.myfinance.navigation.AccountGraph.AccountEditRoute
 import francisco.simon.myfinance.navigation.AccountGraph.AccountRoute

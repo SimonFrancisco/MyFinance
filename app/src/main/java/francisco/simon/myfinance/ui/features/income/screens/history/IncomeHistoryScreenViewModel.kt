@@ -1,11 +1,11 @@
 package francisco.simon.myfinance.ui.features.income.screens.history
 
-import francisco.simon.myfinance.core.domain.utils.Error
-import francisco.simon.myfinance.core.domain.utils.Result
-import francisco.simon.myfinance.core.ui.history.BaseHistoryViewModel
-import francisco.simon.myfinance.domain.entity.Account
-import francisco.simon.myfinance.domain.entity.Transaction
-import francisco.simon.myfinance.domain.model.TransactionModel
+import francisco.simon.core.domain.entity.Account
+import francisco.simon.core.domain.entity.Transaction
+import francisco.simon.core.domain.model.TransactionModel
+import francisco.simon.core.domain.utils.Error
+import francisco.simon.core.domain.utils.Result
+import francisco.simon.core.ui.history.BaseHistoryViewModel
 import francisco.simon.myfinance.domain.usecase.GetAccountUseCase
 import francisco.simon.myfinance.domain.usecase.GetIncomeUseCase
 import kotlinx.coroutines.flow.Flow

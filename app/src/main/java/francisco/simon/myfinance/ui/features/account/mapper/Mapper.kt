@@ -1,6 +1,6 @@
 package francisco.simon.myfinance.ui.features.account.mapper
 
-import francisco.simon.myfinance.domain.entity.Account
+import francisco.simon.core.domain.entity.Account
 import francisco.simon.myfinance.ui.features.account.model.AccountUI
 
 /**

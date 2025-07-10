@@ -1,6 +1,6 @@
 package francisco.simon.myfinance.ui.features.expense.mapper
 
-import francisco.simon.myfinance.domain.entity.Transaction
+import francisco.simon.core.domain.entity.Transaction
 import francisco.simon.myfinance.ui.features.expense.model.ExpenseUI
 
 /**

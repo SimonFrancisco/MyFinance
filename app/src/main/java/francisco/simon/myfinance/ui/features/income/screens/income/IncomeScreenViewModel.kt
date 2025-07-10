@@ -2,14 +2,14 @@ package francisco.simon.myfinance.ui.features.income.screens.income
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import francisco.simon.myfinance.core.domain.utils.Error
-import francisco.simon.myfinance.core.domain.utils.NetworkError
-import francisco.simon.myfinance.core.domain.utils.onError
-import francisco.simon.myfinance.core.domain.utils.onSuccess
-import francisco.simon.myfinance.core.mapper.toApiDate
-import francisco.simon.myfinance.core.mapper.toStringRes
-import francisco.simon.myfinance.domain.entity.Transaction
-import francisco.simon.myfinance.domain.model.TransactionModel
+import francisco.simon.core.domain.entity.Transaction
+import francisco.simon.core.domain.model.TransactionModel
+import francisco.simon.core.domain.utils.Error
+import francisco.simon.core.domain.utils.NetworkError
+import francisco.simon.core.domain.utils.onError
+import francisco.simon.core.domain.utils.onSuccess
+import francisco.simon.core.ui.utils.toApiDate
+import francisco.simon.core.ui.utils.toStringRes
 import francisco.simon.myfinance.domain.usecase.GetAccountUseCase
 import francisco.simon.myfinance.domain.usecase.GetIncomeUseCase
 import francisco.simon.myfinance.ui.features.income.mapper.toListIncome

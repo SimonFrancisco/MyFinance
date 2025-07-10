@@ -1,7 +1,7 @@
 package francisco.simon.myfinance.domain.usecase
 
-import francisco.simon.myfinance.domain.entity.Category
-import francisco.simon.myfinance.domain.repository.CategoryRepository
+import francisco.simon.core.domain.entity.Category
+import francisco.simon.core.domain.repository.CategoryRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

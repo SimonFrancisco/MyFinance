@@ -2,12 +2,12 @@ package francisco.simon.myfinance.ui.features.category.screens
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import francisco.simon.myfinance.core.domain.utils.Error
-import francisco.simon.myfinance.core.domain.utils.NetworkError
-import francisco.simon.myfinance.core.domain.utils.onError
-import francisco.simon.myfinance.core.domain.utils.onSuccess
-import francisco.simon.myfinance.core.mapper.toStringRes
-import francisco.simon.myfinance.domain.entity.Category
+import francisco.simon.core.domain.entity.Category
+import francisco.simon.core.domain.utils.Error
+import francisco.simon.core.domain.utils.NetworkError
+import francisco.simon.core.domain.utils.onError
+import francisco.simon.core.domain.utils.onSuccess
+import francisco.simon.core.ui.utils.toStringRes
 import francisco.simon.myfinance.domain.usecase.GetCategoriesUseCase
 import francisco.simon.myfinance.domain.usecase.SearchCategoriesUseCase
 import francisco.simon.myfinance.ui.features.category.mapper.toListCategoryUI

@@ -15,7 +15,6 @@ import francisco.simon.myfinance.R
 import francisco.simon.myfinance.navigation.ExpenseGraph
 import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.navigation.SplashRoute
-import francisco.simon.myfinance.ui.theme.Green
 
 /**
  * Splash screen with Lottie
@@ -27,7 +26,7 @@ fun SplashScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Green),
+            .background(francisco.simon.core.ui.theme.Green),
         contentAlignment = Alignment.Center,
     ) {
         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.wallet_animation))

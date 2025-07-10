@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
     alias(libs.plugins.custom.android.application)
@@ -11,20 +10,13 @@ android {
         applicationId = "francisco.simon.myfinance"
         versionCode = 1
         versionName = "1.0"
-
-        val localProperties = Properties()
-        localProperties.load(project.rootProject.file("local.properties").inputStream())
-        buildConfigField(
-            "String",
-            "API_KEY",
-            "\"${localProperties.getProperty("API_KEY")}\""
-        )
-        buildConfigField("String", "BASE_URL", "\"https://shmr-finance.ru/api/v1/\"")
     }
-
 }
 
 dependencies {
+    implementation(projects.core.domain)
+    implementation(projects.core.ui)
+    implementation(projects.core.data)
 
     implementation(libs.androidx.core.ktx)
 
