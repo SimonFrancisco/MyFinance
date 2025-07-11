@@ -51,7 +51,7 @@ import francisco.simon.feature.category.ui.model.CategoryUI
  * @author Simon Francisco
  */
 @Composable
-fun CategoryScreen(appBarState: MutableState<AppBarState>) {
+internal fun CategoryScreen(appBarState: MutableState<AppBarState>) {
     UpdateAppBarState(
         appBarState = appBarState,
         titleRes = R.string.category_app_top_bar

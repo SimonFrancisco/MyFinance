@@ -11,8 +11,8 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import francisco.simon.feature.expenses.navigation.ExpenseGraph
 import francisco.simon.myfinance.R
-import francisco.simon.myfinance.navigation.ExpenseGraph
 import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.navigation.SplashRoute
 

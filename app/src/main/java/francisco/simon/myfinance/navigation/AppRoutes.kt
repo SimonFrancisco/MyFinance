@@ -9,14 +9,6 @@ import kotlin.reflect.KClass
  * File contains all nav graphs with needed routes
  * @author Simon
  */
-@Serializable
-data object ExpenseGraph {
-    @Serializable
-    data object ExpenseRoute
-
-    @Serializable
-    data object ExpensesHistoryRoute
-}
 
 
 @Serializable

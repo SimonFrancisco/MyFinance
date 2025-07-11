@@ -1,12 +1,12 @@
 package francisco.simon.feature.category.di
 
-import androidx.lifecycle.ViewModelProvider
 import dagger.Component
+import francisco.simon.feature.category.ViewModelFactory
 
 @CategoryScope
-@Component(dependencies = [CategoryDependencies::class])
-interface CategoryComponent {
-    fun getCategoryViewModelFactory(): ViewModelProvider.Factory
+@Component(modules = [CategoryViewModelModule::class],dependencies = [CategoryDependencies::class])
+internal interface CategoryComponent {
+    fun getCategoryViewModelFactory(): ViewModelFactory
 }
 
 

@@ -20,6 +20,7 @@ dependencies {
     implementation(projects.feature.category)
     implementation(projects.feature.account)
     implementation(projects.feature.income)
+    implementation(projects.feature.expenses)
 
     implementation(libs.androidx.core.ktx)
 

@@ -7,7 +7,7 @@ import francisco.simon.core.domain.utils.Result
 import javax.inject.Inject
 
 
-class GetCategoriesUseCase @Inject constructor(
+internal class GetCategoriesUseCase @Inject constructor(
     private val repository: CategoryRepository
 ) {
     suspend operator fun invoke(): Result<List<Category>, Error> {

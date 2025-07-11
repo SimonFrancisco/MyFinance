@@ -8,7 +8,7 @@ import francisco.simon.feature.category.ui.model.CategoryUI
  *  @author Simon Francisco
  */
 
-fun Category.toCategoryUI(): CategoryUI {
+internal fun Category.toCategoryUI(): CategoryUI {
     return CategoryUI(
         id = id,
         emoji = emoji,
@@ -16,7 +16,7 @@ fun Category.toCategoryUI(): CategoryUI {
     )
 }
 
-fun List<Category>.toListCategoryUI(): List<CategoryUI> {
+internal fun List<Category>.toListCategoryUI(): List<CategoryUI> {
     return this.map {
         it.toCategoryUI()
     }

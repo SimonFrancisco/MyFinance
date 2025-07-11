@@ -28,7 +28,7 @@ import javax.inject.Inject
  * @param searchCategoriesUseCase
  * @author Simon Francisco
  */
-class CategoryViewModel @Inject constructor(
+internal class CategoryViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase,
     private val searchCategoriesUseCase: SearchCategoriesUseCase
 ) : ViewModel() {
