@@ -7,7 +7,7 @@ import francisco.simon.feature.account.ui.model.AccountUI
  *  Mapper from domain to ui
  *  @author Simon Francisco
  */
-fun Account.toAccountUI(): AccountUI {
+internal fun Account.toAccountUI(): AccountUI {
     return AccountUI(
         id = id,
         name = name,

@@ -18,16 +18,6 @@ data object ExpenseGraph {
     data object ExpensesHistoryRoute
 }
 
-@Serializable
-data object IncomeGraph {
-
-    @Serializable
-    data object IncomeRoute
-
-    @Serializable
-    data object IncomeHistoryRoute
-}
-
 
 @Serializable
 data object SettingsGraph {

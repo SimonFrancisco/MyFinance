@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.ui.features.income.model
+package francisco.simon.feature.income.ui.model
 
 import java.math.BigDecimal
 
@@ -6,7 +6,7 @@ import java.math.BigDecimal
  * Separate UI model
  * @author Simon Francisco
  */
-data class IncomeUI(
+internal data class IncomeUI(
     val transactionId: Int,
     val emoji: String,
     val name: String,

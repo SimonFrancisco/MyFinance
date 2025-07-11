@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.domain.usecase
+package francisco.simon.feature.income.domain
 
 import francisco.simon.core.domain.entity.Transaction
 import francisco.simon.core.domain.model.TransactionModel
@@ -14,7 +14,7 @@ import javax.inject.Inject
  * Gets transactions and filters income out
  * @author Simon Francisco
  */
-class GetIncomeUseCase @Inject constructor(
+internal class GetIncomeUseCase @Inject constructor(
     private val repository: TransactionRepository
 ) {
     suspend operator fun invoke(transactionModel: TransactionModel): Flow<Result<List<Transaction>, Error>> {

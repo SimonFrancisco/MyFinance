@@ -46,7 +46,7 @@ import francisco.simon.feature.account.accountComponent
 private const val NON_EXISTING_ACCOUNT_ID = -1
 
 @Composable
-fun AccountScreen(appBarState: MutableState<AppBarState>, onOpenEditScreen: (accountId:Int) -> Unit) {
+internal fun AccountScreen(appBarState: MutableState<AppBarState>, onOpenEditScreen: (accountId:Int) -> Unit) {
     val accountIdState = remember {
         mutableIntStateOf(NON_EXISTING_ACCOUNT_ID)
     }

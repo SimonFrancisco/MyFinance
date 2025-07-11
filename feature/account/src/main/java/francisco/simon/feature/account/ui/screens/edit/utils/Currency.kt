@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import francisco.simon.core.ui.R
 
-enum class Currency(
+internal enum class Currency(
     @StringRes val displayNameRes: Int,
     @DrawableRes val iconRes: Int,
     val symbol: String

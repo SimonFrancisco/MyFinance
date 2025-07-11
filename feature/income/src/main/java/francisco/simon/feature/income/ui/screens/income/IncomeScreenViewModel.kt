@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.ui.features.income.screens.income
+package francisco.simon.feature.income.ui.screens.income
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,9 +10,9 @@ import francisco.simon.core.domain.utils.onError
 import francisco.simon.core.domain.utils.onSuccess
 import francisco.simon.core.ui.utils.toApiDate
 import francisco.simon.core.ui.utils.toStringRes
-import francisco.simon.myfinance.domain.usecase.GetAccountUseCase
-import francisco.simon.myfinance.domain.usecase.GetIncomeUseCase
-import francisco.simon.myfinance.ui.features.income.mapper.toListIncome
+import francisco.simon.feature.income.domain.GetAccountUseCase
+import francisco.simon.feature.income.domain.GetIncomeUseCase
+import francisco.simon.feature.income.ui.mapper.toListIncome
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -27,7 +27,7 @@ import javax.inject.Inject
  * @param getAccountUseCase
  * @author Simon Francisco
  */
-class IncomeScreenViewModel @Inject constructor(
+internal class IncomeScreenViewModel @Inject constructor(
     private val getIncomeUseCase: GetIncomeUseCase,
     private val getAccountUseCase: GetAccountUseCase
 ) : ViewModel() {

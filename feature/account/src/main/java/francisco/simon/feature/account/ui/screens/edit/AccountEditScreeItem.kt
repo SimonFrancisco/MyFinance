@@ -31,7 +31,7 @@ import francisco.simon.core.ui.R
 
 
 @Composable
-fun AccountEditScreenBalance(
+internal fun AccountEditScreenBalance(
     updateModelState: MutableState<AccountUpdateRequestModel?>
 ) {
     francisco.simon.core.ui.components.CustomListItem(

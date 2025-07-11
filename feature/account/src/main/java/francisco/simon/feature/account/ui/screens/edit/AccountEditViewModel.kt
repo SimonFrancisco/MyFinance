@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AccountEditViewModel @Inject constructor(
+internal class AccountEditViewModel @Inject constructor(
     @AccountIdQualifier private val accountId: Int,
     private val getAccountByIdUseCase: GetAccountByIdUseCase,
     private val updateAccountUseCase: UpdateAccountUseCase,

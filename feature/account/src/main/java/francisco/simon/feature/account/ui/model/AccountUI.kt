@@ -8,7 +8,7 @@ import java.math.BigDecimal
  * Separate UI model
  * @author Simon Francisco
  */
-data class AccountUI (
+internal data class AccountUI (
     val id: Int,
     val name: String,
     val balance: BigDecimal,

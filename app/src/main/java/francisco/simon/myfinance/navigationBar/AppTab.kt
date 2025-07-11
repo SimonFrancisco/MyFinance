@@ -5,8 +5,8 @@ import androidx.annotation.StringRes
 import francisco.simon.feature.category.navigation.CategoryRouteGraph
 import francisco.simon.myfinance.R
 import francisco.simon.feature.account.navigation.AccountGraph
+import francisco.simon.feature.income.navigation.IncomeGraph
 import francisco.simon.myfinance.navigation.ExpenseGraph
-import francisco.simon.myfinance.navigation.IncomeGraph
 import francisco.simon.myfinance.navigation.SettingsGraph
 
 /***

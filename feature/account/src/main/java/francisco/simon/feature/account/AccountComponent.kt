@@ -1,6 +1,5 @@
 package francisco.simon.feature.account
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -19,6 +18,5 @@ internal fun accountComponent(): AccountComponent {
     val component = remember(accountDependencies) {
         DaggerAccountComponent.builder().accountDependencies(accountDependencies).build()
     }
-    Log.d("AccountComponent", component.toString())
     return component
 }

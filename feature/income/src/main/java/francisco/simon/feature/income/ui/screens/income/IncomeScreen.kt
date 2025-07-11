@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.ui.features.income.screens.income
+package francisco.simon.feature.income.ui.screens.income
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,15 +29,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import francisco.simon.core.ui.utils.toCurrencySymbol
-import francisco.simon.myfinance.R
+import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
-import francisco.simon.myfinance.getApplicationComponent
-import francisco.simon.myfinance.navigation.IncomeGraph.IncomeHistoryRoute
-import francisco.simon.myfinance.navigation.LocalNavController
-import francisco.simon.myfinance.ui.features.income.model.IncomeUI
+import francisco.simon.core.ui.utils.toCurrencySymbol
+import francisco.simon.feature.income.incomeComponent
+import francisco.simon.feature.income.ui.model.IncomeUI
 
 /**
  * Income Screen, separate concerns to avoid unnecessary recompositions and
@@ -45,17 +43,19 @@ import francisco.simon.myfinance.ui.features.income.model.IncomeUI
  * @author Simon Francisco
  */
 @Composable
-fun IncomeScreen(appBarState: MutableState<AppBarState>) {
-    val navController = LocalNavController.current
+internal fun IncomeScreen(
+    appBarState: MutableState<AppBarState>,
+    onGoToIncomeHistoryScreen: () -> Unit
+) {
     UpdateAppBarState(
         appBarState = appBarState,
         titleRes = R.string.income_app_top_bar,
         actionButton = ActionButton(R.drawable.ic_history) {
-            navController.navigate(IncomeHistoryRoute)
+            onGoToIncomeHistoryScreen()
         }
 
     )
-    val component = getApplicationComponent()
+    val component = incomeComponent()
     val viewModel: IncomeScreenViewModel = viewModel(
         factory = component.getViewModelFactory()
     )

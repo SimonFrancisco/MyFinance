@@ -7,7 +7,7 @@ import francisco.simon.core.domain.utils.Error
 import francisco.simon.core.domain.utils.Result
 import javax.inject.Inject
 
-class UpdateAccountUseCase @Inject constructor(
+internal class UpdateAccountUseCase @Inject constructor(
     private val repository: AccountRepository
 ) {
     suspend operator fun invoke(

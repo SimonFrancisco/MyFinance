@@ -10,8 +10,8 @@ import androidx.navigation.compose.composable
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.feature.account.navigation.accountNavGraph
 import francisco.simon.feature.category.navigation.categoryNavGraph
+import francisco.simon.feature.income.navigation.incomeNavGraph
 import francisco.simon.myfinance.navigation.navGraphs.expenseNavGraph
-import francisco.simon.myfinance.navigation.navGraphs.incomeNavGraph
 import francisco.simon.myfinance.navigation.navGraphs.settingsNavGraph
 import francisco.simon.myfinance.ui.features.splash.SplashScreen
 
@@ -38,8 +38,14 @@ fun AppNavGraph(
                 SplashScreen()
             }
             expenseNavGraph(appBarState)
-            incomeNavGraph(appBarState)
-            accountNavGraph(appBarState = appBarState, navController = navController)
+            incomeNavGraph(
+                appBarState = appBarState,
+                navController = navController
+            )
+            accountNavGraph(
+                appBarState = appBarState,
+                navController = navController
+            )
             categoryNavGraph(appBarState)
             settingsNavGraph(appBarState)
         }

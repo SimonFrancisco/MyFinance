@@ -7,7 +7,7 @@ import francisco.simon.core.domain.utils.Result
 import javax.inject.Inject
 
 
-class GetAccountUseCase @Inject constructor(
+internal class GetAccountUseCase @Inject constructor(
     private val repository: AccountRepository
 ) {
     suspend operator fun invoke(): Result<Account, Error> {

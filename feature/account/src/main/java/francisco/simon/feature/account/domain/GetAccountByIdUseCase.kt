@@ -6,7 +6,7 @@ import francisco.simon.core.domain.utils.Error
 import francisco.simon.core.domain.utils.Result
 import javax.inject.Inject
 
-class GetAccountByIdUseCase @Inject constructor(
+internal class GetAccountByIdUseCase @Inject constructor(
     private val repository: AccountRepository
 ) {
     suspend operator fun invoke(accountId: Int): Result<Account, Error> {

@@ -22,7 +22,6 @@ import francisco.simon.core.domain.repository.TransactionRepository
  */
 @Module
 internal object DataModule {
-
     @[ApplicationScope Provides]
     fun provideTransactionRepository(
         apiService: ApiService,

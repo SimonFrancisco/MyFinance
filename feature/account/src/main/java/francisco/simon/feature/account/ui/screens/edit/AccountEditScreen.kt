@@ -23,7 +23,7 @@ import francisco.simon.feature.account.accountComponent
 
 // TODO double tab on Account tab resets data, probably because of the way I am saving it.
 @Composable
-fun AccountEditScreen(
+internal fun AccountEditScreen(
     accountId: Int,
     appBarState: MutableState<AppBarState>,
     onGoBackToAccountScreen: () -> Unit

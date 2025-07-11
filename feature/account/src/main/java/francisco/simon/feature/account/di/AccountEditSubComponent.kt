@@ -5,7 +5,7 @@ import dagger.Subcomponent
 import francisco.simon.feature.account.ViewModelFactory
 
 @Subcomponent(modules = [EditAccountViewModelModule::class])
-interface AccountEditSubComponent {
+internal interface AccountEditSubComponent {
 
     fun getViewModelFactory(): ViewModelFactory
 

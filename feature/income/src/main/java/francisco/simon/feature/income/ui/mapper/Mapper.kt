@@ -1,13 +1,13 @@
-package francisco.simon.myfinance.ui.features.income.mapper
+package francisco.simon.feature.income.ui.mapper
 
 import francisco.simon.core.domain.entity.Transaction
-import francisco.simon.myfinance.ui.features.income.model.IncomeUI
+import francisco.simon.feature.income.ui.model.IncomeUI
 
 /**
  *  Mapper from domain to ui
  *  @author Simon Francisco
  */
-fun Transaction.toIncome(): IncomeUI {
+internal fun Transaction.toIncome(): IncomeUI {
     return IncomeUI(
         transactionId = this.id,
         name = this.category.name,
@@ -18,7 +18,7 @@ fun Transaction.toIncome(): IncomeUI {
     )
 }
 
-fun List<Transaction>.toListIncome(): List<IncomeUI> {
+internal fun List<Transaction>.toListIncome(): List<IncomeUI> {
     return this.map { transaction ->
         transaction.toIncome()
     }

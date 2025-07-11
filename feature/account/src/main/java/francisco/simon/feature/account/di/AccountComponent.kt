@@ -6,7 +6,7 @@ import francisco.simon.feature.account.ViewModelFactory
 @AccountScope
 @Component(modules = [AccountViewModelModule::class],
     dependencies = [AccountDependencies::class])
-interface AccountComponent {
+internal interface AccountComponent {
 
     fun getViewModelFactory(): ViewModelFactory
 

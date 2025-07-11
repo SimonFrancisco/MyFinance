@@ -27,6 +27,20 @@ import francisco.simon.core.ui.R
 import francisco.simon.feature.account.ui.screens.edit.utils.Currency
 
 @Composable
+internal fun BottomSheet(
+    showSheet: MutableState<Boolean>,
+    updateModelState: MutableState<AccountUpdateRequestModel?>,
+) {
+    if (showSheet.value) {
+        CurrencyPickerBottomSheet(
+            onCurrencySelected = {
+                updateModelState.value = updateModelState.value?.copy(currency = it.name)
+            }, onDismissRequest = { showSheet.value = false }
+        )
+    }
+}
+
+@Composable
 private fun CurrencyPickerBottomSheet(
     onCurrencySelected: (Currency) -> Unit,
     onDismissRequest: () -> Unit
@@ -97,16 +111,3 @@ private fun CurrencyPickerBottomSheet(
     }
 }
 
-@Composable
-fun BottomSheet(
-    showSheet: MutableState<Boolean>,
-    updateModelState: MutableState<AccountUpdateRequestModel?>,
-) {
-    if (showSheet.value) {
-        CurrencyPickerBottomSheet(
-            onCurrencySelected = {
-                updateModelState.value = updateModelState.value?.copy(currency = it.name)
-            }, onDismissRequest = { showSheet.value = false }
-        )
-    }
-}

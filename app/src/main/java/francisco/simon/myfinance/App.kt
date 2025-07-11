@@ -7,11 +7,13 @@ import francisco.simon.feature.account.di.AccountDependencies
 import francisco.simon.feature.account.di.AccountDependenciesProvider
 import francisco.simon.feature.category.di.CategoryDependencies
 import francisco.simon.feature.category.di.CategoryDependenciesProvider
+import francisco.simon.feature.income.di.IncomeDependencies
+import francisco.simon.feature.income.di.IncomeDependenciesProvider
 import francisco.simon.myfinance.di.ApplicationComponent
 import francisco.simon.myfinance.di.DaggerApplicationComponent
 
 
-class App : Application(), CategoryDependenciesProvider, AccountDependenciesProvider {
+class App : Application(), CategoryDependenciesProvider, AccountDependenciesProvider, IncomeDependenciesProvider {
     val component: ApplicationComponent by lazy {
         DaggerApplicationComponent.factory().create(this)
     }
@@ -20,6 +22,10 @@ class App : Application(), CategoryDependenciesProvider, AccountDependenciesProv
     }
 
     override fun getAccountDependencies(): AccountDependencies {
+        return component
+    }
+
+    override fun getIncomeDependencies(): IncomeDependencies {
         return component
     }
 }

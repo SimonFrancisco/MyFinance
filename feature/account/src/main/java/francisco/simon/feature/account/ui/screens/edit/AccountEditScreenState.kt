@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import francisco.simon.feature.account.ui.model.AccountUI
 
 
-sealed class AccountEditScreenState {
+internal sealed class AccountEditScreenState {
     data object Loading : AccountEditScreenState()
     data class Success(val account: AccountUI) : AccountEditScreenState()
     data class Error(@StringRes val errorMessageRes: Int) : AccountEditScreenState()

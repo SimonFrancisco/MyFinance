@@ -21,7 +21,7 @@ import javax.inject.Inject
  * @param getAccountUseCase
  * @author Simon Francisco
  */
-class AccountViewModel @Inject constructor(
+internal class AccountViewModel @Inject constructor(
     private val getAccountUseCase: GetAccountUseCase
 ) : ViewModel() {
 

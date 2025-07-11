@@ -7,7 +7,7 @@ import dagger.multibindings.IntoMap
 import francisco.simon.feature.account.ui.screens.account.AccountViewModel
 
 @Module
-interface AccountViewModelModule {
+internal interface AccountViewModelModule {
     @[Binds IntoMap ViewModelKey(AccountViewModel::class)]
     fun bindAccountViewModel(viewModel: AccountViewModel): ViewModel
 }
