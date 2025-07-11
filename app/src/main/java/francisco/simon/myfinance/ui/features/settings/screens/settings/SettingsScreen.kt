@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.myfinance.R
-import francisco.simon.myfinance.core.ui.topBar.AppBarState
-import francisco.simon.myfinance.core.ui.topBar.topBarUpdate.UpdateAppBarState
+import francisco.simon.core.ui.components.topBar.AppBarState
+import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.getApplicationComponent
 
 /**

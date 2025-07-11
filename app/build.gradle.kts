@@ -17,6 +17,8 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.ui)
     implementation(projects.core.data)
+    implementation(projects.feature.category)
+    implementation(projects.feature.account)
 
     implementation(libs.androidx.core.ktx)
 

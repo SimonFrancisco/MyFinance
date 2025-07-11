@@ -102,6 +102,7 @@ private fun HeadingContent(transaction: Transaction) {
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
     )
+    //TODO add transaction with null and check
     if (!transaction.comment.isNullOrEmpty()) {
         Text(
             text = transaction.comment ?: "",

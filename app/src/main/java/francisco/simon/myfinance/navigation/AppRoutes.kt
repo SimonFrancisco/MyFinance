@@ -28,23 +28,6 @@ data object IncomeGraph {
     data object IncomeHistoryRoute
 }
 
-@Serializable
-data object AccountGraph {
-
-    @Serializable
-    data object AccountRoute
-
-    @Serializable
-    data class AccountEditRoute(
-        val accountId: Int
-    )
-}
-
-@Serializable
-data object CategoryGraph {
-    @Serializable
-    data object CategoryRoute
-}
 
 @Serializable
 data object SettingsGraph {

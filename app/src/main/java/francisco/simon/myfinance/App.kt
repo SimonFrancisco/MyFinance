@@ -3,13 +3,24 @@ package francisco.simon.myfinance
 import android.app.Application
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import francisco.simon.feature.account.di.AccountDependencies
+import francisco.simon.feature.account.di.AccountDependenciesProvider
+import francisco.simon.feature.category.di.CategoryDependencies
+import francisco.simon.feature.category.di.CategoryDependenciesProvider
 import francisco.simon.myfinance.di.ApplicationComponent
 import francisco.simon.myfinance.di.DaggerApplicationComponent
 
 
-class App : Application() {
+class App : Application(), CategoryDependenciesProvider, AccountDependenciesProvider {
     val component: ApplicationComponent by lazy {
         DaggerApplicationComponent.factory().create(this)
+    }
+    override fun getCategoryDependencies(): CategoryDependencies {
+        return component
+    }
+
+    override fun getAccountDependencies(): AccountDependencies {
+        return component
     }
 }
 

@@ -30,10 +30,10 @@ import androidx.navigation.compose.rememberNavController
 import francisco.simon.core.ui.theme.Green
 import francisco.simon.core.ui.theme.GreyLight
 import francisco.simon.core.ui.theme.MyFinanceTheme
-import francisco.simon.myfinance.core.ui.navigationBar.AppNavigationBar
-import francisco.simon.myfinance.core.ui.navigationBar.mainTabs
-import francisco.simon.myfinance.core.ui.topBar.AppBarState
-import francisco.simon.myfinance.core.ui.topBar.AppTopBar
+import francisco.simon.myfinance.navigationBar.AppNavigationBar
+import francisco.simon.myfinance.navigationBar.mainTabs
+import francisco.simon.core.ui.components.topBar.AppBarState
+import francisco.simon.core.ui.components.topBar.AppTopBar
 import francisco.simon.myfinance.navigation.AppNavGraph
 import francisco.simon.myfinance.navigation.ExpenseGraph.ExpenseRoute
 import francisco.simon.myfinance.navigation.IncomeGraph.IncomeRoute

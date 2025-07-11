@@ -30,9 +30,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.myfinance.R
-import francisco.simon.myfinance.core.ui.topBar.ActionButton
-import francisco.simon.myfinance.core.ui.topBar.AppBarState
-import francisco.simon.myfinance.core.ui.topBar.topBarUpdate.UpdateAppBarState
+import francisco.simon.core.ui.components.topBar.ActionButton
+import francisco.simon.core.ui.components.topBar.AppBarState
+import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.myfinance.getApplicationComponent
 import francisco.simon.myfinance.navigation.ExpenseGraph.ExpensesHistoryRoute
 import francisco.simon.myfinance.navigation.LocalNavController
