@@ -29,14 +29,14 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.RetryCall
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.core.ui.utils.toCurrencySymbol
-import francisco.simon.feature.account.ui.model.AccountUI
-import francisco.simon.core.ui.R
 import francisco.simon.feature.account.accountComponent
+import francisco.simon.feature.account.ui.model.AccountUI
 
 /**
  * Account Screen, separate concerns to avoid unnecessary recompositions and

@@ -11,15 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.core.domain.model.AccountUpdateRequestModel
+import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.NavigationButton
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.core.ui.utils.MonitorAccount
 import francisco.simon.core.ui.utils.MonitorAccount.Commands.UPDATE_ACCOUNT
-import francisco.simon.feature.account.ui.screens.edit.component.BottomSheet
-import francisco.simon.core.ui.R
 import francisco.simon.feature.account.accountComponent
+import francisco.simon.feature.account.ui.screens.edit.component.BottomSheet
 
 // TODO double tab on Account tab resets data, probably because of the way I am saving it.
 @Composable

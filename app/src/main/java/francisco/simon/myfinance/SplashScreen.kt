@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.ui.features.splash
+package francisco.simon.myfinance
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,7 +12,6 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import francisco.simon.feature.expenses.navigation.ExpenseGraph
-import francisco.simon.myfinance.R
 import francisco.simon.myfinance.navigation.LocalNavController
 import francisco.simon.myfinance.navigation.SplashRoute
 

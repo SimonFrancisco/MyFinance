@@ -8,12 +8,12 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import francisco.simon.core.domain.entity.Transaction
+import francisco.simon.core.ui.R
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.core.ui.utils.toDateWritten
-import francisco.simon.core.domain.entity.Transaction
 import java.math.BigDecimal
 import java.time.LocalDate
-import francisco.simon.core.ui.R
 
 
 /**

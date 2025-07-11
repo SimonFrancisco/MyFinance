@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.ui.features.settings.screens.settings
+package francisco.simon.feature.settings.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -23,10 +23,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import francisco.simon.myfinance.R
+import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
-import francisco.simon.myfinance.getApplicationComponent
+import francisco.simon.feature.settings.settingsComponent
 
 /**
  * Settings Screen, separate concerns to avoid unnecessary recompositions and
@@ -34,12 +34,12 @@ import francisco.simon.myfinance.getApplicationComponent
  * @author Simon Francisco
  */
 @Composable
-fun SettingsScreen(appBarState: MutableState<AppBarState>) {
+internal fun SettingsScreen(appBarState: MutableState<AppBarState>) {
     UpdateAppBarState(
         appBarState = appBarState,
         titleRes = R.string.settings_app_top_bar,
     )
-    val component = getApplicationComponent()
+    val component = settingsComponent()
     val viewModel: SettingsViewModel = viewModel(
         factory = component.getViewModelFactory()
     )

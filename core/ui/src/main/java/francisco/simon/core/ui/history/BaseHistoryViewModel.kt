@@ -2,14 +2,14 @@ package francisco.simon.core.ui.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import francisco.simon.core.domain.utils.NetworkError
-import francisco.simon.core.domain.utils.onError
-import francisco.simon.core.domain.utils.onSuccess
-import francisco.simon.core.ui.utils.toStringRes
 import francisco.simon.core.domain.entity.Account
 import francisco.simon.core.domain.entity.Transaction
 import francisco.simon.core.domain.utils.Error
+import francisco.simon.core.domain.utils.NetworkError
 import francisco.simon.core.domain.utils.Result
+import francisco.simon.core.domain.utils.onError
+import francisco.simon.core.domain.utils.onSuccess
+import francisco.simon.core.ui.utils.toStringRes
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

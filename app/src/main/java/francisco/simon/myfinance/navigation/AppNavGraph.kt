@@ -12,8 +12,8 @@ import francisco.simon.feature.account.navigation.accountNavGraph
 import francisco.simon.feature.category.navigation.categoryNavGraph
 import francisco.simon.feature.expenses.navigation.expenseNavGraph
 import francisco.simon.feature.income.navigation.incomeNavGraph
-import francisco.simon.myfinance.navigation.navGraphs.settingsNavGraph
-import francisco.simon.myfinance.ui.features.splash.SplashScreen
+import francisco.simon.feature.settings.navigation.settingsNavGraph
+import francisco.simon.myfinance.SplashScreen
 
 /**
  * App nav graph for the whole app, it contains all needed graphs

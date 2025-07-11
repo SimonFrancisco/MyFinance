@@ -15,7 +15,11 @@ import francisco.simon.myfinance.di.ApplicationComponent
 import francisco.simon.myfinance.di.DaggerApplicationComponent
 
 
-class App : Application(), CategoryDependenciesProvider, AccountDependenciesProvider, IncomeDependenciesProvider, ExpensesDependenciesProvider {
+class App : Application(),
+    CategoryDependenciesProvider,
+    AccountDependenciesProvider,
+    IncomeDependenciesProvider,
+    ExpensesDependenciesProvider {
 
     val component: ApplicationComponent by lazy {
         DaggerApplicationComponent.factory().create(this)

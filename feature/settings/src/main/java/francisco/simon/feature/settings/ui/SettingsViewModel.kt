@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.ui.features.settings.screens.settings
+package francisco.simon.feature.settings.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +12,7 @@ import javax.inject.Inject
  * ViewModel for settings, works with state
  * @author Simon Francisco
  */
-class SettingsViewModel @Inject constructor() : ViewModel() {
+internal class SettingsViewModel @Inject constructor() : ViewModel() {
 
     val state: StateFlow<SettingsScreenState> = MutableStateFlow(SettingsScreenState.Nothing)
         .stateIn(

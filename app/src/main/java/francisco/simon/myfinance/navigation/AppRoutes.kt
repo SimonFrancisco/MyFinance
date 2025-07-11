@@ -5,18 +5,6 @@ import androidx.navigation.NavDestination
 import kotlinx.serialization.Serializable
 import kotlin.reflect.KClass
 
-/**
- * File contains all nav graphs with needed routes
- * @author Simon
- */
-
-
-@Serializable
-data object SettingsGraph {
-    @Serializable
-    data object SettingsRoute
-}
-
 @Serializable
 data object SplashRoute
 

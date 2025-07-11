@@ -26,8 +26,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import francisco.simon.core.domain.model.AccountUpdateRequestModel
-import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.core.ui.R
+import francisco.simon.core.ui.utils.toCurrencySymbol
 
 
 @Composable

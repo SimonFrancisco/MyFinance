@@ -66,7 +66,6 @@ class MainActivity : ComponentActivity() {
         )
     }
 }
-
 /**
  * The whole app functionality is joined here.
  * @author Simon Francisco

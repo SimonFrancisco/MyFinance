@@ -2,12 +2,12 @@ package francisco.simon.myfinance.navigationBar
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import francisco.simon.feature.category.navigation.CategoryRouteGraph
-import francisco.simon.myfinance.R
 import francisco.simon.feature.account.navigation.AccountGraph
+import francisco.simon.feature.category.navigation.CategoryRouteGraph
 import francisco.simon.feature.expenses.navigation.ExpenseGraph
 import francisco.simon.feature.income.navigation.IncomeGraph
-import francisco.simon.myfinance.navigation.SettingsGraph
+import francisco.simon.feature.settings.navigation.SettingsGraph
+import francisco.simon.myfinance.R
 
 /***
  * Tabs for app navigation bar, each tab has an icon, a label and the graph

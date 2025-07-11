@@ -1,8 +1,5 @@
 package francisco.simon.core.data.repositories
 
-import francisco.simon.core.domain.utils.Error
-import francisco.simon.core.domain.utils.Result
-import francisco.simon.core.domain.utils.map
 import francisco.simon.core.data.data_source.local.db.CategoriesDao
 import francisco.simon.core.data.data_source.network.api.ApiClient
 import francisco.simon.core.data.data_source.network.api.ApiService
@@ -11,6 +8,9 @@ import francisco.simon.core.data.data_source.toListCategory
 import francisco.simon.core.data.mappers.toCategoryList
 import francisco.simon.core.domain.entity.Category
 import francisco.simon.core.domain.repository.CategoryRepository
+import francisco.simon.core.domain.utils.Error
+import francisco.simon.core.domain.utils.Result
+import francisco.simon.core.domain.utils.map
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

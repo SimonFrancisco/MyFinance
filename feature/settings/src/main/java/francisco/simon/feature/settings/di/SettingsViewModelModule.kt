@@ -1,14 +1,13 @@
-package francisco.simon.myfinance.di
+package francisco.simon.feature.settings.di
 
 import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import francisco.simon.myfinance.ui.features.settings.screens.settings.SettingsViewModel
+import francisco.simon.feature.settings.ui.SettingsViewModel
 
 @Module
-interface ViewModelModule {
+internal interface SettingsViewModelModule {
     @[Binds IntoMap ViewModelKey(SettingsViewModel::class)]
     fun bindSettingsViewModel(viewModel: SettingsViewModel):ViewModel
-
 }
