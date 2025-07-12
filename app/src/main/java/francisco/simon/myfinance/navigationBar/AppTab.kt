@@ -7,7 +7,7 @@ import francisco.simon.feature.category.navigation.CategoryRouteGraph
 import francisco.simon.feature.expenses.navigation.ExpenseGraph
 import francisco.simon.feature.income.navigation.IncomeGraph
 import francisco.simon.feature.settings.navigation.SettingsGraph
-import francisco.simon.myfinance.R
+import francisco.simon.core.ui.R
 
 /***
  * Tabs for app navigation bar, each tab has an icon, a label and the graph
@@ -16,7 +16,7 @@ import francisco.simon.myfinance.R
  * @author Simon Francisco
  */
 
-data class AppTab(
+internal data class AppTab(
     @DrawableRes val iconRes: Int,
     @StringRes val labelRes: Int,
     val graph: Any
@@ -26,7 +26,7 @@ data class AppTab(
  * List of tabs we see in nav bar
  * @author Simon Francisco
  */
-val mainTabs = listOf<AppTab>(
+internal val mainTabs = listOf<AppTab>(
     AppTab(
         iconRes = R.drawable.ic_downtrend,
         labelRes = R.string.expenses_tab,

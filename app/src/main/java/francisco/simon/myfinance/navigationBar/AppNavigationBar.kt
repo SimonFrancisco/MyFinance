@@ -27,7 +27,7 @@ import francisco.simon.myfinance.navigation.routeClass
  * @author Simon Francisco
  */
 @Composable
-fun AppNavigationBar(
+internal fun AppNavigationBar(
     navController: NavController,
     tabs: List<AppTab>
 ) {

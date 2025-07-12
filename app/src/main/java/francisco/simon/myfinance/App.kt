@@ -14,8 +14,7 @@ import francisco.simon.feature.income.di.IncomeDependenciesProvider
 import francisco.simon.myfinance.di.ApplicationComponent
 import francisco.simon.myfinance.di.DaggerApplicationComponent
 
-
-class App : Application(),
+internal class App : Application(),
     CategoryDependenciesProvider,
     AccountDependenciesProvider,
     IncomeDependenciesProvider,
@@ -42,6 +41,6 @@ class App : Application(),
 }
 
 @Composable
-fun getApplicationComponent(): ApplicationComponent {
+internal fun getApplicationComponent(): ApplicationComponent {
     return (LocalContext.current.applicationContext as App).component
 }

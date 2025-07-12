@@ -1,36 +1,3 @@
 <resources>
     <string name="app_name">MyFinance</string>
-    <string name="expenses_tab">Расходы</string>
-    <string name="income_tab">Доходы</string>
-    <string name="account_tab">Счет</string>
-    <string name="category_tab">Статьи</string>
-    <string name="settings_tab">Настройки</string>
-    <string name="expense_app_top_bar">Расходы сегодня</string>
-    <string name="income_app_top_bar">Доходы сегодня</string>
-    <string name="account_app_top_bar">Мой счет</string>
-    <string name="category_app_top_bar">Мои статьи</string>
-    <string name="settings_app_top_bar">Настройки</string>
-    <string name="history_app_top_bar">Моя история</string>
-    <string name="all_money">Всего</string>
-    <string name="currency">Валюта</string>
-    <string name="search_bar_find_category">Найти статью</string>
-    <string name="dark_theme">Тёмная тема</string>
-    <string name="error_no_internet">Проблемы с сетью. Проверьте ваше подключение!</string>
-    <string name="error_unknown">Произошла неизвестная ошибка</string>
-    <string name="error_request_timeout">Истекло время ожидания.</string>
-    <string name="error_too_many_requests">Cлишком много запросов</string>
-    <string name="error_null">Нет содержимого</string>
-    <string name="error_server">Ошибка сервера. Попробуйте позже</string>
-    <string name="try_again">Повторить</string>
-    <string name="start">Начало</string>
-    <string name="end">Конец</string>
-    <string name="sum">Сумма</string>
-    <string name="ok">ОК</string>
-    <string name="exit">Закрыть</string>
-    <string name="balance">Баланс</string>
-    <string name="account_name">Название счёта</string>
-    <string name="russian_ruble">Российский рубль</string>
-    <string name="american_dollar">Американский доллар</string>
-    <string name="euro">Евро</string>
-    <string name="cancel">Отмена</string>
 </resources>

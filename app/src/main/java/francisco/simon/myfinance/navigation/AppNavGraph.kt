@@ -1,7 +1,6 @@
 package francisco.simon.myfinance.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -10,6 +9,7 @@ import androidx.navigation.compose.composable
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.feature.account.navigation.accountNavGraph
 import francisco.simon.feature.category.navigation.categoryNavGraph
+import francisco.simon.feature.expenses.navigation.ExpenseGraph
 import francisco.simon.feature.expenses.navigation.expenseNavGraph
 import francisco.simon.feature.income.navigation.incomeNavGraph
 import francisco.simon.feature.settings.navigation.settingsNavGraph
@@ -20,39 +20,48 @@ import francisco.simon.myfinance.SplashScreen
  * @author Simon Francisco
  */
 @Composable
-fun AppNavGraph(
+internal fun AppNavGraph(
     navController: NavHostController,
     startDestination: Any,
     appBarState: MutableState<AppBarState>,
     modifier: Modifier = Modifier,
 ) {
-    CompositionLocalProvider(
-        LocalNavController provides navController,
+    NavHost(
+        navController = navController,
+        startDestination = startDestination,
+        modifier = modifier
     ) {
-        NavHost(
-            navController = navController,
-            startDestination = startDestination,
-            modifier = modifier
-        ) {
-            composable<SplashRoute> {
-                SplashScreen()
-            }
-            expenseNavGraph(
-                appBarState = appBarState,
-                navController = navController
+        composable<SplashRoute> {
+            SplashScreen(
+                onGoToScreenAfterSplash = {
+                    navController.navigate(ExpenseGraph) {
+                        popUpTo(SplashRoute) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
-            incomeNavGraph(
-                appBarState = appBarState,
-                navController = navController
-            )
-            accountNavGraph(
-                appBarState = appBarState,
-                navController = navController
-            )
-            categoryNavGraph(appBarState)
-            settingsNavGraph(appBarState)
         }
+        expenseNavGraph(
+            appBarState = appBarState,
+            navController = navController
+        )
+        incomeNavGraph(
+            appBarState = appBarState,
+            navController = navController
+        )
+        accountNavGraph(
+            appBarState = appBarState,
+            navController = navController
+        )
+        categoryNavGraph(
+            appBarState = appBarState
+        )
+        settingsNavGraph(
+            appBarState = appBarState
+        )
     }
+
 }
 
 

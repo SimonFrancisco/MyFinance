@@ -32,6 +32,7 @@ import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
+import francisco.simon.core.ui.utils.UpdateWhenGoingBack
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.feature.expenses.expensesComponent
 import francisco.simon.feature.expenses.ui.model.ExpenseUI
@@ -60,7 +61,7 @@ internal fun ExpenseScreen(
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     ExpenseScreenContent(currentState, viewModel)
-    francisco.simon.core.ui.utils.UpdateWhenGoingBack {
+    UpdateWhenGoingBack {
         viewModel.retry()
     }
 }

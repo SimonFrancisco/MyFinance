@@ -30,9 +30,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.core.ui.R
+import francisco.simon.core.ui.components.FullScreenLoading
+import francisco.simon.core.ui.components.RetryCall
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
+import francisco.simon.core.ui.utils.UpdateWhenGoingBack
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.feature.income.incomeComponent
 import francisco.simon.feature.income.ui.model.IncomeUI
@@ -62,7 +65,7 @@ internal fun IncomeScreen(
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     IncomeScreenContent(currentState, viewModel)
-    francisco.simon.core.ui.utils.UpdateWhenGoingBack {
+    UpdateWhenGoingBack {
         viewModel.retry()
     }
 }
@@ -75,7 +78,7 @@ private fun IncomeScreenContent(
 ) {
     when (state) {
         is IncomeScreenState.Error -> {
-            francisco.simon.core.ui.components.RetryCall(
+            RetryCall(
                 errorRes = state.errorMessageRes,
                 onClick = {
                     viewModel.retry()
@@ -84,7 +87,7 @@ private fun IncomeScreenContent(
         }
 
         is IncomeScreenState.Loading -> {
-            francisco.simon.core.ui.components.FullScreenLoading()
+            FullScreenLoading()
         }
 
         is IncomeScreenState.Success -> {

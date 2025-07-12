@@ -13,7 +13,7 @@ import francisco.simon.feature.income.di.IncomeDependencies
 
 @ApplicationScope
 @Component(modules = [DataModule::class])
-interface ApplicationComponent :
+internal interface ApplicationComponent :
     CategoryDependencies,
     AccountDependencies,
     IncomeDependencies,

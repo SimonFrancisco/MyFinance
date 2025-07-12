@@ -40,7 +40,7 @@ import francisco.simon.myfinance.navigation.routeClass
 import francisco.simon.myfinance.navigationBar.AppNavigationBar
 import francisco.simon.myfinance.navigationBar.mainTabs
 import kotlin.reflect.KClass
-
+import francisco.simon.core.ui.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
  * @author Simon Francisco
  */
 @Composable
-fun FinanceApp() {
+private fun FinanceApp() {
     val navController = rememberNavController()
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val appBarState = remember {
