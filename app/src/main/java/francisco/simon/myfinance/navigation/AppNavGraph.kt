@@ -7,13 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import francisco.simon.myfinance.core.components.topBar.AppBarState
-import francisco.simon.myfinance.navigation.navGraphs.accountNavGraph
-import francisco.simon.myfinance.navigation.navGraphs.categoryNavGraph
-import francisco.simon.myfinance.navigation.navGraphs.expenseNavGraph
-import francisco.simon.myfinance.navigation.navGraphs.incomeNavGraph
-import francisco.simon.myfinance.navigation.navGraphs.settingsNavGraph
-import francisco.simon.myfinance.ui.features.splash.SplashScreen
+import francisco.simon.core.ui.components.topBar.AppBarState
+import francisco.simon.feature.account.navigation.accountNavGraph
+import francisco.simon.feature.category.navigation.categoryNavGraph
+import francisco.simon.feature.expenses.navigation.expenseNavGraph
+import francisco.simon.feature.income.navigation.incomeNavGraph
+import francisco.simon.feature.settings.navigation.settingsNavGraph
+import francisco.simon.myfinance.SplashScreen
 
 /**
  * App nav graph for the whole app, it contains all needed graphs
@@ -37,9 +37,18 @@ fun AppNavGraph(
             composable<SplashRoute> {
                 SplashScreen()
             }
-            expenseNavGraph(appBarState)
-            incomeNavGraph(appBarState)
-            accountNavGraph(appBarState)
+            expenseNavGraph(
+                appBarState = appBarState,
+                navController = navController
+            )
+            incomeNavGraph(
+                appBarState = appBarState,
+                navController = navController
+            )
+            accountNavGraph(
+                appBarState = appBarState,
+                navController = navController
+            )
             categoryNavGraph(appBarState)
             settingsNavGraph(appBarState)
         }

@@ -5,53 +5,6 @@ import androidx.navigation.NavDestination
 import kotlinx.serialization.Serializable
 import kotlin.reflect.KClass
 
-/**
- * File contains all nav graphs with needed routes
- * @author Simon
- */
-@Serializable
-data object ExpenseGraph {
-    @Serializable
-    data object ExpenseRoute
-
-    @Serializable
-    data object ExpensesHistoryRoute
-}
-
-@Serializable
-data object IncomeGraph {
-
-    @Serializable
-    data object IncomeRoute
-
-    @Serializable
-    data object IncomeHistoryRoute
-}
-
-@Serializable
-data object AccountGraph {
-
-    @Serializable
-    data object AccountRoute
-
-    @Serializable
-    data class AccountEditRoute(
-        val accountId: Int
-    )
-}
-
-@Serializable
-data object CategoryGraph {
-    @Serializable
-    data object CategoryRoute
-}
-
-@Serializable
-data object SettingsGraph {
-    @Serializable
-    data object SettingsRoute
-}
-
 @Serializable
 data object SplashRoute
 

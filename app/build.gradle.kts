@@ -1,61 +1,27 @@
-import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.custom.android.application)
 }
 
 android {
     namespace = "francisco.simon.myfinance"
-    compileSdk = 35
 
     defaultConfig {
         applicationId = "francisco.simon.myfinance"
-        minSdk = 26
-        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        val localProperties = Properties()
-        localProperties.load(project.rootProject.file("local.properties").inputStream())
-        buildConfigField(
-            "String",
-            "API_KEY",
-            "\"${localProperties.getProperty("API_KEY")}\""
-        )
-    }
-
-    buildTypes {
-        debug {
-            buildConfigField("String", "BASE_URL", "\"https://shmr-finance.ru/api/v1/\"")
-        }
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-    buildFeatures {
-        compose = true
-        buildConfig = true
     }
 }
 
 dependencies {
+    implementation(projects.core.domain)
+    implementation(projects.core.ui)
+    implementation(projects.core.data)
+    implementation(projects.feature.category)
+    implementation(projects.feature.account)
+    implementation(projects.feature.income)
+    implementation(projects.feature.expenses)
+    implementation(projects.feature.settings)
 
     implementation(libs.androidx.core.ktx)
 
@@ -71,8 +37,6 @@ dependencies {
 
     androidTestImplementation(libs.bundles.android.test)
 
-    implementation(libs.bundles.hilt)
-
     implementation(libs.bundles.serialization)
 
     ksp(libs.bundles.ksp)
@@ -87,6 +51,8 @@ dependencies {
     implementation(libs.lottie.compose)
 
     implementation(libs.room.core)
+
+    implementation(libs.dagger2)
 
 
 }

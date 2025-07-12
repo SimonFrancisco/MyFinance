@@ -27,23 +27,21 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import dagger.hilt.android.AndroidEntryPoint
-import francisco.simon.myfinance.core.components.navigationBar.AppNavigationBar
-import francisco.simon.myfinance.core.components.navigationBar.mainTabs
-import francisco.simon.myfinance.core.components.topBar.AppBarState
-import francisco.simon.myfinance.core.components.topBar.AppTopBar
+import francisco.simon.core.ui.components.topBar.AppBarState
+import francisco.simon.core.ui.components.topBar.AppTopBar
+import francisco.simon.core.ui.theme.Green
+import francisco.simon.core.ui.theme.GreyLight
+import francisco.simon.core.ui.theme.MyFinanceTheme
+import francisco.simon.feature.expenses.navigation.ExpenseGraph.ExpenseRoute
+import francisco.simon.feature.income.navigation.IncomeGraph.IncomeRoute
 import francisco.simon.myfinance.navigation.AppNavGraph
-import francisco.simon.myfinance.navigation.ExpenseGraph.ExpenseRoute
-import francisco.simon.myfinance.navigation.IncomeGraph.IncomeRoute
 import francisco.simon.myfinance.navigation.SplashRoute
 import francisco.simon.myfinance.navigation.routeClass
-import francisco.simon.myfinance.ui.theme.Green
-import francisco.simon.myfinance.ui.theme.GreyLight
-import francisco.simon.myfinance.ui.theme.MyFinanceTheme
+import francisco.simon.myfinance.navigationBar.AppNavigationBar
+import francisco.simon.myfinance.navigationBar.mainTabs
 import kotlin.reflect.KClass
 
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         edgeToEdge()
@@ -68,7 +66,6 @@ class MainActivity : ComponentActivity() {
         )
     }
 }
-
 /**
  * The whole app functionality is joined here.
  * @author Simon Francisco

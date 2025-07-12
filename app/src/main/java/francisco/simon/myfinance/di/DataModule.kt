@@ -1,57 +1,79 @@
 package francisco.simon.myfinance.di
 
 import android.content.Context
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import francisco.simon.myfinance.data.data_source.network.api.ApiFactory
-import francisco.simon.myfinance.data.data_source.network.api.ApiService
-import francisco.simon.myfinance.data.data_source.local.db.CategoriesDao
-import francisco.simon.myfinance.data.data_source.local.db.CategoryDatabase
-import francisco.simon.myfinance.data.repositories.AccountRepositoryImpl
-import francisco.simon.myfinance.data.repositories.CategoryRepositoryImpl
-import francisco.simon.myfinance.data.repositories.TransactionRepositoryImpl
-import francisco.simon.myfinance.domain.repository.AccountRepository
-import francisco.simon.myfinance.domain.repository.CategoryRepository
-import francisco.simon.myfinance.domain.repository.TransactionRepository
-import javax.inject.Singleton
+import francisco.simon.core.data.data_source.local.db.CategoriesDao
+import francisco.simon.core.data.data_source.local.db.CategoryDatabase
+import francisco.simon.core.data.data_source.network.api.ApiClient
+import francisco.simon.core.data.data_source.network.api.ApiFactory
+import francisco.simon.core.data.data_source.network.api.ApiService
+import francisco.simon.core.data.repositories.AccountRepositoryImpl
+import francisco.simon.core.data.repositories.CategoryRepositoryImpl
+import francisco.simon.core.data.repositories.TransactionRepositoryImpl
+import francisco.simon.core.domain.repository.AccountRepository
+import francisco.simon.core.domain.repository.CategoryRepository
+import francisco.simon.core.domain.repository.TransactionRepository
 
 /**
- * Hilt module that binds repositories to their implementations and
+ * Dagger module that binds repositories to their implementations and
  * provides implementations for object creation. Singleton is used.
  * @author Simon Francisco
  */
 @Module
-@InstallIn(SingletonComponent::class)
-internal interface DataModule {
+internal object DataModule {
+    @[ApplicationScope Provides]
+    fun provideTransactionRepository(
+        apiService: ApiService,
+        apiClient: ApiClient
+    ): TransactionRepository {
+        return TransactionRepositoryImpl(
+            apiService = apiService,
+            apiClient = apiClient
+        )
+    }
 
-    @[Singleton Binds]
-    fun bindTransactionRepository(impl: TransactionRepositoryImpl): TransactionRepository
+    @[ApplicationScope Provides]
+    fun providesCategoryRepository(
+        apiService: ApiService,
+        apiClient: ApiClient,
+        categoriesDao: CategoriesDao
+    ): CategoryRepository {
+        return CategoryRepositoryImpl(
+            apiService = apiService,
+            apiClient = apiClient,
+            categoriesDao = categoriesDao
+        )
+    }
+    @[ApplicationScope Provides]
+    fun providesAccountRepository(
+        apiService: ApiService,
+        apiClient: ApiClient
+    ): AccountRepository {
+        return AccountRepositoryImpl(
+            apiService = apiService,
+            apiClient = apiClient
+        )
+    }
 
-    @[Singleton Binds]
-    fun bindCategoryRepository(impl: CategoryRepositoryImpl): CategoryRepository
+    @[ApplicationScope Provides]
+    fun provideApiService(): ApiService {
+        return ApiFactory.apiService
+    }
 
-    @[Singleton Binds]
-    fun bindAccountRepository(impl: AccountRepositoryImpl): AccountRepository
+    @[ApplicationScope Provides]
+    fun provideCategoryDatabase(context: Context): CategoryDatabase {
+        return CategoryDatabase.getInstance(context)
+    }
 
-    companion object {
-        @[Singleton Provides]
-        fun provideApiService(): ApiService {
-            return ApiFactory.apiService
-        }
+    @[ApplicationScope Provides]
+    fun provideCategoriesDao(database: CategoryDatabase): CategoriesDao {
+        return database.categoryDao()
+    }
 
-        @[Singleton Provides]
-        fun provideCategoryDatabase(@ApplicationContext context: Context): CategoryDatabase {
-            return CategoryDatabase.getInstance(context)
-        }
-
-        @[Singleton Provides]
-        fun provideCategoriesDao(database: CategoryDatabase): CategoriesDao {
-            return database.categoryDao()
-        }
+    @[ApplicationScope Provides]
+    fun provideApiClient(context: Context): ApiClient {
+        return ApiClient(context)
     }
 
 }
