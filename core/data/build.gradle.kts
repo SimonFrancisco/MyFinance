@@ -27,12 +27,9 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     ksp(libs.room.compiler)
     implementation(libs.json.serialization)
-    implementation(libs.room.core)
+    api(libs.room.core)
     implementation(libs.bundles.http)
     implementation(libs.bundles.retrofit)
 }

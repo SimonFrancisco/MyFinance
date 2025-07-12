@@ -39,18 +39,15 @@ dependencies {
 
     implementation(libs.bundles.serialization)
 
-    ksp(libs.bundles.ksp)
+    ksp(libs.dagger2.compiler)
+    ksp(libs.dagger2.android.processor)
 
-    implementation(libs.bundles.http)
-    implementation(libs.bundles.retrofit)
     implementation(libs.json.serialization)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
 
     implementation(libs.lottie.compose)
-
-    implementation(libs.room.core)
 
     implementation(libs.dagger2)
 
