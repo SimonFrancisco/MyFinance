@@ -24,6 +24,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import francisco.simon.core.domain.model.AccountUpdateRequestModel
 import francisco.simon.core.ui.R
+import francisco.simon.core.ui.components.CustomListItem
+import francisco.simon.core.ui.theme.Red
 import francisco.simon.feature.account.ui.screens.edit.utils.Currency
 
 @Composable
@@ -54,13 +56,14 @@ private fun CurrencyPickerBottomSheet(
         containerColor = francisco.simon.core.ui.theme.GreyBottomSheet
     ) {
         Currency.entries.forEach { currency ->
-            francisco.simon.core.ui.components.CustomListItem(
+            CustomListItem(
                 modifier = Modifier
                     .height(
                         72.dp
                     )
                     .clickable {
                         onCurrencySelected(currency)
+                        onDismissRequest()
                     },
                 leadingContent = {
                     Icon(
@@ -80,13 +83,13 @@ private fun CurrencyPickerBottomSheet(
             )
             HorizontalDivider()
         }
-        francisco.simon.core.ui.components.CustomListItem(
+        CustomListItem(
             modifier = Modifier
                 .height(
                     72.dp
                 )
                 .background(
-                    francisco.simon.core.ui.theme.Red
+                    Red
                 )
                 .clickable {
                     onDismissRequest()

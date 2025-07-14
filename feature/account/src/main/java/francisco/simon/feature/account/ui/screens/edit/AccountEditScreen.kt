@@ -12,10 +12,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.core.domain.model.AccountUpdateRequestModel
 import francisco.simon.core.ui.R
+import francisco.simon.core.ui.components.FullScreenLoading
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.NavigationButton
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
+import francisco.simon.core.ui.utils.EventConsumer
 import francisco.simon.core.ui.utils.MonitorAccount
 import francisco.simon.core.ui.utils.MonitorAccount.Commands.UPDATE_ACCOUNT
 import francisco.simon.feature.account.accountComponent
@@ -76,7 +78,7 @@ internal fun AccountEditScreen(
             }
         }
     )
-    francisco.simon.core.ui.utils.EventConsumer(channel = viewModel.exitChannel) {
+    EventConsumer(channel = viewModel.exitChannel) {
         onGoBackToAccountScreen()
     }
     AccountEditScreenContent(
@@ -120,7 +122,7 @@ private fun AccountEditScreenContent(
             }
 
             is AccountEditScreenState.Loading -> {
-                francisco.simon.core.ui.components.FullScreenLoading()
+                FullScreenLoading()
             }
 
             is AccountEditScreenState.Success -> {

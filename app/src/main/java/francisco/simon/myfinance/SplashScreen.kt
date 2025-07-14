@@ -11,6 +11,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import francisco.simon.core.ui.theme.Green
 
 /**
  * Splash screen with Lottie
@@ -21,7 +22,7 @@ internal fun SplashScreen(onGoToScreenAfterSplash: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(francisco.simon.core.ui.theme.Green),
+            .background(Green),
         contentAlignment = Alignment.Center,
     ) {
         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.wallet_animation))
