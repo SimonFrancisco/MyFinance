@@ -5,13 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -20,27 +16,25 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.AppTopBar
 import francisco.simon.core.ui.theme.Green
 import francisco.simon.core.ui.theme.GreyLight
 import francisco.simon.core.ui.theme.MyFinanceTheme
 import francisco.simon.feature.expenses.navigation.ExpenseGraph.ExpenseRoute
+import francisco.simon.feature.expenses.ui.screens.expense.ExpenseFloatingButton
 import francisco.simon.feature.income.navigation.IncomeGraph.IncomeRoute
+import francisco.simon.feature.income.ui.screens.income.IncomeFloatingButton
 import francisco.simon.myfinance.navigation.AppNavGraph
 import francisco.simon.myfinance.navigation.SplashRoute
 import francisco.simon.myfinance.navigation.routeClass
 import francisco.simon.myfinance.navigationBar.AppNavigationBar
 import francisco.simon.myfinance.navigationBar.mainTabs
-import kotlin.reflect.KClass
-import francisco.simon.core.ui.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +60,7 @@ class MainActivity : ComponentActivity() {
         )
     }
 }
+
 /**
  * The whole app functionality is joined here.
  * @author Simon Francisco
@@ -77,19 +72,15 @@ private fun FinanceApp() {
     val appBarState = remember {
         mutableStateOf(AppBarState(R.string.expense_app_top_bar))
     }
-    val floatButtonScreens = listOf(
-        IncomeRoute::class, ExpenseRoute::class
-    )
     Scaffold(
         bottomBar = {
             BottomBarSettings(currentBackStackEntry, navController)
         },
         topBar = {
-
             TopBarSettings(currentBackStackEntry, appBarState.value)
         },
         floatingActionButton = {
-            FloatingButtonSettings(currentBackStackEntry, floatButtonScreens)
+            FloatingButtonSettings(currentBackStackEntry)
         }
     ) { innerPadding ->
         AppNavGraphSettings(
@@ -129,21 +120,12 @@ private fun BottomBarSettings(
 @Composable
 private fun FloatingButtonSettings(
     currentBackStackEntry: NavBackStackEntry?,
-    floatButtonScreens: List<KClass<out Any>>
 ) {
-    if (currentBackStackEntry.routeClass() in floatButtonScreens) {
-        FloatingActionButton(
-            containerColor = Green,
-            shape = CircleShape,
-            modifier = Modifier
-                .size(56.dp),
-            onClick = {}  //TODO
-        ) {
-            Image(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_add),
-                contentDescription = null
-            )
-        }
+    if (currentBackStackEntry.routeClass() == IncomeRoute::class) {
+        IncomeFloatingButton()
+    }
+    if (currentBackStackEntry.routeClass() == ExpenseRoute::class) {
+        ExpenseFloatingButton()
     }
 }
 

@@ -1,5 +1,6 @@
 package francisco.simon.feature.income.ui.screens.income
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -22,20 +24,25 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.core.ui.R
+import francisco.simon.core.ui.components.CustomListItem
 import francisco.simon.core.ui.components.FullScreenLoading
 import francisco.simon.core.ui.components.RetryCall
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
-import francisco.simon.core.ui.utils.UpdateWhenGoingBack
+import francisco.simon.core.ui.theme.Green
+import francisco.simon.core.ui.utils.PropagateAccountUpdateWhenGoingBack
+import francisco.simon.core.ui.utils.PropagateIncomeChangeUpdateWhenGoingBack
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.feature.income.incomeComponent
 import francisco.simon.feature.income.ui.model.IncomeUI
@@ -45,10 +52,14 @@ import francisco.simon.feature.income.ui.model.IncomeUI
  * keep code logic short
  * @author Simon Francisco
  */
+internal var onGoToAddIncomeScreenGlobal: (() -> Unit)? = null
+
 @Composable
 internal fun IncomeScreen(
     appBarState: MutableState<AppBarState>,
-    onGoToIncomeHistoryScreen: () -> Unit
+    onGoToIncomeHistoryScreen: () -> Unit,
+    onGoToAddIncomeScreen: () -> Unit,
+    onGoToEditIncomeScreen: (transactionId: Int) -> Unit
 ) {
     UpdateAppBarState(
         appBarState = appBarState,
@@ -58,14 +69,18 @@ internal fun IncomeScreen(
         }
 
     )
+    onGoToAddIncomeScreenGlobal = onGoToAddIncomeScreen
     val component = incomeComponent()
     val viewModel: IncomeScreenViewModel = viewModel(
         factory = component.getViewModelFactory()
     )
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
-    IncomeScreenContent(currentState, viewModel)
-    UpdateWhenGoingBack {
+    IncomeScreenContent(currentState, viewModel, onGoToEditIncomeScreen)
+    PropagateAccountUpdateWhenGoingBack {
+        viewModel.retry()
+    }
+    PropagateIncomeChangeUpdateWhenGoingBack {
         viewModel.retry()
     }
 }
@@ -74,7 +89,8 @@ internal fun IncomeScreen(
 @Composable
 private fun IncomeScreenContent(
     state: IncomeScreenState,
-    viewModel: IncomeScreenViewModel
+    viewModel: IncomeScreenViewModel,
+    onTransactionClicked: (Int) -> Unit
 ) {
     when (state) {
         is IncomeScreenState.Error -> {
@@ -91,7 +107,10 @@ private fun IncomeScreenContent(
         }
 
         is IncomeScreenState.Success -> {
-            IncomeList(state.incomeUI)
+            IncomeList(
+                incomeUI = state.incomeUI,
+                onTransactionClicked = onTransactionClicked
+            )
         }
     }
 }
@@ -99,6 +118,7 @@ private fun IncomeScreenContent(
 @Composable
 private fun IncomeList(
     incomeUI: List<IncomeUI>,
+    onTransactionClicked: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -107,11 +127,11 @@ private fun IncomeList(
         HorizontalDivider()
         LazyColumn {
             items(incomeUI, key = { it.transactionId }) { income ->
-                francisco.simon.core.ui.components.CustomListItem(
+                CustomListItem(
                     modifier = Modifier
                         .height(72.dp)
                         .clickable {
-
+                            onTransactionClicked(income.transactionId)
                         },
                     headlineContent = {
                         IncomeHeadingContent(income)
@@ -185,7 +205,7 @@ private fun IncomeSumItem(incomeUI: List<IncomeUI>) {
     val sum = incomeUI.sumOf {
         it.amount
     }
-    francisco.simon.core.ui.components.CustomListItem(
+    CustomListItem(
         modifier = Modifier
             .height(56.dp)
             .background(MaterialTheme.colorScheme.secondaryContainer),
@@ -202,4 +222,23 @@ private fun IncomeSumItem(incomeUI: List<IncomeUI>) {
             )
         },
     )
+}
+
+@Composable
+fun IncomeFloatingButton() {
+    FloatingActionButton(
+        containerColor = Green,
+        shape = CircleShape,
+        modifier = Modifier
+            .size(56.dp),
+        onClick = {
+            onGoToAddIncomeScreenGlobal?.invoke()
+        }
+    ) {
+        Image(
+            imageVector = ImageVector.vectorResource(R.drawable.ic_add),
+            contentDescription = null
+        )
+    }
+
 }

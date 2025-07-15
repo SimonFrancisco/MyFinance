@@ -21,13 +21,15 @@ fun NavGraphBuilder.accountNavGraph(
     appBarState: MutableState<AppBarState>,
     navController: NavController
 ) {
+
     navigation<AccountGraph>(startDestination = AccountRoute) {
         composable<AccountRoute> {
             AccountScreen(
                 appBarState = appBarState,
                 onOpenEditScreen = { accountId ->
                     navController.navigate(AccountEditRoute(accountId))
-                })
+                }
+            )
         }
         composable<AccountEditRoute> { entry ->
             val route: AccountEditRoute = entry.toRoute()

@@ -10,4 +10,10 @@ data object IncomeGraph {
 
     @Serializable
     data object IncomeHistoryRoute
+
+    @Serializable
+    data object AddIncomeRoute
+
+    @Serializable
+    data class EditIncomeRoute(val incomeId: Int)
 }

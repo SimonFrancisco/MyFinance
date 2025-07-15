@@ -11,6 +11,8 @@
     <string name="category_app_top_bar">Мои статьи</string>
     <string name="settings_app_top_bar">Настройки</string>
     <string name="history_app_top_bar">Моя история</string>
+    <string name="add_income_app_top_bar">Мои доходы</string>
+    <string name="add_expense_app_top_bar">Мои расходы</string>
     <string name="all_money">Всего</string>
     <string name="currency">Валюта</string>
     <string name="search_bar_find_category">Найти статью</string>
@@ -33,4 +35,15 @@
     <string name="american_dollar">Американский доллар</string>
     <string name="euro">Евро</string>
     <string name="cancel">Отмена</string>
+    <string name="confirm_time">Подтвердить</string>
+    <string name="cancel_time_choice">Отмена</string>
+    <string name="choose_time">Выберите время</string>
+    <string name="account">Счёт</string>
+    <string name="category">Статья</string>
+    <string name="date">Дата</string>
+    <string name="time">Время</string>
+    <string name="data_not_complete_error">Нет всех данных</string>
+    <string name="comment">Комментарий...</string>
+    <string name="delete">Удалить</string>
+
 </resources>

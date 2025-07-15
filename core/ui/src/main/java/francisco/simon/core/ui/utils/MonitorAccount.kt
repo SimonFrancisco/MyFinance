@@ -32,7 +32,7 @@ object MonitorAccount {
  * @author Simon Francisco
  */
 @Composable
-fun UpdateWhenGoingBack(onGoBack: () -> Unit) {
+fun PropagateAccountUpdateWhenGoingBack(onGoBack: () -> Unit) {
     val version by MonitorAccount.version.collectAsStateWithLifecycle()
     var lastSeenVersion by rememberSaveable { mutableIntStateOf(version) }
 

@@ -25,6 +25,7 @@ import java.time.LocalDate
 @Composable
 fun HistoryScreenList(
     transactions: List<Transaction>,
+    onTransactionClicked: (Int) -> Unit
 ) {
     val sum = transactions.sumOf {
         it.amount.toBigDecimal()
@@ -33,7 +34,7 @@ fun HistoryScreenList(
         SumInfo(sum, transactions)
         LazyColumn {
             items(transactions, key = { it.id }) { transaction ->
-                HistoryListItem(transaction)
+                HistoryListItem(transaction, onTransactionClicked)
                 HorizontalDivider()
             }
         }

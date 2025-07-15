@@ -8,5 +8,6 @@ import francisco.simon.feature.income.ViewModelFactory
     dependencies = [IncomeDependencies::class])
 internal interface IncomeComponent {
     fun getViewModelFactory(): ViewModelFactory
+    fun getIncomeEditComponentFactory(): IncomeEditSubComponent.Factory
 
 }

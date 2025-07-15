@@ -12,7 +12,12 @@ import francisco.simon.core.ui.history.HistoryScreen
 import francisco.simon.feature.expenses.expensesComponent
 
 @Composable
-internal fun ExpensesHistoryScreen(appBarState: MutableState<AppBarState>, onGoBackToExpensesScreen:()->Unit) {
+internal fun ExpensesHistoryScreen(
+    appBarState: MutableState<AppBarState>,
+    onGoBackToExpensesScreen: () -> Unit,
+    onGoToEditExpenseScreen: (transactionId: Int) -> Unit
+
+) {
     UpdateAppBarState(
         appBarState = appBarState,
         titleRes = R.string.history_app_top_bar,
@@ -25,5 +30,6 @@ internal fun ExpensesHistoryScreen(appBarState: MutableState<AppBarState>, onGoB
     val viewModel: ExpensesHistoryScreenViewModel = viewModel(
         factory = component.getViewModelFactory()
     )
-    HistoryScreen(viewModel = viewModel)
+    HistoryScreen(viewModel = viewModel, onGoToEditExpenseScreen)
+
 }

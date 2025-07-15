@@ -8,5 +8,5 @@ import francisco.simon.feature.expenses.ViewModelFactory
     dependencies = [ExpensesDependencies::class])
 internal interface ExpensesComponent {
     fun getViewModelFactory(): ViewModelFactory
-
+    fun getExpensesSubComponent():ExpenseEditSubComponent.Factory
 }

@@ -9,4 +9,11 @@ data object ExpenseGraph {
 
     @Serializable
     data object ExpensesHistoryRoute
+
+    @Serializable
+    data object AddExpenseRoute
+
+    @Serializable
+    data class EditExpenseRoute(val expenseId: Int)
+
 }
