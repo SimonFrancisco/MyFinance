@@ -35,12 +35,15 @@ import francisco.simon.core.ui.utils.toDateAndTime
  * @author Simon Francisco
  */
 @Composable
-fun HistoryListItem(transaction: Transaction) {
+fun HistoryListItem(
+    transaction: Transaction,
+    onTransactionClicked: (Int) -> Unit
+) {
     francisco.simon.core.ui.components.CustomListItem(
         modifier = Modifier
             .height(70.dp)
             .clickable {
-
+                onTransactionClicked(transaction.id)
             },
         headlineContent = {
             HeadingContent(transaction)

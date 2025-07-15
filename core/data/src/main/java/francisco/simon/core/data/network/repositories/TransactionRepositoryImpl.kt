@@ -3,7 +3,7 @@ package francisco.simon.core.data.network.repositories
 import francisco.simon.core.data.network.api.ApiClient
 import francisco.simon.core.data.network.api.ApiService
 import francisco.simon.core.data.network.mappers.toAddTransactionDto
-import francisco.simon.core.data.network.mappers.toEditTransactionModel
+import francisco.simon.core.data.network.mappers.toEditTransactionDtoModel
 import francisco.simon.core.data.network.mappers.toTransaction
 import francisco.simon.core.data.network.mappers.toTransactionResponse
 import francisco.simon.core.domain.entity.Transaction
@@ -81,7 +81,7 @@ class TransactionRepositoryImpl(
             apiClient.safeApiCall {
                 apiService.editTransaction(
                     transactionId = transactionModel.transactionId,
-                    editTransactionDto = transactionModel.toEditTransactionModel()
+                    editTransactionDto = transactionModel.toEditTransactionDtoModel()
                 )
             }.map { transactionDto ->
                 transactionDto.toTransaction()

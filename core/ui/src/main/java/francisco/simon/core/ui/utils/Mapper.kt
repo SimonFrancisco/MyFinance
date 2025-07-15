@@ -48,9 +48,13 @@ fun LocalDateTime.toDate(): String {
     return this.format(dateFormat)
 }
 
-fun LocalDateTime.toTime():String{
+fun LocalDateTime.toTime(): String {
     val dateFormat = DateTimeFormatter.ofPattern("HH:mm")
     return this.format(dateFormat)
+}
+
+fun String.toLocalDateTime(): LocalDateTime {
+    return Instant.parse(this).atZone(ZoneId.systemDefault()).toLocalDateTime()
 }
 
 /**

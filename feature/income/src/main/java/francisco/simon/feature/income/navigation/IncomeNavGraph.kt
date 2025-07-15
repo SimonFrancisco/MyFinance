@@ -13,6 +13,7 @@ import francisco.simon.feature.income.navigation.IncomeGraph.EditIncomeRoute
 import francisco.simon.feature.income.navigation.IncomeGraph.IncomeHistoryRoute
 import francisco.simon.feature.income.navigation.IncomeGraph.IncomeRoute
 import francisco.simon.feature.income.ui.screens.add_income.AddIncomeScreen
+import francisco.simon.feature.income.ui.screens.edit_income.EditIncomeScreen
 import francisco.simon.feature.income.ui.screens.history.IncomeHistoryScreen
 import francisco.simon.feature.income.ui.screens.income.IncomeScreen
 import francisco.simon.feature.income.ui.screens.income.onGoToAddIncomeScreenGlobal
@@ -35,6 +36,10 @@ fun NavGraphBuilder.incomeNavGraph(
                 onGoToAddIncomeScreen = {
                     navController.navigate(AddIncomeRoute)
                     onGoToAddIncomeScreenGlobal = null
+                },
+                onGoToEditIncomeScreen = { transitionId ->
+                    navController.navigate(EditIncomeRoute(transitionId))
+
                 }
             )
         }
@@ -43,6 +48,9 @@ fun NavGraphBuilder.incomeNavGraph(
                 appBarState = appBarState,
                 onGoBackToIncomeScreen = {
                     navController.safePopBackStack()
+                },
+                onGoToEditIncomeScreen = { transitionId ->
+                    navController.navigate(EditIncomeRoute(transitionId))
                 }
             )
         }
@@ -56,7 +64,13 @@ fun NavGraphBuilder.incomeNavGraph(
         }
         composable<EditIncomeRoute> { entry ->
             val route: EditIncomeRoute = entry.toRoute()
-
+            EditIncomeScreen(
+                transactionId = route.incomeId,
+                appBarState = appBarState,
+                onGoBackToIncomeScreen = {
+                    navController.safePopBackStack()
+                }
+            )
         }
     }
 }

@@ -32,9 +32,10 @@ import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.CustomListItem
 import francisco.simon.core.ui.theme.Red
 import francisco.simon.core.ui.transactions.addTransaction.AddTransactionBaseViewModel.AddTransaction
+import francisco.simon.core.ui.transactions.editTransaction.EditTransactionBaseViewModel.EditTransaction
 
 @Composable
-internal fun CategoryBottomSheet(
+internal fun AddCategoryBottomSheet(
     showSheet: MutableState<Boolean>,
     updateModelState: MutableState<AddTransaction>,
     categories: List<Category>
@@ -48,7 +49,21 @@ internal fun CategoryBottomSheet(
         )
     }
 }
-
+@Composable
+internal fun EditCategoryBottomSheet(
+    showSheet: MutableState<Boolean>,
+    updateModelState: MutableState<EditTransaction>,
+    categories: List<Category>
+) {
+    if (showSheet.value) {
+        CategoryPickerBottomSheet(
+            categories = categories,
+            onCategorySelected = {
+                updateModelState.value = updateModelState.value.copy(category = it)
+            }, onDismissRequest = { showSheet.value = false }
+        )
+    }
+}
 @Composable
 private fun CategoryPickerBottomSheet(
     onCategorySelected: (Category) -> Unit,

@@ -121,7 +121,7 @@ internal fun AddTransactionModel.toAddTransactionDto(): AddTransactionDto {
     )
 }
 
-internal fun EditTransactionModel.toEditTransactionModel(): EditTransactionDto {
+internal fun EditTransactionModel.toEditTransactionDtoModel(): EditTransactionDto {
     return EditTransactionDto(
         accountId = accountId,
         categoryId = categoryId,

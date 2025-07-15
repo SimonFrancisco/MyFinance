@@ -29,6 +29,7 @@ import java.util.Date
 @Composable
 fun HistoryScreen(
     viewModel: BaseHistoryViewModel,
+    onTransactionClicked: (Int) -> Unit
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     val startDate = rememberSaveable {
@@ -58,7 +59,8 @@ fun HistoryScreen(
         startDate,
         endDate,
         showStartPicker,
-        showEndPicker
+        showEndPicker,
+        onTransactionClicked
     )
 }
 
@@ -74,7 +76,9 @@ private fun HistoryScreenContent(
     startDate: MutableState<LocalDate>,
     endDate: MutableState<LocalDate>,
     showStartPicker: MutableState<Boolean>,
-    showEndPicker: MutableState<Boolean>
+    showEndPicker: MutableState<Boolean>,
+    onTransactionClicked: (Int) -> Unit
+
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         StartInfo(startDate.value, showStartPicker)
@@ -90,12 +94,15 @@ private fun HistoryScreenContent(
                     endDate.value
                 )
             }
+
             is HistoryScreenState.Loading -> {
                 FullScreenLoading()
             }
+
             is HistoryScreenState.Success -> {
                 HistoryScreenList(
-                    currentState.transactions
+                    currentState.transactions,
+                    onTransactionClicked
                 )
             }
         }

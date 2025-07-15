@@ -34,7 +34,7 @@ import francisco.simon.core.ui.components.RetryCall
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
-import francisco.simon.core.ui.utils.UpdateWhenGoingBack
+import francisco.simon.core.ui.utils.PropagateAccountUpdateWhenGoingBack
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.feature.account.accountComponent
 import francisco.simon.feature.account.ui.model.AccountUI
@@ -71,7 +71,7 @@ internal fun AccountScreen(appBarState: MutableState<AppBarState>, onOpenEditScr
         viewModel = viewModel,
         accountIdState = accountIdState,
     )
-    UpdateWhenGoingBack {
+    PropagateAccountUpdateWhenGoingBack {
         viewModel.retry()
     }
 }
