@@ -1,5 +1,6 @@
 package francisco.simon.feature.expenses.ui.screens.expense
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -22,17 +24,22 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.core.ui.R
+import francisco.simon.core.ui.components.CustomListItem
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
+import francisco.simon.core.ui.theme.Green
 import francisco.simon.core.ui.utils.PropagateAccountUpdateWhenGoingBack
+import francisco.simon.core.ui.utils.PropagateExpenseChangeUpdateWhenGoingBack
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.feature.expenses.expensesComponent
 import francisco.simon.feature.expenses.ui.model.ExpenseUI
@@ -42,10 +49,14 @@ import francisco.simon.feature.expenses.ui.model.ExpenseUI
  * keep code logic short
  * @author Simon Francisco
  */
+internal var onGoToAddExpenseScreenGlobal: (() -> Unit)? = null
+
 @Composable
 internal fun ExpenseScreen(
     appBarState: MutableState<AppBarState>,
-    onGoToHistoryScreen: () -> Unit
+    onGoToHistoryScreen: () -> Unit,
+    onGoToAddExpenseScreen: () -> Unit,
+    onGoToEditExpenseScreen: (transactionId: Int) -> Unit
 ) {
     UpdateAppBarState(
         appBarState = appBarState,
@@ -54,14 +65,18 @@ internal fun ExpenseScreen(
             onGoToHistoryScreen()
         }
     )
+    onGoToAddExpenseScreenGlobal = onGoToAddExpenseScreen
     val component = expensesComponent()
     val viewModel: ExpenseScreenViewModel = viewModel(
         factory = component.getViewModelFactory()
     )
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
-    ExpenseScreenContent(currentState, viewModel)
+    ExpenseScreenContent(currentState, viewModel, onGoToEditExpenseScreen)
     PropagateAccountUpdateWhenGoingBack {
+        viewModel.retry()
+    }
+    PropagateExpenseChangeUpdateWhenGoingBack {
         viewModel.retry()
     }
 }
@@ -70,6 +85,7 @@ internal fun ExpenseScreen(
 private fun ExpenseScreenContent(
     state: ExpenseScreenState,
     viewModel: ExpenseScreenViewModel,
+    onTransactionClicked: (Int) -> Unit
 ) {
     when (state) {
         is ExpenseScreenState.Error -> {
@@ -86,26 +102,29 @@ private fun ExpenseScreenContent(
         }
 
         is ExpenseScreenState.Success -> {
-            ExpenseList(state.expenses)
+            ExpenseList(expenses = state.expenses, onTransactionClicked = onTransactionClicked)
         }
     }
 }
 
 @Composable
 private fun ExpenseList(
-    expens: List<ExpenseUI>,
+    expenses: List<ExpenseUI>,
+    onTransactionClicked: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        ExpenseSumItem(expens)
+        ExpenseSumItem(expenses)
         HorizontalDivider()
         LazyColumn {
-            items(expens, key = { it.transactionId }) { expense ->
-                francisco.simon.core.ui.components.CustomListItem(
+            items(expenses, key = { it.transactionId }) { expense ->
+                CustomListItem(
                     modifier = Modifier
                         .height(70.dp)
-                        .clickable {},
+                        .clickable {
+                            onTransactionClicked(expense.transactionId)
+                        },
                     headlineContent = {
                         ExpenseHeadingContent(expense)
                     },
@@ -174,11 +193,11 @@ private fun ExpenseHeadingContent(expenseUI: ExpenseUI) {
 }
 
 @Composable
-private fun ExpenseSumItem(expens: List<ExpenseUI>) {
-    val sum = expens.sumOf {
+private fun ExpenseSumItem(expenses: List<ExpenseUI>) {
+    val sum = expenses.sumOf {
         it.amount
     }
-    francisco.simon.core.ui.components.CustomListItem(
+    CustomListItem(
         modifier = Modifier
             .height(56.dp)
             .background(MaterialTheme.colorScheme.secondaryContainer),
@@ -190,9 +209,28 @@ private fun ExpenseSumItem(expens: List<ExpenseUI>) {
         },
         trailingContent = {
             Text(
-                text = "$sum ${expens.firstOrNull()?.currency?.toCurrencySymbol() ?: ""}",
+                text = "$sum ${expenses.firstOrNull()?.currency?.toCurrencySymbol() ?: ""}",
                 style = MaterialTheme.typography.bodyLarge,
             )
         },
     )
+}
+
+@Composable
+fun ExpenseFloatingButton() {
+    FloatingActionButton(
+        containerColor = Green,
+        shape = CircleShape,
+        modifier = Modifier
+            .size(56.dp),
+        onClick = {
+            onGoToAddExpenseScreenGlobal?.invoke()
+        }
+    ) {
+        Image(
+            imageVector = ImageVector.vectorResource(R.drawable.ic_add),
+            contentDescription = null
+        )
+    }
+
 }

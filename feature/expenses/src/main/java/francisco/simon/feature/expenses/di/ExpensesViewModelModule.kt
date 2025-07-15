@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import francisco.simon.feature.expenses.ui.screens.add_expense.AddExpenseScreenViewModel
 import francisco.simon.feature.expenses.ui.screens.expense.ExpenseScreenViewModel
 import francisco.simon.feature.expenses.ui.screens.history.ExpensesHistoryScreenViewModel
 
@@ -15,5 +16,8 @@ internal interface ExpensesViewModelModule {
 
     @[Binds IntoMap ViewModelKey(ExpensesHistoryScreenViewModel::class)]
     fun bindExpensesHistory(viewModel: ExpensesHistoryScreenViewModel): ViewModel
+
+    @[Binds IntoMap ViewModelKey(AddExpenseScreenViewModel::class)]
+    fun bindAddExpenseViewModel(viewModel: AddExpenseScreenViewModel):ViewModel
 
 }

@@ -12,8 +12,11 @@ import francisco.simon.feature.expenses.navigation.ExpenseGraph.AddExpenseRoute
 import francisco.simon.feature.expenses.navigation.ExpenseGraph.EditExpenseRoute
 import francisco.simon.feature.expenses.navigation.ExpenseGraph.ExpenseRoute
 import francisco.simon.feature.expenses.navigation.ExpenseGraph.ExpensesHistoryRoute
+import francisco.simon.feature.expenses.ui.screens.add_expense.AddExpenseScreen
 import francisco.simon.feature.expenses.ui.screens.expense.ExpenseScreen
+import francisco.simon.feature.expenses.ui.screens.expense.onGoToAddExpenseScreenGlobal
 import francisco.simon.feature.expenses.ui.screens.history.ExpensesHistoryScreen
+import francisco.simon.feature.income.ui.screens.edit_income.EditExpenseScreen
 
 /**
  * Extension function for Expense nav graph, it contains all needed routes
@@ -29,6 +32,12 @@ fun NavGraphBuilder.expenseNavGraph(
                 appBarState = appBarState,
                 onGoToHistoryScreen = {
                     navController.navigate(ExpensesHistoryRoute)
+                },
+                onGoToAddExpenseScreen = {
+                    navController.navigate(AddExpenseRoute)
+                    onGoToAddExpenseScreenGlobal = null
+                }, onGoToEditExpenseScreen = { transactionId ->
+                    navController.navigate(EditExpenseRoute(transactionId))
                 }
             )
         }
@@ -37,15 +46,29 @@ fun NavGraphBuilder.expenseNavGraph(
                 appBarState = appBarState,
                 onGoBackToExpensesScreen = {
                     navController.safePopBackStack()
+                },
+                onGoToEditExpenseScreen = { transactionId ->
+                    navController.navigate(EditExpenseRoute(transactionId))
                 }
             )
         }
         composable<AddExpenseRoute> {
-
+            AddExpenseScreen(
+                appBarState = appBarState,
+                onGoBackToExpensesScreen = {
+                    navController.safePopBackStack()
+                }
+            )
         }
         composable<EditExpenseRoute> { entry ->
             val route: EditExpenseRoute = entry.toRoute()
-
+            EditExpenseScreen(
+                appBarState = appBarState,
+                transactionId = route.expenseId,
+                onGoBackToExpensesScreen = {
+                    navController.safePopBackStack()
+                }
+            )
         }
     }
 }

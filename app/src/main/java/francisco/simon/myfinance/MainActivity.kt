@@ -27,6 +27,7 @@ import francisco.simon.core.ui.theme.Green
 import francisco.simon.core.ui.theme.GreyLight
 import francisco.simon.core.ui.theme.MyFinanceTheme
 import francisco.simon.feature.expenses.navigation.ExpenseGraph.ExpenseRoute
+import francisco.simon.feature.expenses.ui.screens.expense.ExpenseFloatingButton
 import francisco.simon.feature.income.navigation.IncomeGraph.IncomeRoute
 import francisco.simon.feature.income.ui.screens.income.IncomeFloatingButton
 import francisco.simon.myfinance.navigation.AppNavGraph
@@ -71,9 +72,6 @@ private fun FinanceApp() {
     val appBarState = remember {
         mutableStateOf(AppBarState(R.string.expense_app_top_bar))
     }
-    val floatButtonScreens = listOf(
-        IncomeRoute::class, ExpenseRoute::class
-    )
     Scaffold(
         bottomBar = {
             BottomBarSettings(currentBackStackEntry, navController)
@@ -125,6 +123,9 @@ private fun FloatingButtonSettings(
 ) {
     if (currentBackStackEntry.routeClass() == IncomeRoute::class) {
         IncomeFloatingButton()
+    }
+    if (currentBackStackEntry.routeClass() == ExpenseRoute::class) {
+        ExpenseFloatingButton()
     }
 }
 

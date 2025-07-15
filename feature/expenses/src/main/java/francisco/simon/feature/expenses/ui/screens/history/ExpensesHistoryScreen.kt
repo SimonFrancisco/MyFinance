@@ -14,7 +14,9 @@ import francisco.simon.feature.expenses.expensesComponent
 @Composable
 internal fun ExpensesHistoryScreen(
     appBarState: MutableState<AppBarState>,
-    onGoBackToExpensesScreen: () -> Unit
+    onGoBackToExpensesScreen: () -> Unit,
+    onGoToEditExpenseScreen: (transactionId: Int) -> Unit
+
 ) {
     UpdateAppBarState(
         appBarState = appBarState,
@@ -28,8 +30,6 @@ internal fun ExpensesHistoryScreen(
     val viewModel: ExpensesHistoryScreenViewModel = viewModel(
         factory = component.getViewModelFactory()
     )
-    HistoryScreen(viewModel = viewModel) {
-
-    }
+    HistoryScreen(viewModel = viewModel, onGoToEditExpenseScreen)
 
 }
