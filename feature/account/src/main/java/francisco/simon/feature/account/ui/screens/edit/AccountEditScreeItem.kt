@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import francisco.simon.core.domain.model.AccountUpdateRequestModel
 import francisco.simon.core.ui.R
+import francisco.simon.core.ui.components.CustomListItem
 import francisco.simon.core.ui.utils.toCurrencySymbol
 
 
@@ -34,7 +35,7 @@ import francisco.simon.core.ui.utils.toCurrencySymbol
 internal fun AccountEditScreenBalance(
     updateModelState: MutableState<AccountUpdateRequestModel?>
 ) {
-    francisco.simon.core.ui.components.CustomListItem(
+    CustomListItem(
         modifier = Modifier.height(
             57.dp
         ),
@@ -73,7 +74,7 @@ internal fun AccountEditScreenBalance(
 fun AccountEditScreenName(
     updateModelState: MutableState<AccountUpdateRequestModel?>
 ) {
-    francisco.simon.core.ui.components.CustomListItem(
+    CustomListItem(
         modifier = Modifier.height(
             57.dp
         ),
@@ -120,7 +121,7 @@ fun AccountEdiScreenCurrency(
     updateModelState: MutableState<AccountUpdateRequestModel?>,
     onClick: () -> Unit
 ) {
-    francisco.simon.core.ui.components.CustomListItem(
+    CustomListItem(
         modifier = Modifier
             .height(56.dp)
             .clickable {

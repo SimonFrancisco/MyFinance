@@ -1,5 +1,6 @@
 package francisco.simon.feature.income.ui.screens.income
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -22,8 +24,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -35,6 +39,7 @@ import francisco.simon.core.ui.components.RetryCall
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
+import francisco.simon.core.ui.theme.Green
 import francisco.simon.core.ui.utils.UpdateWhenGoingBack
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.feature.income.incomeComponent
@@ -45,10 +50,13 @@ import francisco.simon.feature.income.ui.model.IncomeUI
  * keep code logic short
  * @author Simon Francisco
  */
+internal var onGoToAddIncomeScreenGlobal: (() -> Unit)? = null
+
 @Composable
 internal fun IncomeScreen(
     appBarState: MutableState<AppBarState>,
-    onGoToIncomeHistoryScreen: () -> Unit
+    onGoToIncomeHistoryScreen: () -> Unit,
+    onGoToAddIncomeScreen: () -> Unit
 ) {
     UpdateAppBarState(
         appBarState = appBarState,
@@ -58,6 +66,7 @@ internal fun IncomeScreen(
         }
 
     )
+    onGoToAddIncomeScreenGlobal = onGoToAddIncomeScreen
     val component = incomeComponent()
     val viewModel: IncomeScreenViewModel = viewModel(
         factory = component.getViewModelFactory()
@@ -202,4 +211,23 @@ private fun IncomeSumItem(incomeUI: List<IncomeUI>) {
             )
         },
     )
+}
+
+@Composable
+fun IncomeFloatingButton() {
+    FloatingActionButton(
+        containerColor = Green,
+        shape = CircleShape,
+        modifier = Modifier
+            .size(56.dp),
+        onClick = {
+            onGoToAddIncomeScreenGlobal?.invoke()
+        }
+    ) {
+        Image(
+            imageVector = ImageVector.vectorResource(R.drawable.ic_add),
+            contentDescription = null
+        )
+    }
+
 }

@@ -4,6 +4,7 @@ import francisco.simon.core.domain.utils.NetworkError
 import francisco.simon.core.ui.R
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
@@ -40,6 +41,16 @@ fun String.toDateAndTime(): String {
     val dateFormat = DateTimeFormatter.ofPattern("dd.MM.yy, HH:mm")
     val instant = Instant.parse(this)
     return instant.atZone(ZoneId.systemDefault()).toLocalDateTime().format(dateFormat)
+}
+
+fun LocalDateTime.toDate(): String {
+    val dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+    return this.format(dateFormat)
+}
+
+fun LocalDateTime.toTime():String{
+    val dateFormat = DateTimeFormatter.ofPattern("HH:mm")
+    return this.format(dateFormat)
 }
 
 /**

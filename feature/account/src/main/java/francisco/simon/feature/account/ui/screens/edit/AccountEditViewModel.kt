@@ -118,9 +118,4 @@ internal class AccountEditViewModel @Inject constructor(
         latestAccountUpdateRequestModel = accountUpdateRequestModel
     }
 
-
-    /*@AssistedFactory
-    interface Factory {
-        fun create(accountId: Int): AccountEditViewModel
-    }*/
 }

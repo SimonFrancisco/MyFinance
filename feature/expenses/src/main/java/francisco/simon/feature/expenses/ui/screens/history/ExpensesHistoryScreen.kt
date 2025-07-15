@@ -26,4 +26,5 @@ internal fun ExpensesHistoryScreen(appBarState: MutableState<AppBarState>, onGoB
         factory = component.getViewModelFactory()
     )
     HistoryScreen(viewModel = viewModel)
+
 }

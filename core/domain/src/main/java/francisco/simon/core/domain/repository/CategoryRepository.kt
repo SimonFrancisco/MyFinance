@@ -9,4 +9,6 @@ interface CategoryRepository {
     suspend fun getAllCategories(): Result<List<Category>, Error>
 
     fun searchCategories(query: String): Flow<List<Category>>
+
+    suspend fun getCategoriesByType(isIncome: Boolean): Result<List<Category>, Error>
 }
