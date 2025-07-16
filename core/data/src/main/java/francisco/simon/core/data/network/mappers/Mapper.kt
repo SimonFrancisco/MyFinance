@@ -16,7 +16,7 @@ import francisco.simon.core.domain.entity.Transaction
 import francisco.simon.core.domain.model.AccountUpdateRequestModel
 import francisco.simon.core.domain.model.AddTransactionModel
 import francisco.simon.core.domain.model.EditTransactionModel
-import francisco.simon.core.domain.model.TransactionResponse
+import francisco.simon.core.domain.model.TransactionResponseModel
 
 /**
  * Mappers from Data to Domain and vice-versa
@@ -98,8 +98,8 @@ internal fun TransactionDto.toTransaction(): Transaction {
         updatedAt = updatedAt,
     )
 }
-internal fun TransactionResponseDto.toTransactionResponse():TransactionResponse{
-    return TransactionResponse(
+internal fun TransactionResponseDto.toTransactionResponse():TransactionResponseModel{
+    return TransactionResponseModel(
         id = id,
         accountId = accountId,
         categoryId = categoryId,

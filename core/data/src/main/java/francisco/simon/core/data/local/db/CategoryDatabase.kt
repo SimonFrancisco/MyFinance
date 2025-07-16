@@ -26,14 +26,14 @@ abstract class CategoryDatabase : RoomDatabase() {
                 INSTANCE?.let {
                     return it
                 }
+                val database = Room.databaseBuilder(
+                    context = context,
+                    klass = CategoryDatabase::class.java,
+                    name = DB_NAME
+                ).build()
+                INSTANCE = database
+                return database
             }
-            val database = Room.databaseBuilder(
-                context = context,
-                klass = CategoryDatabase::class.java,
-                name = DB_NAME
-            ).build()
-            INSTANCE = database
-            return database
         }
     }
 }

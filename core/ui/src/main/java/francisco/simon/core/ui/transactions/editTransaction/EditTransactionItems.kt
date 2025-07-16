@@ -17,12 +17,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import francisco.simon.core.domain.model.EditTransactionModel
 import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.CustomDatePicker
 import francisco.simon.core.ui.components.CustomListItem
 import francisco.simon.core.ui.components.CustomTimePicker
-import francisco.simon.core.ui.transactions.addTransaction.AddTransactionBaseViewModel.AddTransaction
 import francisco.simon.core.ui.transactions.editTransaction.EditTransactionBaseViewModel.EditTransaction
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.core.ui.utils.toDate
@@ -189,7 +187,7 @@ internal fun AmountInfo(transactionModel: MutableState<EditTransaction>) {
             ) {
                 BasicTextField(
                     maxLines = 1,
-                    value = transactionModel.value.amount ?: " ",
+                    value = transactionModel.value.amount ?: "",
                     onValueChange = { newValue ->
                         transactionModel.value = transactionModel.value.copy(amount = newValue)
                     },

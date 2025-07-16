@@ -10,7 +10,7 @@ import francisco.simon.core.domain.entity.Transaction
 import francisco.simon.core.domain.model.AddTransactionModel
 import francisco.simon.core.domain.model.EditTransactionModel
 import francisco.simon.core.domain.model.TransactionModel
-import francisco.simon.core.domain.model.TransactionResponse
+import francisco.simon.core.domain.model.TransactionResponseModel
 import francisco.simon.core.domain.repository.TransactionRepository
 import francisco.simon.core.domain.utils.EmptyResult
 import francisco.simon.core.domain.utils.Error
@@ -44,7 +44,8 @@ class TransactionRepositoryImpl(
                     endDate = transactionModel.endDate
                 )
             }.map { listTransactionsDto ->
-                listTransactionsDto.map { transactionDto ->
+                listTransactionsDto.sortedByDescending { it.transactionDate }
+                    .map { transactionDto ->
                     transactionDto.toTransaction()
                 }
             }
@@ -64,7 +65,7 @@ class TransactionRepositoryImpl(
         }
     }
 
-    override suspend fun addTransaction(transactionModel: AddTransactionModel): Result<TransactionResponse, Error> {
+    override suspend fun addTransaction(transactionModel: AddTransactionModel): Result<TransactionResponseModel, Error> {
         return withContext(Dispatchers.IO) {
             apiClient.safeApiCall {
                 apiService.addTransaction(

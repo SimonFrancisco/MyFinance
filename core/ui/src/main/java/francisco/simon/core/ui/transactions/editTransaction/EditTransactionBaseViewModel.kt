@@ -59,7 +59,7 @@ abstract class EditTransactionBaseViewModel : ViewModel() {
                     transactionModel.value.copy(category = transaction.category)
                 transactionModel.value = transactionModel.value.copy(transactionId = transaction.id)
                 transactionModel.value =
-                    transactionModel.value.copy(transactionDate = transaction.updatedAt.toLocalDateTime())
+                    transactionModel.value.copy(transactionDate = transaction.transactionDate.toLocalDateTime())
                 transactionModel.value = transactionModel.value.copy(amount = transaction.amount)
                 transactionModel.value = transactionModel.value.copy(comment = transaction.comment)
                 getCategories().onSuccess { categories ->
@@ -147,7 +147,7 @@ abstract class EditTransactionBaseViewModel : ViewModel() {
 
     private fun validateTransactionModel(): Boolean {
         return with(transactionModel.value) {
-            transactionId != null && account != null && category != null && amount != null
+            transactionId != null && account != null && category != null && !amount?.trim().isNullOrEmpty()
         }
     }
 
@@ -156,7 +156,6 @@ abstract class EditTransactionBaseViewModel : ViewModel() {
             .toInstant()
             .toString()
     }
-
 
     data class EditTransaction(
         val transactionId: Int? = null,

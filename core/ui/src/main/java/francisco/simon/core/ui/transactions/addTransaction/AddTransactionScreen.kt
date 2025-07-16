@@ -87,6 +87,7 @@ private fun AddTransactionScreenContent(
 
             AddTransactionState.Loading -> {
                 FullScreenLoading()
+
             }
 
             AddTransactionState.Success -> Unit

@@ -2,7 +2,6 @@ package francisco.simon.core.ui.transactions.editTransaction
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -42,6 +41,9 @@ fun EditTransactionScreen(
     val showSheet = remember { mutableStateOf(false) }
     val showDatePicker = remember { mutableStateOf(false) }
     val showTimePicker = remember { mutableStateOf(false) }
+
+    val isEnabledButton = state.value !is EditTransactionState.Loading
+
     EditCategoryBottomSheet(
         showSheet = showSheet,
         updateModelState = viewModel.transactionModel,
@@ -63,6 +65,7 @@ fun EditTransactionScreen(
         showDatePicker = showDatePicker,
         showTimePicker = showTimePicker,
         showSheet = showSheet,
+        isEnabledButton = isEnabledButton,
         state = state
     )
 
@@ -75,8 +78,10 @@ private fun AddTransactionScreenContent(
     showDatePicker: MutableState<Boolean>,
     showSheet: MutableState<Boolean>,
     showTimePicker: MutableState<Boolean>,
+    isEnabledButton: Boolean,
     state: State<EditTransactionState>,
 ) {
+
     Column(modifier = Modifier.fillMaxSize()) {
         AccountInfo(transactionModel)
         HorizontalDivider()
@@ -90,6 +95,10 @@ private fun AddTransactionScreenContent(
         HorizontalDivider()
         CommentInfo(transactionModel)
         HorizontalDivider()
+        DeleteButton(
+            onDeleteTransaction = viewModel::onDeleteTransaction,
+            isEnabledButton = isEnabledButton
+        )
         when (val currentState = state.value) {
             is EditTransactionState.Error -> {
                 RetryCall(
@@ -105,26 +114,32 @@ private fun AddTransactionScreenContent(
 
             EditTransactionState.Success -> Unit
         }
-        Button(
-            onClick = {
-                viewModel.onDeleteTransaction()
-            },
-            colors = ButtonDefaults.buttonColors().copy(
-                containerColor = Red,
-                contentColor = White
-            ),
-            modifier = Modifier
-                .width(380.dp)
-                .padding(vertical = 10.dp, horizontal = 24.dp),
-            shape = CircleShape
+    }
+}
 
-        ) {
-            Text(
-                text = stringResource(R.string.delete),
-                style = MaterialTheme.typography.labelLarge
-            )
-        }
-
+@Composable
+private fun DeleteButton(
+    onDeleteTransaction: () -> Unit,
+    isEnabledButton: Boolean
+) {
+    Button(
+        onClick = {
+            onDeleteTransaction()
+        },
+        colors = ButtonDefaults.buttonColors().copy(
+            containerColor = Red,
+            contentColor = White
+        ),
+        modifier = Modifier
+            .width(380.dp)
+            .padding(vertical = 10.dp, horizontal = 24.dp),
+        shape = CircleShape,
+        enabled = isEnabledButton
+    ) {
+        Text(
+            text = stringResource(R.string.delete),
+            style = MaterialTheme.typography.labelLarge
+        )
     }
 }
 

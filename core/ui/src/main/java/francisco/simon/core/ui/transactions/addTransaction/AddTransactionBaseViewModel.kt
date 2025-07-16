@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import francisco.simon.core.domain.entity.Account
 import francisco.simon.core.domain.entity.Category
 import francisco.simon.core.domain.model.AddTransactionModel
-import francisco.simon.core.domain.model.TransactionResponse
+import francisco.simon.core.domain.model.TransactionResponseModel
 import francisco.simon.core.domain.utils.Error
 import francisco.simon.core.domain.utils.NetworkError
 import francisco.simon.core.domain.utils.Result
@@ -43,7 +43,7 @@ abstract class AddTransactionBaseViewModel : ViewModel() {
 
     protected abstract suspend fun addTransaction(
         addTransactionModel: AddTransactionModel
-    ): Result<TransactionResponse, Error>
+    ): Result<TransactionResponseModel, Error>
 
 
     fun onLoadInitial() {
@@ -117,7 +117,7 @@ abstract class AddTransactionBaseViewModel : ViewModel() {
 
     private fun validateTransactionModel(): Boolean {
         return with(transactionModel.value) {
-            account != null && category != null && amount != null
+            account != null && category != null && !amount?.trim().isNullOrEmpty()
         }
     }
 

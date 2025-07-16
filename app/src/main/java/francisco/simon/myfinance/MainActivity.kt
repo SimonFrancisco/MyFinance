@@ -81,6 +81,7 @@ private fun FinanceApp() {
         },
         floatingActionButton = {
             FloatingButtonSettings(currentBackStackEntry)
+
         }
     ) { innerPadding ->
         AppNavGraphSettings(
