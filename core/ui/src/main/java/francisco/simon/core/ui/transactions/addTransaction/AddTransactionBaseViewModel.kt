@@ -14,6 +14,7 @@ import francisco.simon.core.domain.utils.Result
 import francisco.simon.core.domain.utils.onError
 import francisco.simon.core.domain.utils.onSuccess
 import francisco.simon.core.ui.utils.toStringRes
+import francisco.simon.core.ui.utils.toTransactionModelTime
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +22,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
-import java.time.ZoneId
 
 abstract class AddTransactionBaseViewModel : ViewModel() {
 
@@ -119,12 +119,6 @@ abstract class AddTransactionBaseViewModel : ViewModel() {
         return with(transactionModel.value) {
             account != null && category != null && !amount?.trim().isNullOrEmpty()
         }
-    }
-
-    private fun LocalDateTime.toTransactionModelTime(): String {
-        return this.atZone(ZoneId.systemDefault())
-            .toInstant()
-            .toString()
     }
 
 
