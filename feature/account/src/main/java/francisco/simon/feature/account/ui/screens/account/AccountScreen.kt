@@ -15,10 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -46,21 +43,21 @@ import francisco.simon.feature.account.ui.model.AccountUI
  * keep code logic short
  * @author Simon Francisco
  */
-private const val NON_EXISTING_ACCOUNT_ID = -1
+private var ACCOUNT_ID = -1
 
 @Composable
-internal fun AccountScreen(appBarState: MutableState<AppBarState>, onOpenEditScreen: (accountId:Int) -> Unit) {
-    val accountIdState = remember {
-        mutableIntStateOf(NON_EXISTING_ACCOUNT_ID)
-    }
+internal fun AccountScreen(
+    appBarState: MutableState<AppBarState>,
+    onOpenEditScreen: (accountId: Int) -> Unit
+) {
     UpdateAppBarState(
         appBarState = appBarState,
         titleRes = R.string.account_app_top_bar,
         actionButton = ActionButton(
             icon = R.drawable.ic_edit
         ) {
-            if (accountIdState.intValue != NON_EXISTING_ACCOUNT_ID) {
-                onOpenEditScreen(accountIdState.intValue)
+            if (ACCOUNT_ID != -1) {
+                onOpenEditScreen(ACCOUNT_ID)
             }
         }
     )
@@ -70,8 +67,7 @@ internal fun AccountScreen(appBarState: MutableState<AppBarState>, onOpenEditScr
     val currentState = state.value
     AccountScreenContent(
         state = currentState,
-        viewModel = viewModel,
-        accountIdState = accountIdState,
+        viewModel = viewModel
     )
     PropagateAccountUpdateWhenGoingBack {
         viewModel.retry()
@@ -88,7 +84,6 @@ internal fun AccountScreen(appBarState: MutableState<AppBarState>, onOpenEditScr
 private fun AccountScreenContent(
     state: AccountScreenState,
     viewModel: AccountViewModel,
-    accountIdState: MutableIntState,
 ) {
     when (state) {
         is AccountScreenState.Error -> {
@@ -105,7 +100,7 @@ private fun AccountScreenContent(
         }
 
         is AccountScreenState.Success -> {
-            accountIdState.intValue = state.account.id
+            ACCOUNT_ID = state.account.id
             AccountScreenList(state.account)
         }
     }

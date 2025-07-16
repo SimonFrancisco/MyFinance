@@ -1,5 +1,7 @@
 package francisco.simon.feature.account.ui.screens.edit
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import francisco.simon.core.domain.entity.Account
@@ -35,7 +37,10 @@ internal class AccountEditViewModel @Inject constructor(
     private val _exitChannel = Channel<Unit>()
     val exitChannel: ReceiveChannel<Unit> = _exitChannel
 
-    private lateinit var latestAccountUpdateRequestModel: AccountUpdateRequestModel
+    private val _dataMissingError = Channel<Unit>()
+    val dataMissingError: ReceiveChannel<Unit> = _dataMissingError
+
+    val updateModel: MutableState<UpdateModel> = mutableStateOf(UpdateModel())
 
     init {
         loadAccount()
@@ -45,33 +50,31 @@ internal class AccountEditViewModel @Inject constructor(
         updateLoading()
         viewModelScope.launch {
             getAccountByIdUseCase(accountId).onSuccess { account ->
+                updateModel.value = updateModel.value.copy(id = accountId)
+                updateModel.value = updateModel.value.copy(name = account.name)
+                updateModel.value = updateModel.value.copy(balance = account.balance)
+                updateModel.value = updateModel.value.copy(currency = account.currency)
                 updateSuccess(account)
-                latestAccountUpdateRequestModel = AccountUpdateRequestModel(
-                    id = accountId,
-                    name = account.name,
-                    balance = account.balance,
-                    currency = account.currency
-                )
             }.onError { error ->
                 updateError(error)
             }
         }
     }
 
-    fun updateAccount(
-        name: String,
-        currency: String,
-        balance: String
-    ) {
-        updateLoading()
+    fun updateAccount() {
         viewModelScope.launch {
-            latestAccountUpdateRequestModel = AccountUpdateRequestModel(
+            if (!validateUpdateModel()) {
+                _dataMissingError.send(Unit)
+                return@launch
+            }
+            updateLoading()
+            val accountUpdateRequestModel = AccountUpdateRequestModel(
                 id = accountId,
-                name = name,
-                currency = currency,
-                balance = balance
+                name = updateModel.value.name?.trim() ?: "",
+                currency = updateModel.value.currency ?: "",
+                balance = updateModel.value.balance?.trim() ?: ""
             )
-            updateAccountUseCase(latestAccountUpdateRequestModel).onSuccess { _ ->
+            updateAccountUseCase(accountUpdateRequestModel).onSuccess { _ ->
                 goBack()
             }.onError { error ->
                 updateError(error)
@@ -103,19 +106,25 @@ internal class AccountEditViewModel @Inject constructor(
     }
 
     fun retry() {
-        if (::latestAccountUpdateRequestModel.isInitialized) {
-            updateAccount(
-                name = latestAccountUpdateRequestModel.name,
-                currency = latestAccountUpdateRequestModel.currency,
-                balance = latestAccountUpdateRequestModel.balance
-            )
+        if (updateModel.value.id != null) {
+            updateAccount()
         } else {
             loadAccount()
         }
+
     }
 
-    fun updateLatestAccountRequestModel(accountUpdateRequestModel: AccountUpdateRequestModel) {
-        latestAccountUpdateRequestModel = accountUpdateRequestModel
+    private fun validateUpdateModel(): Boolean {
+        return with(updateModel.value) {
+            !name?.trim().isNullOrEmpty() && !balance?.trim().isNullOrEmpty()
+        }
     }
+
+    internal data class UpdateModel(
+        val id: Int? = null,
+        val name: String? = null,
+        val balance: String? = null,
+        val currency: String? = null
+    )
 
 }

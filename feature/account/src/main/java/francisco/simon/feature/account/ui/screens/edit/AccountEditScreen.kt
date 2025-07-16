@@ -1,5 +1,6 @@
 package francisco.simon.feature.account.ui.screens.edit
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.HorizontalDivider
@@ -8,9 +9,9 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import francisco.simon.core.domain.model.AccountUpdateRequestModel
 import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.FullScreenLoading
 import francisco.simon.core.ui.components.topBar.ActionButton
@@ -21,15 +22,16 @@ import francisco.simon.core.ui.utils.EventConsumer
 import francisco.simon.core.ui.utils.MonitorAccount
 import francisco.simon.core.ui.utils.MonitorAccount.Commands.UPDATE_ACCOUNT
 import francisco.simon.feature.account.accountComponent
+import francisco.simon.feature.account.ui.screens.edit.AccountEditViewModel.UpdateModel
 import francisco.simon.feature.account.ui.screens.edit.component.BottomSheet
 
-// TODO double tab on Account tab resets data, probably because of the way I am saving it.
 @Composable
 internal fun AccountEditScreen(
     accountId: Int,
     appBarState: MutableState<AppBarState>,
     onGoBackToAccountScreen: () -> Unit
 ) {
+    val context = LocalContext.current
     val component = accountComponent()
         .getAccountEditComponentFactory()
         .create(accountId)
@@ -40,25 +42,6 @@ internal fun AccountEditScreen(
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
 
-    //TODO come up with a way to store data when coming back from another screen
-    /**
-     * Current solution resets the values to what we had from
-     * the very beginning - not very good solution in terms of UX
-     */
-    val updateModelState: MutableState<AccountUpdateRequestModel?> = remember {
-        if (currentState is AccountEditScreenState.Success) {
-            mutableStateOf(
-                AccountUpdateRequestModel(
-                    id = currentState.account.id,
-                    name = currentState.account.name,
-                    balance = currentState.account.balance.toString(),
-                    currency = currentState.account.currency
-                )
-            )
-        } else {
-            mutableStateOf(null)
-        }
-    }
     UpdateAppBarState(
         appBarState = appBarState,
         titleRes = R.string.account_app_top_bar,
@@ -68,22 +51,23 @@ internal fun AccountEditScreen(
         actionButton = ActionButton(
             icon = R.drawable.ic_confirm
         ) {
-            updateModelState.value?.let {
-                viewModel.updateAccount(
-                    name = it.name,
-                    currency = it.currency,
-                    balance = it.balance
-                )
-                MonitorAccount.event(UPDATE_ACCOUNT)
-            }
+            viewModel.updateAccount()
+            MonitorAccount.event(UPDATE_ACCOUNT)
+
         }
     )
     EventConsumer(channel = viewModel.exitChannel) {
         onGoBackToAccountScreen()
     }
+    EventConsumer(viewModel.dataMissingError) {
+        Toast.makeText(
+            context,
+            context.getString(R.string.data_not_complete_error), Toast.LENGTH_SHORT
+        ).show()
+    }
     AccountEditScreenContent(
         currentState = currentState,
-        updateModelState = updateModelState,
+        updateModelState = viewModel.updateModel,
         viewModel = viewModel,
     )
 }
@@ -91,7 +75,7 @@ internal fun AccountEditScreen(
 @Composable
 private fun AccountEditScreenContent(
     currentState: AccountEditScreenState,
-    updateModelState: MutableState<AccountUpdateRequestModel?>,
+    updateModelState: MutableState<UpdateModel>,
     viewModel: AccountEditViewModel,
 ) {
     Column(
@@ -114,28 +98,13 @@ private fun AccountEditScreenContent(
                 francisco.simon.core.ui.components.RetryCall(
                     errorRes = currentState.errorMessageRes
                 ) {
-                    updateModelState.value?.let {
-                        viewModel.updateLatestAccountRequestModel(it)
-                    }
                     viewModel.retry()
                 }
             }
-
             is AccountEditScreenState.Loading -> {
                 FullScreenLoading()
             }
-
-            is AccountEditScreenState.Success -> {
-                with(currentState.account) {
-                    val currentAccountModel = AccountUpdateRequestModel(
-                        id = id,
-                        name = name,
-                        balance = balance.toString(),
-                        currency = currency
-                    )
-                    updateModelState.value = currentAccountModel
-                }
-            }
+            is AccountEditScreenState.Success -> Unit
         }
     }
 }

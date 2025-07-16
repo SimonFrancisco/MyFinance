@@ -25,15 +25,15 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import francisco.simon.core.domain.model.AccountUpdateRequestModel
 import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.CustomListItem
 import francisco.simon.core.ui.utils.toCurrencySymbol
+import francisco.simon.feature.account.ui.screens.edit.AccountEditViewModel.UpdateModel
 
 
 @Composable
 internal fun AccountEditScreenBalance(
-    updateModelState: MutableState<AccountUpdateRequestModel?>
+    updateModelState: MutableState<UpdateModel>
 ) {
     CustomListItem(
         modifier = Modifier.height(
@@ -53,9 +53,9 @@ internal fun AccountEditScreenBalance(
             ) {
                 BasicTextField(
                     maxLines = 1,
-                    value = updateModelState.value?.balance ?: " ",
+                    value = updateModelState.value.balance ?: "",
                     onValueChange = { newValue ->
-                        updateModelState.value = updateModelState.value?.copy(balance = newValue)
+                        updateModelState.value = updateModelState.value.copy(balance = newValue)
                     },
                     textStyle = MaterialTheme.typography.bodyLarge.copy(
                         textAlign = TextAlign.End
@@ -71,8 +71,8 @@ internal fun AccountEditScreenBalance(
 }
 
 @Composable
-fun AccountEditScreenName(
-    updateModelState: MutableState<AccountUpdateRequestModel?>
+internal fun AccountEditScreenName(
+    updateModelState: MutableState<UpdateModel>
 ) {
     CustomListItem(
         modifier = Modifier.height(
@@ -102,9 +102,9 @@ fun AccountEditScreenName(
             ) {
                 BasicTextField(
                     maxLines = 1,
-                    value = updateModelState.value?.name ?: " ",
+                    value = updateModelState.value.name ?: "",
                     onValueChange = { newValue ->
-                        updateModelState.value = updateModelState.value?.copy(name = newValue)
+                        updateModelState.value = updateModelState.value.copy(name = newValue)
                     },
                     textStyle = MaterialTheme.typography.bodyLarge.copy(
                         textAlign = TextAlign.End
@@ -117,8 +117,8 @@ fun AccountEditScreenName(
 }
 
 @Composable
-fun AccountEdiScreenCurrency(
-    updateModelState: MutableState<AccountUpdateRequestModel?>,
+internal fun AccountEdiScreenCurrency(
+    updateModelState: MutableState<UpdateModel>,
     onClick: () -> Unit
 ) {
     CustomListItem(
@@ -136,7 +136,7 @@ fun AccountEdiScreenCurrency(
         },
         trailingContent = {
             Text(
-                text = updateModelState.value?.currency?.toCurrencySymbol() ?: "",
+                text = updateModelState.value.currency?.toCurrencySymbol() ?: "",
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(end = 8.dp)
             )
