@@ -15,8 +15,8 @@ import francisco.simon.feature.expenses.expensesComponent
 internal fun ExpensesHistoryScreen(
     appBarState: MutableState<AppBarState>,
     onGoBackToExpensesScreen: () -> Unit,
-    onGoToEditExpenseScreen: (transactionId: Int) -> Unit
-
+    onGoToEditExpenseScreen: (transactionId: Int) -> Unit,
+    onGoToAnalysisScreen: () -> Unit
 ) {
     UpdateAppBarState(
         appBarState = appBarState,
@@ -24,7 +24,9 @@ internal fun ExpensesHistoryScreen(
         navigationButton = NavigationButton.Back {
             onGoBackToExpensesScreen()
         },
-        actionButton = ActionButton(R.drawable.ic_analysis) {}
+        actionButton = ActionButton(R.drawable.ic_analysis) {
+            onGoToAnalysisScreen()
+        }
     )
     val component = expensesComponent()
     val viewModel: ExpensesHistoryScreenViewModel = viewModel(

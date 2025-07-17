@@ -9,10 +9,12 @@ import androidx.navigation.toRoute
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.utils.safePopBackStack
 import francisco.simon.feature.expenses.navigation.ExpenseGraph.AddExpenseRoute
+import francisco.simon.feature.expenses.navigation.ExpenseGraph.AnalysisExpenseRoute
 import francisco.simon.feature.expenses.navigation.ExpenseGraph.EditExpenseRoute
 import francisco.simon.feature.expenses.navigation.ExpenseGraph.ExpenseRoute
 import francisco.simon.feature.expenses.navigation.ExpenseGraph.ExpensesHistoryRoute
 import francisco.simon.feature.expenses.ui.screens.add_expense.AddExpenseScreen
+import francisco.simon.feature.expenses.ui.screens.analysis.AnalysisExpenseScreen
 import francisco.simon.feature.expenses.ui.screens.expense.ExpenseScreen
 import francisco.simon.feature.expenses.ui.screens.expense.onGoToAddExpenseScreenGlobal
 import francisco.simon.feature.expenses.ui.screens.history.ExpensesHistoryScreen
@@ -49,6 +51,9 @@ fun NavGraphBuilder.expenseNavGraph(
                 },
                 onGoToEditExpenseScreen = { transactionId ->
                     navController.navigate(EditExpenseRoute(transactionId))
+                },
+                onGoToAnalysisScreen = {
+                    navController.navigate(AnalysisExpenseRoute)
                 }
             )
         }
@@ -66,6 +71,14 @@ fun NavGraphBuilder.expenseNavGraph(
                 appBarState = appBarState,
                 transactionId = route.expenseId,
                 onGoBackToExpensesScreen = {
+                    navController.safePopBackStack()
+                }
+            )
+        }
+        composable<AnalysisExpenseRoute> {
+            AnalysisExpenseScreen(
+                appBarState = appBarState,
+                onGoBackToHistoryScreen = {
                     navController.safePopBackStack()
                 }
             )

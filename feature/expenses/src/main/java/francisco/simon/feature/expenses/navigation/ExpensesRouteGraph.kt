@@ -16,4 +16,7 @@ data object ExpenseGraph {
     @Serializable
     data class EditExpenseRoute(val expenseId: Int)
 
+    @Serializable
+    data object AnalysisExpenseRoute
+
 }

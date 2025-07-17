@@ -5,6 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import francisco.simon.feature.expenses.ui.screens.add_expense.AddExpenseScreenViewModel
+import francisco.simon.feature.expenses.ui.screens.analysis.AnalysisExpensesScreenViewModel
 import francisco.simon.feature.expenses.ui.screens.expense.ExpenseScreenViewModel
 import francisco.simon.feature.expenses.ui.screens.history.ExpensesHistoryScreenViewModel
 
@@ -19,5 +20,8 @@ internal interface ExpensesViewModelModule {
 
     @[Binds IntoMap ViewModelKey(AddExpenseScreenViewModel::class)]
     fun bindAddExpenseViewModel(viewModel: AddExpenseScreenViewModel):ViewModel
+
+    @[Binds IntoMap ViewModelKey(AnalysisExpensesScreenViewModel::class)]
+    fun bindAnalysisExpensesScreenViewModel(viewModel: AnalysisExpensesScreenViewModel):ViewModel
 
 }

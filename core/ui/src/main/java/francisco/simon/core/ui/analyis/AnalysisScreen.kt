@@ -1,4 +1,4 @@
-package francisco.simon.core.ui.history
+package francisco.simon.core.ui.analyis
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
@@ -15,21 +15,16 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import francisco.simon.core.ui.components.CustomDatePicker
 import francisco.simon.core.ui.components.FullScreenLoading
+import francisco.simon.core.ui.components.NothingFoundText
 import francisco.simon.core.ui.components.RetryCall
 import francisco.simon.core.ui.utils.toApiDate
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Date
 
-/**
- * History screen, it takes a base view model.
- *
- * @author Simon Francisco
- */
 @Composable
-fun HistoryScreen(
-    viewModel: BaseHistoryViewModel,
-    onTransactionClicked: (Int) -> Unit
+fun AnalysisScreen(
+    viewModel: BaseAnalysisViewModel,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     val startDate = rememberSaveable {
@@ -53,41 +48,34 @@ fun HistoryScreen(
     if (showEndPicker.value) {
         EndDatePicker(endDate, startDate, viewModel, showEndPicker)
     }
-    HistoryScreenContent(
-        state,
-        viewModel,
-        startDate,
-        endDate,
-        showStartPicker,
-        showEndPicker,
-        onTransactionClicked
+    AnalysisScreenContent(
+        state = state,
+        viewModel = viewModel,
+        startDate = startDate,
+        endDate = endDate,
+        showStartPicker = showStartPicker,
+        showEndPicker = showEndPicker,
     )
+
 }
 
-/**
- * Separate History screen content to avoid extra recompositions
- *
- * @author Simon Francisco
- */
 @Composable
-private fun HistoryScreenContent(
-    state: State<HistoryScreenState>,
-    viewModel: BaseHistoryViewModel,
+private fun AnalysisScreenContent(
+    state: State<AnalysisScreenState>,
+    viewModel: BaseAnalysisViewModel,
     startDate: MutableState<LocalDate>,
     endDate: MutableState<LocalDate>,
     showStartPicker: MutableState<Boolean>,
     showEndPicker: MutableState<Boolean>,
-    onTransactionClicked: (Int) -> Unit
-
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        HistoryStartInfo(startDate.value, showStartPicker)
+        AnalysisStartInfo(startDate.value, showStartPicker)
         HorizontalDivider()
-        HistoryEndInfo(endDate.value, showEndPicker)
+        AnalysisEndInfo(endDate.value, showEndPicker)
         HorizontalDivider()
         when (val currentState = state.value) {
-            is HistoryScreenState.Error -> {
-                RetryHistoryButton(
+            is AnalysisScreenState.Error -> {
+                RetryAnalysisButton(
                     currentState.errorMessageRes,
                     viewModel,
                     startDate.value,
@@ -95,15 +83,18 @@ private fun HistoryScreenContent(
                 )
             }
 
-            is HistoryScreenState.Loading -> {
+            is AnalysisScreenState.Loading -> {
                 FullScreenLoading()
             }
 
-            is HistoryScreenState.Success -> {
-                HistoryScreenList(
-                    currentState.transactions,
-                    onTransactionClicked
+            is AnalysisScreenState.Success -> {
+                AnalysisScreenList(
+                    currentState.categories,
                 )
+            }
+
+            AnalysisScreenState.Empty -> {
+                NothingFoundText()
             }
         }
     }
@@ -111,9 +102,9 @@ private fun HistoryScreenContent(
 }
 
 @Composable
-private fun RetryHistoryButton(
+private fun RetryAnalysisButton(
     @StringRes errorMessageRes: Int,
-    viewModel: BaseHistoryViewModel,
+    viewModel: BaseAnalysisViewModel,
     startDate: LocalDate,
     endDate: LocalDate,
 ) {
@@ -129,6 +120,35 @@ private fun RetryHistoryButton(
 }
 
 /**
+ * Date picker for choosing start date
+ *
+ * @author Simon Francisco
+ */
+@Composable
+private fun StartDatePicker(
+    startDate: MutableState<LocalDate>,
+    endDate: MutableState<LocalDate>,
+    viewModel: BaseAnalysisViewModel,
+    showStartPicker: MutableState<Boolean>,
+) {
+    CustomDatePicker(
+        selectedDate = Date.from(startDate.value.atStartOfDay(ZoneId.systemDefault()).toInstant()),
+        onDateSelected = { date ->
+            val selected = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+            if (!selected.isAfter(endDate.value)) {
+                startDate.value = selected
+                viewModel.loadTransactions(
+                    startDate = selected.toApiDate(),
+                    endDate = endDate.value.toApiDate()
+                )
+            }
+        },
+        onDismiss = { showStartPicker.value = false },
+        maxDate = Date.from(endDate.value.atStartOfDay(ZoneId.systemDefault()).toInstant())
+    )
+}
+
+/**
  * Date picker for choosing end date
  *
  * @author Simon Francisco
@@ -137,7 +157,7 @@ private fun RetryHistoryButton(
 private fun EndDatePicker(
     endDate: MutableState<LocalDate>,
     startDate: MutableState<LocalDate>,
-    viewModel: BaseHistoryViewModel,
+    viewModel: BaseAnalysisViewModel,
     showEndPicker: MutableState<Boolean>,
 ) {
     CustomDatePicker(
@@ -157,33 +177,4 @@ private fun EndDatePicker(
         maxDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())
     )
 
-}
-
-/**
- * Date picker for choosing start date
- *
- * @author Simon Francisco
- */
-@Composable
-private fun StartDatePicker(
-    startDate: MutableState<LocalDate>,
-    endDate: MutableState<LocalDate>,
-    viewModel: BaseHistoryViewModel,
-    showStartPicker: MutableState<Boolean>,
-) {
-    CustomDatePicker(
-        selectedDate = Date.from(startDate.value.atStartOfDay(ZoneId.systemDefault()).toInstant()),
-        onDateSelected = { date ->
-            val selected = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-            if (!selected.isAfter(endDate.value)) {
-                startDate.value = selected
-                viewModel.loadTransactions(
-                    startDate = selected.toApiDate(),
-                    endDate = endDate.value.toApiDate()
-                )
-            }
-        },
-        onDismiss = { showStartPicker.value = false },
-        maxDate = Date.from(endDate.value.atStartOfDay(ZoneId.systemDefault()).toInstant())
-    )
 }
