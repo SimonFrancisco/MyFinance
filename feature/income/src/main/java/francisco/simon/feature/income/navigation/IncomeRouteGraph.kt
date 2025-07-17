@@ -16,4 +16,7 @@ data object IncomeGraph {
 
     @Serializable
     data class EditIncomeRoute(val incomeId: Int)
+
+    @Serializable
+    data object AnalysisIncomeRoute
 }

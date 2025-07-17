@@ -21,18 +21,20 @@ class GetIncomeAnalysisUseCase @Inject constructor(
                 val income = transactions.filter { transaction ->
                     transaction.category.isIncome
                 }
-                val categoriesSize = income.size.toFloat()
+                val totalSum = income.sumOf {
+                    it.amount.toBigDecimal()
+                }
                 val transactionsGrouped = income.groupBy {
                     it.category
                 }
                 var currency = ""
                 transactionsGrouped.map { (category, groupedTransaction) ->
-                    val count = groupedTransaction.size.toFloat()
-                    val percent = (count / categoriesSize) * 100
                     val amount = groupedTransaction.fold(BigDecimal.ZERO) { acc, transaction ->
                         currency = transaction.account.currency
                         acc + transaction.amount.toBigDecimal()
                     }
+                    val percent = (amount.toFloat() / totalSum.toFloat()) * 100
+
                     CategoryStatsModel(
                         name = category.name,
                         emoji = category.emoji,

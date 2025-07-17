@@ -9,10 +9,12 @@ import androidx.navigation.toRoute
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.utils.safePopBackStack
 import francisco.simon.feature.income.navigation.IncomeGraph.AddIncomeRoute
+import francisco.simon.feature.income.navigation.IncomeGraph.AnalysisIncomeRoute
 import francisco.simon.feature.income.navigation.IncomeGraph.EditIncomeRoute
 import francisco.simon.feature.income.navigation.IncomeGraph.IncomeHistoryRoute
 import francisco.simon.feature.income.navigation.IncomeGraph.IncomeRoute
 import francisco.simon.feature.income.ui.screens.add_income.AddIncomeScreen
+import francisco.simon.feature.income.ui.screens.analysis.AnalysisIncomeScreen
 import francisco.simon.feature.income.ui.screens.edit_income.EditIncomeScreen
 import francisco.simon.feature.income.ui.screens.history.IncomeHistoryScreen
 import francisco.simon.feature.income.ui.screens.income.IncomeScreen
@@ -51,6 +53,9 @@ fun NavGraphBuilder.incomeNavGraph(
                 },
                 onGoToEditIncomeScreen = { transitionId ->
                     navController.navigate(EditIncomeRoute(transitionId))
+                },
+                onGoToAnalysisScreen = {
+                    navController.navigate(AnalysisIncomeRoute)
                 }
             )
         }
@@ -68,6 +73,14 @@ fun NavGraphBuilder.incomeNavGraph(
                 transactionId = route.incomeId,
                 appBarState = appBarState,
                 onGoBackToIncomeScreen = {
+                    navController.safePopBackStack()
+                }
+            )
+        }
+        composable<AnalysisIncomeRoute> {
+            AnalysisIncomeScreen(
+                appBarState = appBarState,
+                onGoBackToHistoryScreen = {
                     navController.safePopBackStack()
                 }
             )

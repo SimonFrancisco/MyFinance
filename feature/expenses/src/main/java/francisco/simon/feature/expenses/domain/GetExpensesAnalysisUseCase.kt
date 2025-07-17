@@ -34,7 +34,6 @@ class GetExpensesAnalysisUseCase @Inject constructor(
                         acc + transaction.amount.toBigDecimal()
                     }
                     val percent = (amount.toFloat() / totalSum.toFloat()) * 100
-
                     CategoryStatsModel(
                         name = category.name,
                         emoji = category.emoji,

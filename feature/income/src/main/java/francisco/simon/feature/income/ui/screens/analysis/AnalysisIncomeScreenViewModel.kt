@@ -1,4 +1,4 @@
-package francisco.simon.feature.expenses.ui.screens.analysis
+package francisco.simon.feature.income.ui.screens.analysis
 
 import francisco.simon.core.domain.entity.Account
 import francisco.simon.core.domain.model.CategoryStatsModel
@@ -6,19 +6,19 @@ import francisco.simon.core.domain.model.TransactionModel
 import francisco.simon.core.domain.utils.Error
 import francisco.simon.core.domain.utils.Result
 import francisco.simon.core.ui.analyis.BaseAnalysisViewModel
-import francisco.simon.feature.expenses.domain.GetAccountUseCase
-import francisco.simon.feature.expenses.domain.GetExpensesAnalysisUseCase
+import francisco.simon.feature.income.domain.GetAccountUseCase
+import francisco.simon.feature.income.domain.GetIncomeAnalysisUseCase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
- * ViewModel for Expense analysis screen, state in base view model
- * @param getExpensesAnalysisUseCase
+ * ViewModel for Income analysis screen, state in base view model
+ * @param getIncomeAnalysisUseCase
  * @param getAccountUseCase
  * @author Simon Francisco
  */
-internal class AnalysisExpensesScreenViewModel @Inject constructor(
-    private val getExpensesAnalysisUseCase: GetExpensesAnalysisUseCase,
+internal class AnalysisIncomeScreenViewModel @Inject constructor(
+    private val getIncomeAnalysisUseCase: GetIncomeAnalysisUseCase,
     private val getAccountUseCase: GetAccountUseCase
 ) : BaseAnalysisViewModel() {
 
@@ -36,6 +36,6 @@ internal class AnalysisExpensesScreenViewModel @Inject constructor(
             startDate = startDate,
             endDate = endDate
         )
-        return getExpensesAnalysisUseCase(transactionModel)
+        return getIncomeAnalysisUseCase(transactionModel)
     }
 }
