@@ -1,6 +1,6 @@
-package francisco.simon.core.data.local.mappers
+package francisco.simon.core.data.local.category.mappers
 
-import francisco.simon.core.data.local.model.CategoryDbModel
+import francisco.simon.core.data.local.category.model.CategoryDbModel
 import francisco.simon.core.data.network.dto.CategoryDto
 import francisco.simon.core.domain.entity.Category
 

@@ -1,4 +1,4 @@
-package francisco.simon.core.data.local.model
+package francisco.simon.core.data.local.category.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

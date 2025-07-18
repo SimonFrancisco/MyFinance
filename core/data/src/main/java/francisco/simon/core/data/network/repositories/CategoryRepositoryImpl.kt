@@ -1,8 +1,8 @@
 package francisco.simon.core.data.network.repositories
 
-import francisco.simon.core.data.local.db.CategoriesDao
-import francisco.simon.core.data.local.mappers.toCategoryDbModel
-import francisco.simon.core.data.local.mappers.toListCategory
+import francisco.simon.core.data.local.category.db.CategoriesDao
+import francisco.simon.core.data.local.category.mappers.toCategoryDbModel
+import francisco.simon.core.data.local.category.mappers.toListCategory
 import francisco.simon.core.data.network.api.ApiClient
 import francisco.simon.core.data.network.api.ApiService
 import francisco.simon.core.data.network.dto.CategoryDto

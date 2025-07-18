@@ -1,10 +1,10 @@
-package francisco.simon.core.data.local.db
+package francisco.simon.core.data.local.category.db
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import francisco.simon.core.data.local.model.CategoryDbModel
+import francisco.simon.core.data.local.category.model.CategoryDbModel
 import kotlinx.coroutines.flow.Flow
 
 @Dao

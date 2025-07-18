@@ -3,8 +3,9 @@ package francisco.simon.myfinance.di
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import francisco.simon.core.data.local.db.CategoriesDao
-import francisco.simon.core.data.local.db.CategoryDatabase
+import francisco.simon.core.data.local.CategoryDatabase
+import francisco.simon.core.data.local.account.db.AccountDao
+import francisco.simon.core.data.local.category.db.CategoriesDao
 import francisco.simon.core.data.network.api.ApiClient
 import francisco.simon.core.data.network.api.ApiFactory
 import francisco.simon.core.data.network.api.ApiService
@@ -46,14 +47,17 @@ internal object DataModule {
             categoriesDao = categoriesDao
         )
     }
+
     @[ApplicationScope Provides]
     fun providesAccountRepository(
         apiService: ApiService,
-        apiClient: ApiClient
+        apiClient: ApiClient,
+        accountDao: AccountDao
     ): AccountRepository {
         return AccountRepositoryImpl(
             apiService = apiService,
-            apiClient = apiClient
+            apiClient = apiClient,
+            accountDao = accountDao
         )
     }
 
@@ -70,6 +74,11 @@ internal object DataModule {
     @[ApplicationScope Provides]
     fun provideCategoriesDao(database: CategoryDatabase): CategoriesDao {
         return database.categoryDao()
+    }
+
+    @[ApplicationScope Provides]
+    fun provideAccountDao(database: CategoryDatabase): AccountDao {
+        return database.accountDao()
     }
 
     @[ApplicationScope Provides]
