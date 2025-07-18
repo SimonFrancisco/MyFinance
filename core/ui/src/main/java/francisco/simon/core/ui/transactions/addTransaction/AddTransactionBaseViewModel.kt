@@ -49,15 +49,15 @@ abstract class AddTransactionBaseViewModel : ViewModel() {
     fun onLoadInitial() {
         updateLoading()
         viewModelScope.launch {
+            getCategories().onSuccess { categories ->
+                categoriesList.value = categories
+            }.onError { error ->
+                updateError(error)
+            }
             getAccount().onSuccess { account: Account ->
                 transactionModel.value = transactionModel.value.copy(account = account)
-                getCategories().onSuccess { categories ->
-                    categoriesList.value = categories
-                    _state.update {
-                        AddTransactionState.Success
-                    }
-                }.onError { error ->
-                    updateError(error)
+                _state.update {
+                    AddTransactionState.Success
                 }
             }.onError { error ->
                 updateError(error)

@@ -10,7 +10,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CategoriesDao {
     @Query("SELECT * FROM categories ORDER BY id ASC")
-    fun getCategories(): Flow<List<CategoryDbModel>>
+    suspend fun getCategories(): List<CategoryDbModel>
+
+    @Query("SELECT * FROM categories WHERE isIncome=:isIncome")
+    suspend fun getCategoriesByType(isIncome: Boolean): List<CategoryDbModel>
 
     @Query("SELECT * FROM categories WHERE name LIKE:query ORDER BY id ASC")
     fun searchCategory(query: String): Flow<List<CategoryDbModel>>

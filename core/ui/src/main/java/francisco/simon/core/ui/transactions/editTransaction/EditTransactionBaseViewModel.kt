@@ -53,6 +53,11 @@ abstract class EditTransactionBaseViewModel : ViewModel() {
     fun onLoadInitial() {
         updateLoading()
         viewModelScope.launch {
+            getCategories().onSuccess { categories ->
+                categoriesList.value = categories
+            }.onError { error ->
+                updateError(error)
+            }
             getTransaction().onSuccess { transaction ->
                 transactionModel.value = transactionModel.value.copy(account = transaction.account)
                 transactionModel.value =
@@ -62,13 +67,8 @@ abstract class EditTransactionBaseViewModel : ViewModel() {
                     transactionModel.value.copy(transactionDate = transaction.transactionDate.toLocalDateTime())
                 transactionModel.value = transactionModel.value.copy(amount = transaction.amount)
                 transactionModel.value = transactionModel.value.copy(comment = transaction.comment)
-                getCategories().onSuccess { categories ->
-                    categoriesList.value = categories
-                    _state.update {
-                        EditTransactionState.Success
-                    }
-                }.onError { error ->
-                    updateError(error)
+                _state.update {
+                    EditTransactionState.Success
                 }
             }.onError { error ->
                 updateError(error)

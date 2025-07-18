@@ -46,7 +46,7 @@ fun CustomListItem(
 }
 
 @Composable
-private fun TrailSection(trailingContent: @Composable() (() -> Unit)?) {
+private fun TrailSection(trailingContent: @Composable (() -> Unit)?) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End,
