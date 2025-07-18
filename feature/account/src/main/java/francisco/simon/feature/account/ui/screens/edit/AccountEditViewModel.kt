@@ -116,7 +116,10 @@ internal class AccountEditViewModel @Inject constructor(
 
     private fun validateUpdateModel(): Boolean {
         return with(updateModel.value) {
-            !name?.trim().isNullOrEmpty() && !balance?.trim().isNullOrEmpty()
+            !name?.trim().isNullOrEmpty()
+                    && !balance?.trim().isNullOrEmpty()
+                    && balance?.trim()?.contains(',') == false
+                    && balance.trim().count { it == '.' } == 1
         }
     }
 

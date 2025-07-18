@@ -62,7 +62,7 @@ internal fun AccountEditScreen(
     EventConsumer(viewModel.dataMissingError) {
         Toast.makeText(
             context,
-            context.getString(R.string.data_not_complete_error), Toast.LENGTH_SHORT
+            context.getString(R.string.data_not_complete_or_incorrect_error), Toast.LENGTH_SHORT
         ).show()
     }
     AccountEditScreenContent(
@@ -101,9 +101,11 @@ private fun AccountEditScreenContent(
                     viewModel.retry()
                 }
             }
+
             is AccountEditScreenState.Loading -> {
                 FullScreenLoading()
             }
+
             is AccountEditScreenState.Success -> Unit
         }
     }

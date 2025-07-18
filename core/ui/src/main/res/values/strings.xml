@@ -46,7 +46,8 @@
     <string name="date">Дата</string>
     <string name="time">Время</string>
     <string name="data_not_complete_error">Нет всех данных</string>
-    <string name="comment">Комментарий...</string>
+    <string name="data_not_complete_or_incorrect_error">Нет всех данных или данные некорректны</string>
+    <string name="comment">Комментарий…</string>
     <string name="delete">Удалить</string>
     <string name="nothing_found">Ничего не найдено!</string>
 
