@@ -47,7 +47,7 @@ internal class IncomeScreenViewModel @Inject constructor(
                 updateError(error)
             }.onSuccess { account ->
                 val transactionModel = TransactionModel(
-                    accountId = account.id,
+                    accountId = account.accountId,
                     startDate = Instant.now().toApiDate(),
                     endDate = Instant.now().toApiDate()
                 )

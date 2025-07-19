@@ -7,7 +7,7 @@ import francisco.simon.core.domain.entity.Account
 
 fun AccountDbModel.toAccount(): Account {
     return Account(
-        id = id,
+        accountId = id,
         name = name,
         balance = balance,
         currency = currency,

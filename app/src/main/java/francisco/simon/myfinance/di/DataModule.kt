@@ -6,6 +6,7 @@ import dagger.Provides
 import francisco.simon.core.data.local.CategoryDatabase
 import francisco.simon.core.data.local.account.db.AccountDao
 import francisco.simon.core.data.local.category.db.CategoriesDao
+import francisco.simon.core.data.local.transactions.db.TransactionDao
 import francisco.simon.core.data.network.api.ApiClient
 import francisco.simon.core.data.network.api.ApiFactory
 import francisco.simon.core.data.network.api.ApiService
@@ -27,11 +28,17 @@ internal object DataModule {
     @[ApplicationScope Provides]
     fun provideTransactionRepository(
         apiService: ApiService,
-        apiClient: ApiClient
+        apiClient: ApiClient,
+        categoriesDao: CategoriesDao,
+        accountDao: AccountDao,
+        transactionDao: TransactionDao
     ): TransactionRepository {
         return TransactionRepositoryImpl(
             apiService = apiService,
-            apiClient = apiClient
+            apiClient = apiClient,
+            categoriesDao = categoriesDao,
+            accountDao = accountDao,
+            transactionDao = transactionDao
         )
     }
 
@@ -79,6 +86,11 @@ internal object DataModule {
     @[ApplicationScope Provides]
     fun provideAccountDao(database: CategoryDatabase): AccountDao {
         return database.accountDao()
+    }
+
+    @[ApplicationScope Provides]
+    fun provideTransactionDao(database: CategoryDatabase): TransactionDao {
+        return database.transactionDao()
     }
 
     @[ApplicationScope Provides]

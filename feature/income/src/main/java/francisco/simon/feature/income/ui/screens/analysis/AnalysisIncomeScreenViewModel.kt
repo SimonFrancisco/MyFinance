@@ -32,7 +32,7 @@ internal class AnalysisIncomeScreenViewModel @Inject constructor(
         endDate: String
     ): Flow<Result<List<CategoryStatsModel>, Error>> {
         val transactionModel = TransactionModel(
-            accountId = account.id,
+            accountId = account.accountId,
             startDate = startDate,
             endDate = endDate
         )

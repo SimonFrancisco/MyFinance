@@ -41,7 +41,7 @@ internal fun List<CategoryDto>.toCategoryList(): List<Category> {
 
 internal fun AccountDto.toAccount(): Account {
     return Account(
-        id = id,
+        accountId = id,
         name = name,
         balance = balance,
         currency = currency,
@@ -52,7 +52,7 @@ internal fun AccountDto.toAccount(): Account {
 
 internal fun AccountByIdDto.toAccount(): Account {
     return Account(
-        id = id,
+        accountId = id,
         name = name,
         balance = balance,
         currency = currency,

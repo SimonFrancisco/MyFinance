@@ -44,6 +44,7 @@ fun String.toDateAndTime(): String {
     return instant.atOffset(ZoneOffset.UTC).toLocalDateTime().format(dateFormat)
 }
 
+
 fun LocalDateTime.toDate(): String {
     val dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy")
     return this.format(dateFormat)

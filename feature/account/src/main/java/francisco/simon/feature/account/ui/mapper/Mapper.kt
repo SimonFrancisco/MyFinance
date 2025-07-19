@@ -9,7 +9,7 @@ import francisco.simon.feature.account.ui.model.AccountUI
  */
 internal fun Account.toAccountUI(): AccountUI {
     return AccountUI(
-        id = id,
+        id = accountId,
         name = name,
         balance = balance.toBigDecimal(),
         currency = currency,

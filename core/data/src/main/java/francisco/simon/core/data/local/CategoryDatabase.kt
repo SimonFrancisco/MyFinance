@@ -8,13 +8,15 @@ import francisco.simon.core.data.local.account.db.AccountDao
 import francisco.simon.core.data.local.account.model.AccountDbModel
 import francisco.simon.core.data.local.category.db.CategoriesDao
 import francisco.simon.core.data.local.category.model.CategoryDbModel
+import francisco.simon.core.data.local.transactions.db.TransactionDao
+import francisco.simon.core.data.local.transactions.model.TransactionDbModel
 
 /**
  * This a general database, don't pay attention to the name, it was created initially only for categories
  */
 @Database(
-    entities = [CategoryDbModel::class, AccountDbModel::class],
-    version = 2,
+    entities = [CategoryDbModel::class, AccountDbModel::class,TransactionDbModel::class],
+    version = 3,
     exportSchema = false
 )
 abstract class CategoryDatabase : RoomDatabase() {
@@ -22,6 +24,8 @@ abstract class CategoryDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoriesDao
 
     abstract fun accountDao(): AccountDao
+
+    abstract fun transactionDao():TransactionDao
 
     companion object {
         private const val DB_NAME = "CategoryDatabase"

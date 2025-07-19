@@ -74,7 +74,7 @@ abstract class AddTransactionBaseViewModel : ViewModel() {
             updateLoading()
             with(transactionModel.value) {
                 val addTransactionModel = AddTransactionModel(
-                    accountId = account?.id ?: 0,
+                    accountId = account?.accountId ?: 0,
                     categoryId = category?.id ?: 0,
                     amount = amount?.trim() ?: "",
                     transactionDate = transactionDate.toTransactionModelTime(),

@@ -86,7 +86,7 @@ abstract class EditTransactionBaseViewModel : ViewModel() {
             with(transactionModel.value) {
                 val editTransactionModel = EditTransactionModel(
                     transactionId = transactionId ?: 0,
-                    accountId = account?.id ?: 0,
+                    accountId = account?.accountId ?: 0,
                     categoryId = category?.id ?: 0,
                     amount = amount?.trim() ?: "",
                     transactionDate = transactionDate.toTransactionModelTime(),

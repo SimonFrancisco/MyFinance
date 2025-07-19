@@ -42,6 +42,7 @@ class AccountRepositoryImpl(
                         val localAccount = accountDao.getAccount()
                         Result.Success(localAccount.toAccount())
                     }
+
                     is Result.Success<List<AccountDto>> -> {
                         accountDao.insertAccount(
                             apiResult.data.first().toDbModel(isSynchronized = true)
@@ -67,6 +68,7 @@ class AccountRepositoryImpl(
                         val localAccount = accountDao.getAccount()
                         Result.Success(localAccount.toAccount())
                     }
+
                     is Result.Success<AccountByIdDto> -> {
                         accountDao.insertAccount(
                             apiResult.data.toDbModel(isSynchronized = true)
@@ -124,6 +126,9 @@ class AccountRepositoryImpl(
 
     override suspend fun synchronize() {
         withContext(Dispatchers.IO) {
+            if (accountDao.countAccounts() == 0) {
+                return@withContext
+            }
             val localAccount = accountDao.getAccount()
             if (localAccount.isSynchronized) {
                 return@withContext
@@ -136,6 +141,7 @@ class AccountRepositoryImpl(
                 )
                 updateAccount(accountUpdateRequestModel)
             }
+
         }
     }
 }

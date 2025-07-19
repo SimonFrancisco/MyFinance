@@ -15,6 +15,9 @@ interface CategoriesDao {
     @Query("SELECT * FROM categories WHERE isIncome=:isIncome")
     suspend fun getCategoriesByType(isIncome: Boolean): List<CategoryDbModel>
 
+    @Query("SELECT * FROM categories WHERE id=:categoryId LIMIT 1")
+    suspend fun getCategoryById(categoryId: Int): CategoryDbModel
+
     @Query("SELECT * FROM categories WHERE name LIKE:query ORDER BY id ASC")
     fun searchCategory(query: String): Flow<List<CategoryDbModel>>
 

@@ -10,6 +10,9 @@ import francisco.simon.core.data.local.account.model.AccountDbModel
 @Dao
 interface AccountDao {
 
+    @Query("SELECT COUNT(*) FROM accounts")
+    suspend fun countAccounts(): Int
+
     @Query("SELECT * FROM accounts LIMIT 1")
     suspend fun getAccount(): AccountDbModel
 
