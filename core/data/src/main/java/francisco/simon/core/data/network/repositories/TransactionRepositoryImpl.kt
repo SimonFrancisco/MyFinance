@@ -20,12 +20,12 @@ import francisco.simon.core.data.network.mappers.toAddTransactionDto
 import francisco.simon.core.data.network.mappers.toEditTransactionDtoModel
 import francisco.simon.core.data.network.mappers.toTransaction
 import francisco.simon.core.data.network.mappers.toTransactionResponse
-import francisco.simon.core.domain.preferences.SyncPreferences
 import francisco.simon.core.domain.entity.Transaction
 import francisco.simon.core.domain.model.AddTransactionModel
 import francisco.simon.core.domain.model.EditTransactionModel
 import francisco.simon.core.domain.model.TransactionModel
 import francisco.simon.core.domain.model.TransactionResponseModel
+import francisco.simon.core.domain.preferences.SyncPreferences
 import francisco.simon.core.domain.repository.TransactionRepository
 import francisco.simon.core.domain.utils.EmptyResult
 import francisco.simon.core.domain.utils.Error
@@ -191,9 +191,8 @@ class TransactionRepositoryImpl(
                     is Result.Error<NetworkError> -> {
                         transactionDao.updateTransaction(
                             localTransaction.copy(
-                                categoryTransaction = localTransaction.categoryTransaction.copy(
-                                    categoryId = transactionModel.categoryId
-                                ),
+                                categoryTransaction = categoriesDao.getCategoryById(transactionModel.categoryId)
+                                    .toCategoryTransaction(),
                                 comment = transactionModel.comment,
                                 transactionDate = transactionModel.transactionDate,
                                 amount = transactionModel.amount,
@@ -210,9 +209,7 @@ class TransactionRepositoryImpl(
                         val transaction = apiResult.data
                         transactionDao.updateTransaction(
                             localTransaction.copy(
-                                categoryTransaction = localTransaction.categoryTransaction.copy(
-                                    categoryId = transaction.category.id
-                                ),
+                                categoryTransaction = transaction.category.toCategoryTransaction(),
                                 comment = transaction.comment,
                                 transactionDate = transaction.transactionDate,
                                 amount = transaction.amount,
