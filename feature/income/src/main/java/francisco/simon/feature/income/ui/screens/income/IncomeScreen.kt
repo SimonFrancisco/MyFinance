@@ -20,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,8 +42,6 @@ import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.core.ui.theme.Green
-import francisco.simon.core.ui.utils.PropagateAccountUpdateWhenGoingBack
-import francisco.simon.core.ui.utils.PropagateIncomeChangeUpdateWhenGoingBack
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.feature.income.incomeComponent
 import francisco.simon.feature.income.ui.model.IncomeUI
@@ -69,20 +68,19 @@ internal fun IncomeScreen(
         }
 
     )
+
     onGoToAddIncomeScreenGlobal = onGoToAddIncomeScreen
     val component = incomeComponent()
     val viewModel: IncomeScreenViewModel = viewModel(
         factory = component.getViewModelFactory()
     )
+    LaunchedEffect(Unit) {
+        viewModel.loadIncome()
+    }
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     IncomeScreenContent(currentState, viewModel, onGoToEditIncomeScreen)
-    PropagateAccountUpdateWhenGoingBack {
-        viewModel.retry()
-    }
-    PropagateIncomeChangeUpdateWhenGoingBack {
-        viewModel.retry()
-    }
+
 }
 
 

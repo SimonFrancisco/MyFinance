@@ -59,12 +59,14 @@ internal object DataModule {
     fun providesAccountRepository(
         apiService: ApiService,
         apiClient: ApiClient,
-        accountDao: AccountDao
+        accountDao: AccountDao,
+        transactionDao: TransactionDao
     ): AccountRepository {
         return AccountRepositoryImpl(
             apiService = apiService,
             apiClient = apiClient,
-            accountDao = accountDao
+            accountDao = accountDao,
+            transactionDao = transactionDao
         )
     }
 

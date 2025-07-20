@@ -16,7 +16,7 @@ import francisco.simon.core.data.local.transactions.model.TransactionDbModel
  */
 @Database(
     entities = [CategoryDbModel::class, AccountDbModel::class,TransactionDbModel::class],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class CategoryDatabase : RoomDatabase() {

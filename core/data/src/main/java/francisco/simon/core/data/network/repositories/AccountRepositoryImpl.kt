@@ -3,6 +3,7 @@ package francisco.simon.core.data.network.repositories
 import francisco.simon.core.data.local.account.db.AccountDao
 import francisco.simon.core.data.local.account.mappers.toAccount
 import francisco.simon.core.data.local.account.mappers.toDbModel
+import francisco.simon.core.data.local.transactions.db.TransactionDao
 import francisco.simon.core.data.network.api.ApiClient
 import francisco.simon.core.data.network.api.ApiService
 import francisco.simon.core.data.network.dto.account.AccountByIdDto
@@ -30,7 +31,8 @@ import kotlinx.coroutines.withContext
 class AccountRepositoryImpl(
     private val apiService: ApiService,
     private val apiClient: ApiClient,
-    private val accountDao: AccountDao
+    private val accountDao: AccountDao,
+    private val transactionDao: TransactionDao
 ) : AccountRepository, SyncRepository {
 
     override suspend fun getAccount(): Result<Account, Error> {
@@ -100,9 +102,10 @@ class AccountRepositoryImpl(
                             isSynchronized = false
                         )
                         accountDao.updateAccount(localAccount)
+                        propagateAccountUpdateToLocalTransactions(updateAccountBody)
                         Result.Success(localAccount.toAccount())
-                    }
 
+                    }
                     is Result.Success<AccountDto> -> {
                         val localAccount = accountDao.getAccount().copy(
                             name = apiResult.data.name,
@@ -111,6 +114,7 @@ class AccountRepositoryImpl(
                             isSynchronized = true
                         )
                         accountDao.updateAccount(localAccount)
+                        propagateAccountUpdateToLocalTransactions(updateAccountBody)
                         Result.Success(apiResult.data.toAccount())
                     }
                 }
@@ -121,6 +125,15 @@ class AccountRepositoryImpl(
 
 
         }
+    }
+
+    private suspend fun propagateAccountUpdateToLocalTransactions(updateAccountBody: AccountUpdateRequestModel) {
+        transactionDao.updateTransactionsForAccountUpdate(
+            accountId = updateAccountBody.id,
+            newAccountName = updateAccountBody.name,
+            newAccountBalance = updateAccountBody.balance,
+            newAccountCurrency = updateAccountBody.currency
+        )
     }
 
     override suspend fun synchronize() {

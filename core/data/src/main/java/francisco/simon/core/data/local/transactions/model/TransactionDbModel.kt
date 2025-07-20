@@ -2,9 +2,11 @@ package francisco.simon.core.data.local.transactions.model
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "transactions")
+@Entity(tableName = "transactions",
+    indices = [Index(value = ["accountId"])])
 data class TransactionDbModel(
     @PrimaryKey(autoGenerate = true)
     val transactionId: Int = 0,

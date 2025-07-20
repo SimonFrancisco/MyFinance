@@ -94,6 +94,7 @@ class TransactionRepositoryImpl(
         }.flowOn(Dispatchers.IO)
 
     }
+
     override suspend fun getTransactionById(transactionId: Int): Result<Transaction, Error> {
         return withContext(Dispatchers.IO) {
             try {
@@ -143,6 +144,7 @@ class TransactionRepositoryImpl(
                         )
                         Result.Success(transactionDbModel.toTransactionResponseModel())
                     }
+
                     is Result.Success<TransactionResponseDto> -> {
                         val transactionResponseDto = apiResult.data
                         val transactionDbModel = TransactionDbModel(
@@ -287,7 +289,9 @@ class TransactionRepositoryImpl(
                         amount = transactionDbModel.amount,
                         transactionDate = transactionDbModel.transactionDate
                     )
-                    editTransaction(editTransactionModel)
+                    if (!transactionDbModel.isDeleted) {
+                        editTransaction(editTransactionModel)
+                    }
                 }
             }
             launch {
