@@ -10,6 +10,7 @@
     <string name="account_app_top_bar">Мой счет</string>
     <string name="category_app_top_bar">Мои статьи</string>
     <string name="settings_app_top_bar">Настройки</string>
+    <string name="sync_app_top_bar">Синхронизация</string>
     <string name="history_app_top_bar">Моя история</string>
     <string name="add_income_app_top_bar">Мои доходы</string>
     <string name="add_expense_app_top_bar">Мои расходы</string>
@@ -50,5 +51,7 @@
     <string name="comment">Комментарий…</string>
     <string name="delete">Удалить</string>
     <string name="nothing_found">Ничего не найдено!</string>
+    <string name="last_sync_time">Время последней сихронизации</string>
+    <string name="no_sync_time">Пока не было сихронизации!</string>
 
 </resources>

@@ -58,7 +58,8 @@ internal fun AppNavGraph(
             appBarState = appBarState
         )
         settingsNavGraph(
-            appBarState = appBarState
+            appBarState = appBarState,
+            navController = navController
         )
     }
 

@@ -4,7 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import francisco.simon.myfinance.workers.factory.ChildWorkerFactory
-import francisco.simon.myfinance.workers.SyncWorker
+import francisco.simon.myfinance.workers.syn_worker.SyncWorker
 
 @Module
 interface WorkerModule {

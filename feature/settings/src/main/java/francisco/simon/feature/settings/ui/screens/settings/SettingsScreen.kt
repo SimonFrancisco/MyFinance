@@ -1,4 +1,4 @@
-package francisco.simon.feature.settings.ui
+package francisco.simon.feature.settings.ui.screens.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -34,7 +34,7 @@ import francisco.simon.feature.settings.settingsComponent
  * @author Simon Francisco
  */
 @Composable
-internal fun SettingsScreen(appBarState: MutableState<AppBarState>) {
+internal fun SettingsScreen(appBarState: MutableState<AppBarState>, onGoToSync: () -> Unit) {
     UpdateAppBarState(
         appBarState = appBarState,
         titleRes = R.string.settings_app_top_bar,
@@ -45,16 +45,17 @@ internal fun SettingsScreen(appBarState: MutableState<AppBarState>) {
     )
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
-    SettingsScreenContent(currentState)
+    SettingsScreenContent(currentState, onClick = onGoToSync)
 }
 
 @Composable
 private fun SettingsScreenContent(
-    state: SettingsScreenState
+    state: SettingsScreenState,
+    onClick: () -> Unit
 ) {
     when (state) {
         SettingsScreenState.Nothing -> {
-            SettingsScreenList(fakeSettings)
+            SettingsScreenList(fakeSettings, onClick)
         }
     }
 }
@@ -62,7 +63,8 @@ private fun SettingsScreenContent(
 
 @Composable
 private fun SettingsScreenList(
-    settingsOptions: List<String> = fakeSettings
+    settingsOptions: List<String> = fakeSettings,
+    onClick: () -> Unit
 ) {
     val checked = remember {
         mutableStateOf(false)
@@ -76,7 +78,14 @@ private fun SettingsScreenList(
                 HorizontalDivider()
             }
             items(settingsOptions) { setting ->
-                SettingsItem(setting)
+                if (setting != "Синхронизация") { // TODO  This is костыль, remove later
+                    SettingsItem(setting) {
+                    }
+                } else {
+                    SettingsItem(setting) {
+                        onClick()
+                    }
+                }
                 HorizontalDivider()
             }
         }
@@ -84,12 +93,12 @@ private fun SettingsScreenList(
 }
 
 @Composable
-private fun SettingsItem(setting: String) {
+private fun SettingsItem(setting: String, onClick: () -> Unit) {
     francisco.simon.core.ui.components.CustomListItem(
         modifier = Modifier
             .height(56.dp)
             .clickable {
-
+                onClick()
             },
         headlineContent = {
             Text(text = setting, style = MaterialTheme.typography.bodyLarge)

@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.workers
+package francisco.simon.myfinance.workers.syn_worker
 
 import android.content.Context
 import androidx.work.BackoffPolicy
@@ -9,6 +9,7 @@ import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkerParameters
+import francisco.simon.core.domain.preferences.SyncPreferences
 import francisco.simon.core.domain.repository.AccountRepository
 import francisco.simon.core.domain.repository.TransactionRepository
 import francisco.simon.myfinance.workers.factory.ChildWorkerFactory
@@ -19,15 +20,16 @@ class SyncWorker(
     context: Context,
     workerParameters: WorkerParameters,
     private val transactionRepository: TransactionRepository,
-    private val accountRepository: AccountRepository
+    private val accountRepository: AccountRepository,
+    private val syncPreferences: SyncPreferences
 ) : CoroutineWorker(context, workerParameters) {
 
     override suspend fun doWork(): Result {
         return try {
             transactionRepository.synchronize()
             accountRepository.synchronize()
+            syncPreferences.saveLastSyncTime(System.currentTimeMillis())
             Result.success()
-
         } catch (e: Exception) {
             Result.retry()
         }
@@ -59,7 +61,8 @@ class SyncWorker(
 
     class Factory @Inject constructor(
         private val transactionRepository: TransactionRepository,
-        private val accountRepository: AccountRepository
+        private val accountRepository: AccountRepository,
+        private val syncPreferences: SyncPreferences
     ) : ChildWorkerFactory {
         override fun create(
             context: Context,
@@ -69,7 +72,8 @@ class SyncWorker(
                 context = context,
                 workerParameters = workerParameters,
                 transactionRepository = transactionRepository,
-                accountRepository = accountRepository
+                accountRepository = accountRepository,
+                syncPreferences = syncPreferences
             )
         }
     }

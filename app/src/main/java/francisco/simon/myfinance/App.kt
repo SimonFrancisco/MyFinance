@@ -14,9 +14,11 @@ import francisco.simon.feature.expenses.di.ExpensesDependencies
 import francisco.simon.feature.expenses.di.ExpensesDependenciesProvider
 import francisco.simon.feature.income.di.IncomeDependencies
 import francisco.simon.feature.income.di.IncomeDependenciesProvider
+import francisco.simon.feature.settings.di.SettingsDependencies
+import francisco.simon.feature.settings.di.SettingsDependenciesProvider
 import francisco.simon.myfinance.di.ApplicationComponent
 import francisco.simon.myfinance.di.DaggerApplicationComponent
-import francisco.simon.myfinance.workers.SyncWorker
+import francisco.simon.myfinance.workers.syn_worker.SyncWorker
 import francisco.simon.myfinance.workers.factory.WorkerFactory
 import javax.inject.Inject
 
@@ -25,6 +27,7 @@ internal class App : Application(),
     AccountDependenciesProvider,
     IncomeDependenciesProvider,
     ExpensesDependenciesProvider,
+    SettingsDependenciesProvider,
     Configuration.Provider {
 
     @Inject
@@ -64,6 +67,10 @@ internal class App : Application(),
     }
 
     override fun getExpensesDependencies(): ExpensesDependencies {
+        return component
+    }
+
+    override fun getSettingsDependencies(): SettingsDependencies {
         return component
     }
 }

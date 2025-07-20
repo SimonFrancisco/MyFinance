@@ -20,6 +20,7 @@ import francisco.simon.core.data.network.mappers.toAddTransactionDto
 import francisco.simon.core.data.network.mappers.toEditTransactionDtoModel
 import francisco.simon.core.data.network.mappers.toTransaction
 import francisco.simon.core.data.network.mappers.toTransactionResponse
+import francisco.simon.core.domain.preferences.SyncPreferences
 import francisco.simon.core.domain.entity.Transaction
 import francisco.simon.core.domain.model.AddTransactionModel
 import francisco.simon.core.domain.model.EditTransactionModel
@@ -51,7 +52,8 @@ class TransactionRepositoryImpl(
     private val apiClient: ApiClient,
     private val categoriesDao: CategoriesDao,
     private val accountDao: AccountDao,
-    private val transactionDao: TransactionDao
+    private val transactionDao: TransactionDao,
+    private val syncPreferences: SyncPreferences
 ) : TransactionRepository {
 
     override suspend fun getTransactions(
@@ -84,6 +86,7 @@ class TransactionRepositoryImpl(
                             .map { transactionDto ->
                                 transactionDto.toTransaction()
                             }
+                        syncPreferences.saveLastSyncTime(System.currentTimeMillis())
                         emit(Result.Success(transactions))
                     }
                 }
@@ -94,6 +97,7 @@ class TransactionRepositoryImpl(
         }.flowOn(Dispatchers.IO)
 
     }
+
     override suspend fun getTransactionById(transactionId: Int): Result<Transaction, Error> {
         return withContext(Dispatchers.IO) {
             try {

@@ -10,9 +10,11 @@ import francisco.simon.core.data.local.transactions.db.TransactionDao
 import francisco.simon.core.data.network.api.ApiClient
 import francisco.simon.core.data.network.api.ApiFactory
 import francisco.simon.core.data.network.api.ApiService
+import francisco.simon.core.data.network.preferences.SyncPreferencesImpl
 import francisco.simon.core.data.network.repositories.AccountRepositoryImpl
 import francisco.simon.core.data.network.repositories.CategoryRepositoryImpl
 import francisco.simon.core.data.network.repositories.TransactionRepositoryImpl
+import francisco.simon.core.domain.preferences.SyncPreferences
 import francisco.simon.core.domain.repository.AccountRepository
 import francisco.simon.core.domain.repository.CategoryRepository
 import francisco.simon.core.domain.repository.TransactionRepository
@@ -31,14 +33,16 @@ internal object DataModule {
         apiClient: ApiClient,
         categoriesDao: CategoriesDao,
         accountDao: AccountDao,
-        transactionDao: TransactionDao
+        transactionDao: TransactionDao,
+        syncPreferences: SyncPreferences
     ): TransactionRepository {
         return TransactionRepositoryImpl(
             apiService = apiService,
             apiClient = apiClient,
             categoriesDao = categoriesDao,
             accountDao = accountDao,
-            transactionDao = transactionDao
+            transactionDao = transactionDao,
+            syncPreferences = syncPreferences
         )
     }
 
@@ -98,6 +102,11 @@ internal object DataModule {
     @[ApplicationScope Provides]
     fun provideApiClient(context: Context): ApiClient {
         return ApiClient(context)
+    }
+
+    @[ApplicationScope Provides]
+    fun provideSyncPreferences(context: Context): SyncPreferences {
+        return SyncPreferencesImpl(context)
     }
 
 }
