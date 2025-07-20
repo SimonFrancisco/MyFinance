@@ -11,15 +11,13 @@ import francisco.simon.core.data.local.category.model.CategoryDbModel
 import francisco.simon.core.data.local.transactions.db.TransactionDao
 import francisco.simon.core.data.local.transactions.model.TransactionDbModel
 
-/**
- * This a general database, don't pay attention to the name, it was created initially only for categories
- */
+
 @Database(
     entities = [CategoryDbModel::class, AccountDbModel::class,TransactionDbModel::class],
-    version = 4,
+    version = 1,
     exportSchema = false
 )
-abstract class CategoryDatabase : RoomDatabase() {
+abstract class MyFinanceDatabase : RoomDatabase() {
 
     abstract fun categoryDao(): CategoriesDao
 
@@ -28,13 +26,13 @@ abstract class CategoryDatabase : RoomDatabase() {
     abstract fun transactionDao():TransactionDao
 
     companion object {
-        private const val DB_NAME = "CategoryDatabase"
-        private var INSTANCE: CategoryDatabase? = null
+        private const val DB_NAME = "MyFinanceDatabase"
+        private var INSTANCE: MyFinanceDatabase? = null
         private val LOCK = Any()
 
         fun getInstance(
             context: Context
-        ): CategoryDatabase {
+        ): MyFinanceDatabase {
             INSTANCE?.let {
                 return it
             }
@@ -44,7 +42,7 @@ abstract class CategoryDatabase : RoomDatabase() {
                 }
                 val database = Room.databaseBuilder(
                     context = context,
-                    klass = CategoryDatabase::class.java,
+                    klass = MyFinanceDatabase::class.java,
                     name = DB_NAME
                 ).fallbackToDestructiveMigration(true)
                     .build()

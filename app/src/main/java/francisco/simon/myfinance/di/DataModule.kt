@@ -3,7 +3,7 @@ package francisco.simon.myfinance.di
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import francisco.simon.core.data.local.CategoryDatabase
+import francisco.simon.core.data.local.MyFinanceDatabase
 import francisco.simon.core.data.local.account.db.AccountDao
 import francisco.simon.core.data.local.category.db.CategoriesDao
 import francisco.simon.core.data.local.transactions.db.TransactionDao
@@ -76,22 +76,22 @@ internal object DataModule {
     }
 
     @[ApplicationScope Provides]
-    fun provideCategoryDatabase(context: Context): CategoryDatabase {
-        return CategoryDatabase.getInstance(context)
+    fun provideMyFinanceDatabase(context: Context): MyFinanceDatabase {
+        return MyFinanceDatabase.getInstance(context)
     }
 
     @[ApplicationScope Provides]
-    fun provideCategoriesDao(database: CategoryDatabase): CategoriesDao {
+    fun provideCategoriesDao(database: MyFinanceDatabase): CategoriesDao {
         return database.categoryDao()
     }
 
     @[ApplicationScope Provides]
-    fun provideAccountDao(database: CategoryDatabase): AccountDao {
+    fun provideAccountDao(database: MyFinanceDatabase): AccountDao {
         return database.accountDao()
     }
 
     @[ApplicationScope Provides]
-    fun provideTransactionDao(database: CategoryDatabase): TransactionDao {
+    fun provideTransactionDao(database: MyFinanceDatabase): TransactionDao {
         return database.transactionDao()
     }
 
