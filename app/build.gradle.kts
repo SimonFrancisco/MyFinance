@@ -51,5 +51,6 @@ dependencies {
 
     implementation(libs.dagger2)
 
+    implementation(libs.work.manager)
 
 }

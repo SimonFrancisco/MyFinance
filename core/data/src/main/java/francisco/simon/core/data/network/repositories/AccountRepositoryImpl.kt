@@ -10,7 +10,6 @@ import francisco.simon.core.data.network.dto.account.AccountByIdDto
 import francisco.simon.core.data.network.dto.account.AccountDto
 import francisco.simon.core.data.network.mappers.toAccount
 import francisco.simon.core.data.network.mappers.toAccountUpdateRequestDto
-import francisco.simon.core.data.synchronize.SyncRepository
 import francisco.simon.core.domain.entity.Account
 import francisco.simon.core.domain.model.AccountUpdateRequestModel
 import francisco.simon.core.domain.repository.AccountRepository
@@ -25,7 +24,6 @@ import kotlinx.coroutines.withContext
  * Network-first, fallback to DB
  * @param apiService
  * @param apiClient
- *
  * @author Simon Francisco
  */
 class AccountRepositoryImpl(
@@ -33,7 +31,7 @@ class AccountRepositoryImpl(
     private val apiClient: ApiClient,
     private val accountDao: AccountDao,
     private val transactionDao: TransactionDao
-) : AccountRepository, SyncRepository {
+) : AccountRepository {
 
     override suspend fun getAccount(): Result<Account, Error> {
         synchronize()
@@ -60,7 +58,7 @@ class AccountRepositoryImpl(
     }
 
     override suspend fun getAccountById(accountId: Int): Result<Account, Error> {
-        synchronize()
+        synchronize() // TODO maybe this is extra here and must be removed
         return withContext(Dispatchers.IO) {
             try {
                 when (val apiResult =

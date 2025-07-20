@@ -20,7 +20,6 @@ import francisco.simon.core.data.network.mappers.toAddTransactionDto
 import francisco.simon.core.data.network.mappers.toEditTransactionDtoModel
 import francisco.simon.core.data.network.mappers.toTransaction
 import francisco.simon.core.data.network.mappers.toTransactionResponse
-import francisco.simon.core.data.synchronize.SyncRepository
 import francisco.simon.core.domain.entity.Transaction
 import francisco.simon.core.domain.model.AddTransactionModel
 import francisco.simon.core.domain.model.EditTransactionModel
@@ -42,6 +41,7 @@ import java.time.Instant
 
 /**
  * Implementation of Transaction repository, operations happen in Dispatcher IO
+ * Network-first, fallback to DB
  * @param apiService
  * @param apiClient
  * @author Simon Francisco
@@ -52,7 +52,7 @@ class TransactionRepositoryImpl(
     private val categoriesDao: CategoriesDao,
     private val accountDao: AccountDao,
     private val transactionDao: TransactionDao
-) : TransactionRepository, SyncRepository {
+) : TransactionRepository {
 
     override suspend fun getTransactions(
         transactionModel: TransactionModel

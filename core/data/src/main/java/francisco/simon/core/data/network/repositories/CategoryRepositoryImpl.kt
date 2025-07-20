@@ -41,7 +41,6 @@ class CategoryRepositoryImpl(
                         val localCategories = categoriesDao.getCategories()
                         Result.Success(localCategories.toListCategory())
                     }
-
                     is Result.Success<List<CategoryDto>> -> {
                         apiResult.map { listCategoriesDto ->
                             listCategoriesDto.map { categoryDto ->

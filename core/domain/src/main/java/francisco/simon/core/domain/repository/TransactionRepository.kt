@@ -22,4 +22,6 @@ interface TransactionRepository {
 
     suspend fun deleteTransaction(transactionId: Int): EmptyResult<Error>
 
+    suspend fun synchronize()
+
 }

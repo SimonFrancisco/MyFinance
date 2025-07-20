@@ -13,4 +13,6 @@ interface AccountRepository {
     suspend fun updateAccount(
         updateAccountBody: AccountUpdateRequestModel
     ): Result<Account, Error>
+
+    suspend fun synchronize()
 }
