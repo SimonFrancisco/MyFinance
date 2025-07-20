@@ -2,7 +2,6 @@ package francisco.simon.feature.income.ui.screens.add_income
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -13,8 +12,6 @@ import francisco.simon.core.ui.components.topBar.NavigationButton
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.core.ui.transactions.addTransaction.AddTransactionScreen
 import francisco.simon.core.ui.utils.EventConsumer
-import francisco.simon.core.ui.utils.MonitorAccount
-import francisco.simon.core.ui.utils.MonitorTransaction
 import francisco.simon.feature.income.incomeComponent
 
 @Composable
@@ -40,7 +37,6 @@ fun AddIncomeScreen(appBarState: MutableState<AppBarState>, onGoBackToIncomeScre
     AddTransactionScreen(viewModel)
     EventConsumer(viewModel.exitChannel) {
         onGoBackToIncomeScreen()
-        MonitorTransaction.event(MonitorTransaction.Commands.MANIPULATE_INCOME)
     }
     EventConsumer(viewModel.dataMissingError) {
         Toast.makeText(

@@ -94,7 +94,6 @@ class TransactionRepositoryImpl(
         }.flowOn(Dispatchers.IO)
 
     }
-
     override suspend fun getTransactionById(transactionId: Int): Result<Transaction, Error> {
         return withContext(Dispatchers.IO) {
             try {
@@ -117,6 +116,7 @@ class TransactionRepositoryImpl(
         }
     }
 
+    // TODO propagate changes to amount in account
     override suspend fun addTransaction(transactionModel: AddTransactionModel): Result<TransactionResponseModel, Error> {
         return withContext(Dispatchers.IO) {
             try {
@@ -172,6 +172,7 @@ class TransactionRepositoryImpl(
         }
     }
 
+    // TODO propagate changes to amount in account
     override suspend fun editTransaction(transactionModel: EditTransactionModel): Result<Transaction, Error> {
         return withContext(Dispatchers.IO) {
             try {

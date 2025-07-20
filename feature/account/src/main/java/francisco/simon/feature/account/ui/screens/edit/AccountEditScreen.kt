@@ -19,8 +19,6 @@ import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.NavigationButton
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.core.ui.utils.EventConsumer
-import francisco.simon.core.ui.utils.MonitorAccount
-import francisco.simon.core.ui.utils.MonitorAccount.Commands.UPDATE_ACCOUNT
 import francisco.simon.feature.account.accountComponent
 import francisco.simon.feature.account.ui.screens.edit.AccountEditViewModel.UpdateModel
 import francisco.simon.feature.account.ui.screens.edit.component.BottomSheet
@@ -52,7 +50,6 @@ internal fun AccountEditScreen(
             icon = R.drawable.ic_confirm
         ) {
             viewModel.updateAccount()
-            MonitorAccount.event(UPDATE_ACCOUNT)
 
         }
     )

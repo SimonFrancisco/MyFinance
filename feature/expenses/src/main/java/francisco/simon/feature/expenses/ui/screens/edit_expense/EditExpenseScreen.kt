@@ -12,7 +12,6 @@ import francisco.simon.core.ui.components.topBar.NavigationButton
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.core.ui.transactions.editTransaction.EditTransactionScreen
 import francisco.simon.core.ui.utils.EventConsumer
-import francisco.simon.core.ui.utils.MonitorTransaction
 import francisco.simon.feature.expenses.expensesComponent
 import francisco.simon.feature.expenses.ui.screens.edit_expense.EditExpenseScreenViewModel
 
@@ -43,7 +42,6 @@ fun EditExpenseScreen(
     EditTransactionScreen(viewModel)
     EventConsumer(viewModel.exitChannel) {
         onGoBackToExpensesScreen()
-        MonitorTransaction.event(MonitorTransaction.Commands.MANIPULATE_EXPENSE)
     }
     EventConsumer(viewModel.dataMissingError) {
         Toast.makeText(

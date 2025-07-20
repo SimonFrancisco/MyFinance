@@ -30,11 +30,8 @@ internal class AccountViewModel @Inject constructor(
 
     val state: StateFlow<AccountScreenState> = _state
 
-    init {
-        loadAccount()
-    }
 
-    private fun loadAccount() {
+     fun loadAccount() {
         updateLoading()
         viewModelScope.launch {
             getAccountUseCase().onSuccess { account ->

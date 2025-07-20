@@ -15,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,9 +32,6 @@ import francisco.simon.core.ui.components.RetryCall
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
-import francisco.simon.core.ui.utils.PropagateAccountUpdateWhenGoingBack
-import francisco.simon.core.ui.utils.PropagateExpenseChangeUpdateWhenGoingBack
-import francisco.simon.core.ui.utils.PropagateIncomeChangeUpdateWhenGoingBack
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.feature.account.accountComponent
 import francisco.simon.feature.account.ui.model.AccountUI
@@ -63,21 +61,17 @@ internal fun AccountScreen(
     )
     val component = accountComponent()
     val viewModel: AccountViewModel = viewModel(factory = component.getViewModelFactory())
+    LaunchedEffect(Unit) {
+        viewModel.loadAccount()
+    }
     val state = viewModel.state.collectAsStateWithLifecycle()
     val currentState = state.value
     AccountScreenContent(
         state = currentState,
         viewModel = viewModel
     )
-    PropagateAccountUpdateWhenGoingBack {
-        viewModel.retry()
-    }
-    PropagateExpenseChangeUpdateWhenGoingBack {
-        viewModel.retry()
-    }
-    PropagateIncomeChangeUpdateWhenGoingBack {
-        viewModel.retry()
-    }
+
+
 }
 
 @Composable
