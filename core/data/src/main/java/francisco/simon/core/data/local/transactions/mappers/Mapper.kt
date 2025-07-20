@@ -8,7 +8,6 @@ import francisco.simon.core.data.local.transactions.model.TransactionDbModel
 import francisco.simon.core.data.network.dto.CategoryDto
 import francisco.simon.core.data.network.dto.account.AccountDto
 import francisco.simon.core.data.network.dto.transactions.TransactionDto
-import francisco.simon.core.data.network.dto.transactions.TransactionResponseDto
 import francisco.simon.core.domain.entity.Account
 import francisco.simon.core.domain.entity.Category
 import francisco.simon.core.domain.entity.Transaction
@@ -18,10 +17,16 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 
-fun String.toTransactionDate(): String {
+fun String.toStartTransactionDate(): String {
     val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     val localDate = LocalDate.parse(this, dateFormat)
     return localDate.atStartOfDay(ZoneOffset.UTC).toInstant().toString()
+}
+
+fun String.toEndTransactionDate():String{
+    val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val localDate = LocalDate.parse(this, dateFormat)
+    return localDate.atTime(23,59,59).toInstant(ZoneOffset.UTC).toString()
 }
 
 fun TransactionDbModel.toTransaction(): Transaction {
@@ -111,13 +116,14 @@ fun AccountDto.toAccountTransaction(): AccountTransaction {
     )
 }
 
-fun TransactionDto.toAddDB(isAdded: Boolean): TransactionDbModel {
+fun TransactionDto.toAddDB(): TransactionDbModel {
     return TransactionDbModel(
         transactionId = id,
         amount = amount,
         categoryTransaction = category.toCategoryTransaction(),
         accountTransaction = account.toAccountTransaction(),
-        isAdded = isAdded,
+        isAdded = true,
+        isEdited = true,
         comment = comment,
         transactionDate = transactionDate,
         createdAt = createdAt,
@@ -125,16 +131,3 @@ fun TransactionDto.toAddDB(isAdded: Boolean): TransactionDbModel {
     )
 }
 
-fun TransactionDto.toEditDB(isEdited: Boolean): TransactionDbModel {
-    return TransactionDbModel(
-        transactionId = id,
-        amount = amount,
-        categoryTransaction = category.toCategoryTransaction(),
-        accountTransaction = account.toAccountTransaction(),
-        isEdited = isEdited,
-        comment = comment,
-        transactionDate = transactionDate,
-        createdAt = createdAt,
-        updatedAt = updatedAt
-    )
-}

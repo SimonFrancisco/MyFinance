@@ -1,15 +1,15 @@
 package francisco.simon.core.data.network.repositories
 
-import android.util.Log
 import francisco.simon.core.data.local.account.db.AccountDao
 import francisco.simon.core.data.local.category.db.CategoriesDao
 import francisco.simon.core.data.local.transactions.db.TransactionDao
 import francisco.simon.core.data.local.transactions.mappers.toAccountTransaction
 import francisco.simon.core.data.local.transactions.mappers.toAddDB
 import francisco.simon.core.data.local.transactions.mappers.toCategoryTransaction
+import francisco.simon.core.data.local.transactions.mappers.toEndTransactionDate
 import francisco.simon.core.data.local.transactions.mappers.toListTransaction
+import francisco.simon.core.data.local.transactions.mappers.toStartTransactionDate
 import francisco.simon.core.data.local.transactions.mappers.toTransaction
-import francisco.simon.core.data.local.transactions.mappers.toTransactionDate
 import francisco.simon.core.data.local.transactions.mappers.toTransactionResponseModel
 import francisco.simon.core.data.local.transactions.model.TransactionDbModel
 import francisco.simon.core.data.network.api.ApiClient
@@ -70,15 +70,15 @@ class TransactionRepositoryImpl(
                     is Result.Error<NetworkError> -> {
                         val localTransactions = transactionDao.getTransactions(
                             accountId = transactionModel.accountId,
-                            startDate = transactionModel.startDate.toTransactionDate(),
-                            endDate = transactionModel.endDate.toTransactionDate()
+                            startDate = transactionModel.startDate.toStartTransactionDate(),
+                            endDate = transactionModel.endDate.toEndTransactionDate()
                         ).sortedByDescending { it.transactionDate }
                         emit(Result.Success(localTransactions.toListTransaction()))
                     }
 
                     is Result.Success<List<TransactionDto>> -> {
                         apiResult.data.map {
-                            transactionDao.insertTransaction(it.toAddDB(isAdded = true))
+                            transactionDao.insertTransaction(it.toAddDB())
                         }
                         val transactions = apiResult.data.sortedByDescending { it.transactionDate }
                             .map { transactionDto ->
@@ -94,9 +94,7 @@ class TransactionRepositoryImpl(
         }.flowOn(Dispatchers.IO)
 
     }
-
     override suspend fun getTransactionById(transactionId: Int): Result<Transaction, Error> {
-        synchronize()
         return withContext(Dispatchers.IO) {
             try {
                 when (val apiResult = apiClient.safeApiCall {
@@ -137,15 +135,14 @@ class TransactionRepositoryImpl(
                             comment = transactionModel.comment,
                             createdAt = Instant.now().toString(),
                             updatedAt = Instant.now().toString(),
-                            isAdded = false
+                            isAdded = false,
+                            isEdited = true
                         )
-                        Log.d("addTransaction", "ythf")
                         transactionDao.insertTransaction(
                             transactionDbModel = transactionDbModel
                         )
                         Result.Success(transactionDbModel.toTransactionResponseModel())
                     }
-
                     is Result.Success<TransactionResponseDto> -> {
                         val transactionResponseDto = apiResult.data
                         val transactionDbModel = TransactionDbModel(
@@ -157,7 +154,8 @@ class TransactionRepositoryImpl(
                             comment = transactionResponseDto.comment,
                             createdAt = transactionResponseDto.createdAt,
                             updatedAt = transactionResponseDto.updatedAt,
-                            isAdded = true
+                            isAdded = true,
+                            isEdited = true
                         )
                         transactionDao.insertTransaction(
                             transactionDbModel
@@ -224,6 +222,7 @@ class TransactionRepositoryImpl(
         }
     }
 
+
     override suspend fun deleteTransaction(transactionId: Int): EmptyResult<Error> {
         return withContext(Dispatchers.IO) {
             try {
@@ -257,6 +256,9 @@ class TransactionRepositoryImpl(
         withContext(Dispatchers.IO) {
             launch {
                 val notAddedTransactions = transactionDao.getNotAddedTransactions()
+                if (notAddedTransactions.isEmpty()) {
+                    return@launch
+                }
                 notAddedTransactions.forEach { transactionDbModel ->
                     val addTransactionModel = AddTransactionModel(
                         accountId = transactionDbModel.accountTransaction.accountId,
@@ -272,11 +274,16 @@ class TransactionRepositoryImpl(
             }
             launch {
                 val notEditedTransactions = transactionDao.getNotEditedTransaction()
+
+                if (notEditedTransactions.isEmpty()) {
+                    return@launch
+                }
                 notEditedTransactions.forEach { transactionDbModel ->
                     val editTransactionModel = EditTransactionModel(
                         transactionId = transactionDbModel.transactionId,
                         accountId = transactionDbModel.accountTransaction.accountId,
                         categoryId = transactionDbModel.categoryTransaction.categoryId,
+                        comment = transactionDbModel.comment,
                         amount = transactionDbModel.amount,
                         transactionDate = transactionDbModel.transactionDate
                     )
@@ -285,12 +292,14 @@ class TransactionRepositoryImpl(
             }
             launch {
                 val notDeletedTransactions = transactionDao.getNotDeletedTransaction()
+                if (notDeletedTransactions.isEmpty()) {
+                    return@launch
+                }
                 notDeletedTransactions.forEach {
                     deleteTransaction(it.transactionId)
                 }
             }
-            }
-
+        }
 
     }
 }

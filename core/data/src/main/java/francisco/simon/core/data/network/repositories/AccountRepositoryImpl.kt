@@ -42,7 +42,6 @@ class AccountRepositoryImpl(
                         val localAccount = accountDao.getAccount()
                         Result.Success(localAccount.toAccount())
                     }
-
                     is Result.Success<List<AccountDto>> -> {
                         accountDao.insertAccount(
                             apiResult.data.first().toDbModel(isSynchronized = true)
