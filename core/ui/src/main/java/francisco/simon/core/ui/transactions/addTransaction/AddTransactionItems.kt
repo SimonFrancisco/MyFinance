@@ -187,7 +187,7 @@ internal fun AmountInfo(transactionModel: MutableState<AddTransaction>) {
             ) {
                 BasicTextField(
                     maxLines = 1,
-                    value = transactionModel.value.amount ?: " ",
+                    value = transactionModel.value.amount ?: "",
                     onValueChange = { newValue ->
                         transactionModel.value = transactionModel.value.copy(amount = newValue)
                     },

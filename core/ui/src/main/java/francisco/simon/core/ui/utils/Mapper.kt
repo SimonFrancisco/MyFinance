@@ -6,6 +6,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 /**
@@ -40,8 +41,9 @@ fun LocalDate.toDateWritten(): String {
 fun String.toDateAndTime(): String {
     val dateFormat = DateTimeFormatter.ofPattern("dd.MM.yy, HH:mm")
     val instant = Instant.parse(this)
-    return instant.atZone(ZoneId.systemDefault()).toLocalDateTime().format(dateFormat)
+    return instant.atOffset(ZoneOffset.UTC).toLocalDateTime().format(dateFormat)
 }
+
 
 fun LocalDateTime.toDate(): String {
     val dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy")
@@ -53,8 +55,13 @@ fun LocalDateTime.toTime(): String {
     return this.format(dateFormat)
 }
 
+fun LocalDateTime.toTransactionModelTime(): String {
+    return this.toInstant(ZoneOffset.UTC)
+        .toString()
+}
+
 fun String.toLocalDateTime(): LocalDateTime {
-    return Instant.parse(this).atZone(ZoneId.systemDefault()).toLocalDateTime()
+    return Instant.parse(this).atOffset(ZoneOffset.UTC).toLocalDateTime()
 }
 
 /**

@@ -4,7 +4,7 @@ import francisco.simon.core.domain.entity.Transaction
 import francisco.simon.core.domain.model.AddTransactionModel
 import francisco.simon.core.domain.model.EditTransactionModel
 import francisco.simon.core.domain.model.TransactionModel
-import francisco.simon.core.domain.model.TransactionResponse
+import francisco.simon.core.domain.model.TransactionResponseModel
 import francisco.simon.core.domain.utils.EmptyResult
 import francisco.simon.core.domain.utils.Error
 import francisco.simon.core.domain.utils.Result
@@ -16,10 +16,12 @@ interface TransactionRepository {
 
     suspend fun getTransactionById(transactionId:Int):Result<Transaction,Error>
 
-    suspend fun addTransaction(transactionModel: AddTransactionModel): Result<TransactionResponse, Error>
+    suspend fun addTransaction(transactionModel: AddTransactionModel): Result<TransactionResponseModel, Error>
 
     suspend fun editTransaction(transactionModel: EditTransactionModel): Result<Transaction, Error>
 
     suspend fun deleteTransaction(transactionId: Int): EmptyResult<Error>
+
+    suspend fun synchronize()
 
 }

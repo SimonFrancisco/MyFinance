@@ -5,6 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import francisco.simon.feature.income.ui.screens.add_income.AddIncomeScreenViewModel
+import francisco.simon.feature.income.ui.screens.analysis.AnalysisIncomeScreenViewModel
 import francisco.simon.feature.income.ui.screens.history.IncomeHistoryScreenViewModel
 import francisco.simon.feature.income.ui.screens.income.IncomeScreenViewModel
 
@@ -19,4 +20,7 @@ internal interface IncomeViewModelModule {
 
     @[Binds IntoMap ViewModelKey(AddIncomeScreenViewModel::class)]
     fun bindAddIncomeViewModel(viewModel: AddIncomeScreenViewModel):ViewModel
+
+    @[Binds IntoMap ViewModelKey(AnalysisIncomeScreenViewModel::class)]
+    fun bindAnalysisIncomeScreenViewModel(viewModel: AnalysisIncomeScreenViewModel):ViewModel
 }

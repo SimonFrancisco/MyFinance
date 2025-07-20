@@ -5,20 +5,21 @@ coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.9.1"
+lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
-composeBom = "2025.06.01"
-navigationCompose = "2.9.1"
+composeBom = "2025.07.00"
+navigationCompose = "2.9.2"
 ksp = "2.2.0-2.0.2"
 ktxSerialization = "1.9.0"
 lottieCompose = "6.6.7"
-okHttpClient_version = "5.0.0"
+okHttpClient_version = "5.1.0"
 retrofit_version = "3.0.0"
 json_version = "1.9.0"
 room_version = "2.7.2"
 dagger2_version = "2.56.2"
 appcompat = "1.7.1"
 material = "1.12.0"
+work_version = "2.10.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -58,6 +59,8 @@ dagger2 = { group = "com.google.dagger", name = "dagger", version.ref = "dagger2
 dagger2-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger2_version" }
 dagger2-android-processor = { group = "com.google.dagger", name = "dagger-android-processor", version.ref = "dagger2_version" }
 
+work-manager = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work_version" }
+
 plugin-android-application = { module = "com.android.application:com.android.application.gradle.plugin", version.ref = "agp" }
 plugin-kotlin-android = { module = "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin", version.ref = "kotlin" }
 plugin-kotlin-compose = { module = "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin", version.ref = "kotlin" }
@@ -70,7 +73,7 @@ plugin-kotlin-jvm = { module = "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jv
 [plugins]
 custom-android-application = { id = "custom-android-application" }
 custom-android-library = { id = "custom-android-library" }
-custom-kotlin-library = {id = "custom-kotlin-library"}
+custom-kotlin-library = { id = "custom-kotlin-library" }
 
 
 [bundles]

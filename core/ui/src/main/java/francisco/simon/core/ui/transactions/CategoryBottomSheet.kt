@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -49,6 +51,7 @@ internal fun AddCategoryBottomSheet(
         )
     }
 }
+
 @Composable
 internal fun EditCategoryBottomSheet(
     showSheet: MutableState<Boolean>,
@@ -64,6 +67,7 @@ internal fun EditCategoryBottomSheet(
         )
     }
 }
+
 @Composable
 private fun CategoryPickerBottomSheet(
     onCategorySelected: (Category) -> Unit,
@@ -78,65 +82,69 @@ private fun CategoryPickerBottomSheet(
         tonalElevation = 2.dp,
         containerColor = francisco.simon.core.ui.theme.GreyBottomSheet
     ) {
-        categories.forEach { category ->
-            CustomListItem(
-                modifier = Modifier
-                    .height(
-                        72.dp
-                    )
-                    .clickable {
-                        onCategorySelected(category)
-                        onDismissRequest()
-                    },
-                leadingContent = {
-                    Box(
-                        Modifier
-                            .size(24.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.secondaryContainer),
-                        contentAlignment = Alignment.Center
-
-                    ) {
-                        Text(category.emoji)
-                    }
-                    Spacer(Modifier.width(16.dp))
-                }, headlineContent = {
-                    Text(
-                        text = category.name,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                }
-            )
-            HorizontalDivider()
-        }
-        CustomListItem(
-            modifier = Modifier
-                .height(
-                    72.dp
-                )
-                .background(
-                    Red
-                )
-                .clickable {
-                    onDismissRequest()
-                },
-            leadingContent = {
-                Icon(
-                    painter = painterResource(R.drawable.ic_sheet_cancel),
-                    contentDescription = null,
-                    tint = Color.White,
+        LazyColumn {
+            items(categories, key = { it.id }) {category ->
+                CustomListItem(
                     modifier = Modifier
-                        .size(20.dp)
+                        .height(
+                            72.dp
+                        )
+                        .clickable {
+                            onCategorySelected(category)
+                            onDismissRequest()
+                        },
+                    leadingContent = {
+                        Box(
+                            Modifier
+                                .size(24.dp)
+                                .clip(CircleShape)
+                                .background(MaterialTheme.colorScheme.secondaryContainer),
+                            contentAlignment = Alignment.Center
+
+                        ) {
+                            Text(category.emoji)
+                        }
+                        Spacer(Modifier.width(16.dp))
+                    }, headlineContent = {
+                        Text(
+                            text = category.name,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    }
                 )
-                Spacer(Modifier.width(16.dp))
-            }, headlineContent = {
-                Text(
-                    text = stringResource(R.string.cancel),
-                    color = Color.White,
-                    style = MaterialTheme.typography.bodyLarge,
+                HorizontalDivider()
+            }
+            item{
+                CustomListItem(
+                    modifier = Modifier
+                        .height(
+                            72.dp
+                        )
+                        .background(
+                            Red
+                        )
+                        .clickable {
+                            onDismissRequest()
+                        },
+                    leadingContent = {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_sheet_cancel),
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier
+                                .size(20.dp)
+                        )
+                        Spacer(Modifier.width(16.dp))
+                    }, headlineContent = {
+                        Text(
+                            text = stringResource(R.string.cancel),
+                            color = Color.White,
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    }
                 )
             }
-        )
+        }
     }
 }

@@ -6,4 +6,7 @@ import kotlinx.serialization.Serializable
 data object SettingsGraph {
     @Serializable
     data object SettingsRoute
+
+    @Serializable
+    data object SyncRoute
 }

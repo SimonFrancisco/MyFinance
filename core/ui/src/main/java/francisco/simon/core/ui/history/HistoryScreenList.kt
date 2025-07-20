@@ -31,7 +31,7 @@ fun HistoryScreenList(
         it.amount.toBigDecimal()
     }
     Column(Modifier.fillMaxSize()) {
-        SumInfo(sum, transactions)
+        HistorySumInfo(sum, transactions)
         LazyColumn {
             items(transactions, key = { it.id }) { transaction ->
                 HistoryListItem(transaction, onTransactionClicked)
@@ -42,7 +42,7 @@ fun HistoryScreenList(
 }
 
 @Composable
-private fun SumInfo(
+private fun HistorySumInfo(
     sum: BigDecimal,
     transactions: List<Transaction>
 ) {
@@ -55,7 +55,7 @@ private fun SumInfo(
 }
 
 @Composable
-fun EndInfo(
+fun HistoryEndInfo(
     endDate: LocalDate,
     showEndPicker: MutableState<Boolean>
 ) {
@@ -69,7 +69,7 @@ fun EndInfo(
 }
 
 @Composable
-fun StartInfo(
+fun HistoryStartInfo(
     startDate: LocalDate,
     showStartPicker: MutableState<Boolean>
 ) {

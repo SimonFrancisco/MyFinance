@@ -32,7 +32,7 @@ internal class ExpensesHistoryScreenViewModel @Inject constructor(
         endDate: String
     ): Flow<Result<List<Transaction>, Error>> {
         val transactionModel = TransactionModel(
-            accountId = account.id,
+            accountId = account.accountId,
             startDate = startDate,
             endDate = endDate
         )

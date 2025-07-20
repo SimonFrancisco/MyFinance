@@ -1,4 +1,4 @@
-package francisco.simon.feature.settings.ui
+package francisco.simon.feature.settings.ui.screens.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

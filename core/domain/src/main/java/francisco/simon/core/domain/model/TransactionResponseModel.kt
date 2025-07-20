@@ -1,7 +1,7 @@
 package francisco.simon.core.domain.model
 
 
-data class TransactionResponse(
+data class TransactionResponseModel(
     val id: Int,
     val accountId: Int,
     val categoryId: Int,

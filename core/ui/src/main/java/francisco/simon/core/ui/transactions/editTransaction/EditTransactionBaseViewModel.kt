@@ -16,6 +16,7 @@ import francisco.simon.core.domain.utils.onError
 import francisco.simon.core.domain.utils.onSuccess
 import francisco.simon.core.ui.utils.toLocalDateTime
 import francisco.simon.core.ui.utils.toStringRes
+import francisco.simon.core.ui.utils.toTransactionModelTime
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +24,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
-import java.time.ZoneId
 
 abstract class EditTransactionBaseViewModel : ViewModel() {
 
@@ -53,22 +53,22 @@ abstract class EditTransactionBaseViewModel : ViewModel() {
     fun onLoadInitial() {
         updateLoading()
         viewModelScope.launch {
+            getCategories().onSuccess { categories ->
+                categoriesList.value = categories
+            }.onError { error ->
+                updateError(error)
+            }
             getTransaction().onSuccess { transaction ->
                 transactionModel.value = transactionModel.value.copy(account = transaction.account)
                 transactionModel.value =
                     transactionModel.value.copy(category = transaction.category)
                 transactionModel.value = transactionModel.value.copy(transactionId = transaction.id)
                 transactionModel.value =
-                    transactionModel.value.copy(transactionDate = transaction.updatedAt.toLocalDateTime())
+                    transactionModel.value.copy(transactionDate = transaction.transactionDate.toLocalDateTime())
                 transactionModel.value = transactionModel.value.copy(amount = transaction.amount)
                 transactionModel.value = transactionModel.value.copy(comment = transaction.comment)
-                getCategories().onSuccess { categories ->
-                    categoriesList.value = categories
-                    _state.update {
-                        EditTransactionState.Success
-                    }
-                }.onError { error ->
-                    updateError(error)
+                _state.update {
+                    EditTransactionState.Success
                 }
             }.onError { error ->
                 updateError(error)
@@ -86,7 +86,7 @@ abstract class EditTransactionBaseViewModel : ViewModel() {
             with(transactionModel.value) {
                 val editTransactionModel = EditTransactionModel(
                     transactionId = transactionId ?: 0,
-                    accountId = account?.id ?: 0,
+                    accountId = account?.accountId ?: 0,
                     categoryId = category?.id ?: 0,
                     amount = amount?.trim() ?: "",
                     transactionDate = transactionDate.toTransactionModelTime(),
@@ -147,15 +147,10 @@ abstract class EditTransactionBaseViewModel : ViewModel() {
 
     private fun validateTransactionModel(): Boolean {
         return with(transactionModel.value) {
-            transactionId != null && account != null && category != null && amount != null
+            transactionId != null && account != null && category != null && !amount?.trim().isNullOrEmpty()
         }
     }
 
-    private fun LocalDateTime.toTransactionModelTime(): String {
-        return this.atZone(ZoneId.systemDefault())
-            .toInstant()
-            .toString()
-    }
 
 
     data class EditTransaction(

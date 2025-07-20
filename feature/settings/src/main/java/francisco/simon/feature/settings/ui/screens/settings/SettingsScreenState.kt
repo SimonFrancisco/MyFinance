@@ -1,4 +1,4 @@
-package francisco.simon.feature.settings.ui
+package francisco.simon.feature.settings.ui.screens.settings
 
 /**
  * All Settings screen states

@@ -36,18 +36,14 @@ internal class ExpenseScreenViewModel @Inject constructor(
         MutableStateFlow(ExpenseScreenState.Loading)
     val state: StateFlow<ExpenseScreenState> = _state
 
-    init {
-        loadExpenses()
-    }
-
-    private fun loadExpenses() {
+    fun loadExpenses() {
         updateLoading()
         viewModelScope.launch {
             getAccountUseCase().onError { error ->
                 updateError(error)
             }.onSuccess { account ->
                 val transactionModel = TransactionModel(
-                    accountId = account.id,
+                    accountId = account.accountId,
                     startDate = Instant.now().toApiDate(),
                     endDate = Instant.now().toApiDate()
                 )

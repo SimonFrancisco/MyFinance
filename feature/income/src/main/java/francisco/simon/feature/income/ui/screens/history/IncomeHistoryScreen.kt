@@ -15,8 +15,8 @@ import francisco.simon.feature.income.incomeComponent
 internal fun IncomeHistoryScreen(
     appBarState: MutableState<AppBarState>,
     onGoBackToIncomeScreen: () -> Unit,
-    onGoToEditIncomeScreen: (Int) -> Unit
-
+    onGoToEditIncomeScreen: (Int) -> Unit,
+    onGoToAnalysisScreen: () -> Unit
 ) {
     UpdateAppBarState(
         appBarState = appBarState,
@@ -24,7 +24,9 @@ internal fun IncomeHistoryScreen(
         navigationButton = NavigationButton.Back {
             onGoBackToIncomeScreen()
         },
-        actionButton = ActionButton(R.drawable.ic_analysis) {}
+        actionButton = ActionButton(R.drawable.ic_analysis) {
+            onGoToAnalysisScreen()
+        }
     )
     val component = incomeComponent()
     val viewModel: IncomeHistoryScreenViewModel = viewModel(

@@ -22,21 +22,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import francisco.simon.core.domain.model.AccountUpdateRequestModel
 import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.CustomListItem
 import francisco.simon.core.ui.theme.Red
+import francisco.simon.feature.account.ui.screens.edit.AccountEditViewModel.UpdateModel
 import francisco.simon.feature.account.ui.screens.edit.utils.Currency
 
 @Composable
 internal fun BottomSheet(
     showSheet: MutableState<Boolean>,
-    updateModelState: MutableState<AccountUpdateRequestModel?>,
+    updateModelState: MutableState<UpdateModel>,
 ) {
     if (showSheet.value) {
         CurrencyPickerBottomSheet(
             onCurrencySelected = {
-                updateModelState.value = updateModelState.value?.copy(currency = it.name)
+                updateModelState.value = updateModelState.value.copy(currency = it.name)
             }, onDismissRequest = { showSheet.value = false }
         )
     }

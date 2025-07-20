@@ -6,6 +6,6 @@ package francisco.simon.core.domain.model
  */
 data class TransactionModel(
     val accountId:Int,
-    val startDate:String?,
-    val endDate:String?,
+    val startDate:String,
+    val endDate:String,
 )

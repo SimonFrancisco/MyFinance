@@ -12,7 +12,6 @@ import francisco.simon.core.ui.components.topBar.NavigationButton
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.core.ui.transactions.addTransaction.AddTransactionScreen
 import francisco.simon.core.ui.utils.EventConsumer
-import francisco.simon.core.ui.utils.MonitorTransaction
 import francisco.simon.feature.expenses.expensesComponent
 
 @Composable
@@ -38,7 +37,6 @@ fun AddExpenseScreen(appBarState: MutableState<AppBarState>, onGoBackToExpensesS
     AddTransactionScreen(viewModel)
     EventConsumer(viewModel.exitChannel) {
         onGoBackToExpensesScreen()
-        MonitorTransaction.event(MonitorTransaction.Commands.MANIPULATE_EXPENSE)
     }
     EventConsumer(viewModel.dataMissingError) {
         Toast.makeText(

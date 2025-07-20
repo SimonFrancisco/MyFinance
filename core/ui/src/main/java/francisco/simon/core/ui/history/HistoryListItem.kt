@@ -68,7 +68,7 @@ private fun TrailingContent(transaction: Transaction) {
             modifier = Modifier.padding(end = 8.dp),
         )
         Text(
-            text = transaction.updatedAt.toDateAndTime(),
+            text = transaction.transactionDate.toDateAndTime(),
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(end = 8.dp)
         )
@@ -105,7 +105,6 @@ private fun HeadingContent(transaction: Transaction) {
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
     )
-    //TODO add transaction with null and check
     if (!transaction.comment.isNullOrEmpty()) {
         Text(
             text = transaction.comment ?: "",

@@ -29,6 +29,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:authorities="androidx.work.WorkManagerInitializer"
+            android:name="androidx.startup.InitializationProvider"
+            android:exported="false"
+            tools:replace="android:authorities"
+            tools:node="remove"/>
     </application>
 
 </manifest>

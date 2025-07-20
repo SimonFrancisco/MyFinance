@@ -36,18 +36,15 @@ internal class IncomeScreenViewModel @Inject constructor(
         MutableStateFlow(IncomeScreenState.Loading)
     val state: StateFlow<IncomeScreenState> = _state
 
-    init {
-        loadIncome()
-    }
 
-    private fun loadIncome() {
+    fun loadIncome() {
         updateLoading()
         viewModelScope.launch {
             getAccountUseCase().onError { error ->
                 updateError(error)
             }.onSuccess { account ->
                 val transactionModel = TransactionModel(
-                    accountId = account.id,
+                    accountId = account.accountId,
                     startDate = Instant.now().toApiDate(),
                     endDate = Instant.now().toApiDate()
                 )

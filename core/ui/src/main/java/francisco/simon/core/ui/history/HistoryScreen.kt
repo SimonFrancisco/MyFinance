@@ -81,9 +81,9 @@ private fun HistoryScreenContent(
 
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        StartInfo(startDate.value, showStartPicker)
+        HistoryStartInfo(startDate.value, showStartPicker)
         HorizontalDivider()
-        EndInfo(endDate.value, showEndPicker)
+        HistoryEndInfo(endDate.value, showEndPicker)
         HorizontalDivider()
         when (val currentState = state.value) {
             is HistoryScreenState.Error -> {

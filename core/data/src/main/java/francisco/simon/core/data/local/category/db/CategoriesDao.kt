@@ -1,16 +1,22 @@
-package francisco.simon.core.data.local.db
+package francisco.simon.core.data.local.category.db
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import francisco.simon.core.data.local.model.CategoryDbModel
+import francisco.simon.core.data.local.category.model.CategoryDbModel
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CategoriesDao {
     @Query("SELECT * FROM categories ORDER BY id ASC")
-    fun getCategories(): Flow<List<CategoryDbModel>>
+    suspend fun getCategories(): List<CategoryDbModel>
+
+    @Query("SELECT * FROM categories WHERE isIncome=:isIncome")
+    suspend fun getCategoriesByType(isIncome: Boolean): List<CategoryDbModel>
+
+    @Query("SELECT * FROM categories WHERE id=:categoryId LIMIT 1")
+    suspend fun getCategoryById(categoryId: Int): CategoryDbModel
 
     @Query("SELECT * FROM categories WHERE name LIKE:query ORDER BY id ASC")
     fun searchCategory(query: String): Flow<List<CategoryDbModel>>

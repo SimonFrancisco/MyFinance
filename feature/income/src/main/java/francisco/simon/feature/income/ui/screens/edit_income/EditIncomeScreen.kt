@@ -12,7 +12,6 @@ import francisco.simon.core.ui.components.topBar.NavigationButton
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.core.ui.transactions.editTransaction.EditTransactionScreen
 import francisco.simon.core.ui.utils.EventConsumer
-import francisco.simon.core.ui.utils.MonitorTransaction
 import francisco.simon.feature.income.incomeComponent
 
 @Composable
@@ -42,7 +41,6 @@ fun EditIncomeScreen(
     EditTransactionScreen(viewModel)
     EventConsumer(viewModel.exitChannel) {
         onGoBackToIncomeScreen()
-        MonitorTransaction.event(MonitorTransaction.Commands.MANIPULATE_INCOME)
     }
     EventConsumer(viewModel.dataMissingError) {
         Toast.makeText(
