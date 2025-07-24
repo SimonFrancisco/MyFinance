@@ -23,6 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import francisco.simon.core.domain.model.CategoryStatsModel
 import francisco.simon.core.ui.R
+import francisco.simon.core.ui.analyis.graph.AnalysisGraph
+import francisco.simon.core.ui.analyis.graph.mapper.toListCategoryGraphModel
 import francisco.simon.core.ui.components.CustomListItem
 import francisco.simon.core.ui.theme.Green
 import francisco.simon.core.ui.utils.toCurrencySymbol
@@ -32,7 +34,7 @@ import java.time.LocalDate
 
 
 @Composable
-fun AnalysisScreenList(
+internal fun AnalysisScreenList(
     categoryStatsModels: List<CategoryStatsModel>,
 ) {
     val sum = categoryStatsModels.sumOf {
@@ -40,9 +42,18 @@ fun AnalysisScreenList(
     }
     Column(Modifier.fillMaxSize()) {
         AnalysisSumInfo(sum, categoryStatsModels)
-        HorizontalDivider()
         LazyColumn {
-            items(categoryStatsModels, key = { it.name }) { categoryStatsModel ->
+            item {
+                HorizontalDivider()
+                AnalysisGraph(
+                    modifier = Modifier
+                        .padding(40.dp)
+                        .height(200.dp),
+                    items = categoryStatsModels.toListCategoryGraphModel()
+                )
+                HorizontalDivider()
+            }
+            items(categoryStatsModels, key = { it.categoryId }) { categoryStatsModel ->
                 AnalysisListItem(categoryStatsModel)
                 HorizontalDivider()
             }
@@ -51,7 +62,7 @@ fun AnalysisScreenList(
 }
 
 @Composable
-fun AnalysisStartInfo(
+internal fun AnalysisStartInfo(
     startDate: LocalDate,
     showStartPicker: MutableState<Boolean>
 ) {
@@ -65,7 +76,7 @@ fun AnalysisStartInfo(
 }
 
 @Composable
-fun AnalysisEndInfo(
+internal fun AnalysisEndInfo(
     endDate: LocalDate,
     showEndPicker: MutableState<Boolean>
 ) {

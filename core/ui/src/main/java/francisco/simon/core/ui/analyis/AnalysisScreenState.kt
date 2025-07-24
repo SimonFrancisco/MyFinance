@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import francisco.simon.core.domain.model.CategoryStatsModel
 
 /**
- * All states for history screen
+ * All states for analysis screen
  *
  * @author Simon Francisco
  */

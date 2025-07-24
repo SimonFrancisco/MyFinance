@@ -53,5 +53,5 @@
     <string name="nothing_found">Ничего не найдено!</string>
     <string name="last_sync_time">Время последней сихронизации</string>
     <string name="no_sync_time">Пока не было сихронизации!</string>
-
+    <string name="others">Прочее</string>
 </resources>
