@@ -1,4 +1,4 @@
-package francisco.simon.myfinance.di
+package francisco.simon.myfinance.di.key
 
 import androidx.work.ListenableWorker
 import dagger.MapKey

@@ -26,7 +26,6 @@ import francisco.simon.core.ui.R
 import francisco.simon.core.ui.analyis.graph.AnalysisGraph
 import francisco.simon.core.ui.analyis.graph.mapper.toListCategoryGraphModel
 import francisco.simon.core.ui.components.CustomListItem
-import francisco.simon.core.ui.theme.Green
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.core.ui.utils.toDateWritten
 import java.math.BigDecimal
@@ -100,7 +99,6 @@ private fun AnalysisSumInfo(
         headlineContent = {
             Text(
                 text = stringResource(R.string.sum),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         },
@@ -129,17 +127,15 @@ private fun AnalysisInfoItemWithChips(
         headlineContent = {
             Text(
                 text = stringResource(leadingTextResId),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         },
         trailingContent = {
-            // TODO use compose chips
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .clip(RoundedCornerShape(50))
-                    .background(Green)
+                    .background(MaterialTheme.colorScheme.secondaryContainer)
                     .padding(horizontal = 20.dp, vertical = 6.dp)
             ) {
                 Text(

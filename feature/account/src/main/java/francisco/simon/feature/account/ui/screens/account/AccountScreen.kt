@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.core.ui.R
+import francisco.simon.core.ui.components.CustomListItem
 import francisco.simon.core.ui.components.RetryCall
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
@@ -109,7 +110,7 @@ private fun AccountScreenList(
     ) {
         AccountContent(accountUI)
         HorizontalDivider()
-        francisco.simon.core.ui.components.CustomListItem(
+        CustomListItem(
             modifier = Modifier
                 .height(56.dp)
                 .background(MaterialTheme.colorScheme.secondaryContainer),
@@ -143,14 +144,13 @@ private fun CurrencyTrailingContent(accountUI: AccountUI) {
 private fun CurrencyHeadingContent() {
     Text(
         text = stringResource(R.string.currency),
-        color = MaterialTheme.colorScheme.onSurface,
         style = MaterialTheme.typography.bodyLarge
     )
 }
 
 @Composable
 private fun AccountContent(accountUI: AccountUI) {
-    francisco.simon.core.ui.components.CustomListItem(
+    CustomListItem(
         modifier = Modifier
             .height(57.dp)
             .background(MaterialTheme.colorScheme.secondaryContainer),

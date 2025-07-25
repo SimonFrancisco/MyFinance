@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import francisco.simon.core.ui.R
-import francisco.simon.core.ui.theme.Green
 
 /***
  * The navigation buttons supports two actions: Close and Back
@@ -52,7 +51,8 @@ fun AppTopBar(
         title = {
             Text(
                 text = stringResource(appBarState.titleRes),
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onPrimary
             )
         },
         navigationIcon = {
@@ -62,7 +62,7 @@ fun AppTopBar(
             ActionIcon(appBarState)
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = Green
+            containerColor = MaterialTheme.colorScheme.primary
         )
 
     )
@@ -77,7 +77,8 @@ private fun ActionIcon(appBarState: AppBarState) {
         ) {
             Icon(
                 painter = painterResource(actionButton.icon),
-                contentDescription = null
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimary
             )
         }
     }
@@ -93,7 +94,8 @@ private fun NavigationIcon(appBarState: AppBarState) {
         ) {
             Icon(
                 painter = painterResource(navigationButton.icon),
-                contentDescription = null
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimary
             )
         }
     }

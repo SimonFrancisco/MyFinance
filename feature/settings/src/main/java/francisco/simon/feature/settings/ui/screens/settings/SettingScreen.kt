@@ -15,18 +15,19 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import francisco.simon.core.domain.utils.theme.MyFinanceThemeMode
 import francisco.simon.core.ui.R
+import francisco.simon.core.ui.components.CustomListItem
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.feature.settings.settingsComponent
+import francisco.simon.feature.settings.ui.SettingScreen
 
 /**
  * Settings Screen, separate concerns to avoid unnecessary recompositions and
@@ -44,18 +45,49 @@ internal fun SettingsScreen(appBarState: MutableState<AppBarState>, onGoToSync: 
         factory = component.getViewModelFactory()
     )
     val state = viewModel.state.collectAsStateWithLifecycle()
+    val themeMode = viewModel.themeMode.collectAsStateWithLifecycle()
+    val isDarkTheme = themeMode.value == MyFinanceThemeMode.DARK
     val currentState = state.value
-    SettingsScreenContent(currentState, onClick = onGoToSync)
+    SettingsScreenContent(
+        state = currentState,
+        onClick = { settingScreen ->
+            when(settingScreen){
+                SettingScreen.PRIMARY_COLOR -> Unit
+                SettingScreen.VIBRATION -> Unit
+                SettingScreen.PIN_CODE -> Unit
+                SettingScreen.SYNCHRONIZATION -> {
+                    onGoToSync()
+                }
+                SettingScreen.LANGUAGE -> Unit
+                SettingScreen.ABOUT -> Unit
+            }
+        },
+        isDarkTheme = isDarkTheme,
+        onSelectedThemeMode = { selectedThemeMode ->
+            val newThemeMode = if (selectedThemeMode) {
+                MyFinanceThemeMode.DARK
+            } else {
+                MyFinanceThemeMode.LIGHT
+            }
+            viewModel.setTheme(newThemeMode)
+        }
+    )
 }
 
 @Composable
 private fun SettingsScreenContent(
     state: SettingsScreenState,
-    onClick: () -> Unit
+    onClick: (SettingScreen) -> Unit,
+    isDarkTheme: Boolean,
+    onSelectedThemeMode: (Boolean) -> Unit,
 ) {
     when (state) {
         SettingsScreenState.Nothing -> {
-            SettingsScreenList(fakeSettings, onClick)
+            SettingsScreenList(
+                onClick = onClick,
+                isDarkTheme = isDarkTheme,
+                onSelectedThemeMode = onSelectedThemeMode
+            )
         }
     }
 }
@@ -63,29 +95,28 @@ private fun SettingsScreenContent(
 
 @Composable
 private fun SettingsScreenList(
-    settingsOptions: List<String> = fakeSettings,
-    onClick: () -> Unit
+    onClick: (SettingScreen) -> Unit,
+    isDarkTheme: Boolean,
+    onSelectedThemeMode: (Boolean) -> Unit,
 ) {
-    val checked = remember {
-        mutableStateOf(false)
-    }
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         LazyColumn {
             item {
-                SwitchItem(checked)
+                SwitchItem(
+                    isDarkTheme = isDarkTheme,
+                    onSelectedThemeMode = onSelectedThemeMode
+                )
                 HorizontalDivider()
             }
-            items(settingsOptions) { setting ->
-                if (setting != "Синхронизация") { // TODO  This is костыль, remove later
-                    SettingsItem(setting) {
+            items(SettingScreen.entries, key = { it.displayNameRes }) { settingScreen ->
+                SettingsItem(
+                    settingScreen = settingScreen,
+                    onClick = {
+                        onClick(settingScreen)
                     }
-                } else {
-                    SettingsItem(setting) {
-                        onClick()
-                    }
-                }
+                )
                 HorizontalDivider()
             }
         }
@@ -93,15 +124,20 @@ private fun SettingsScreenList(
 }
 
 @Composable
-private fun SettingsItem(setting: String, onClick: () -> Unit) {
-    francisco.simon.core.ui.components.CustomListItem(
+private fun SettingsItem(
+    settingScreen: SettingScreen, onClick: () -> Unit
+) {
+    CustomListItem(
         modifier = Modifier
             .height(56.dp)
             .clickable {
                 onClick()
             },
         headlineContent = {
-            Text(text = setting, style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = stringResource(settingScreen.displayNameRes),
+                style = MaterialTheme.typography.bodyLarge
+            )
         },
         trailingContent = {
             Icon(
@@ -115,8 +151,11 @@ private fun SettingsItem(setting: String, onClick: () -> Unit) {
 }
 
 @Composable
-private fun SwitchItem(checked: MutableState<Boolean>) {
-    francisco.simon.core.ui.components.CustomListItem(
+private fun SwitchItem(
+    isDarkTheme: Boolean,
+    onSelectedThemeMode: (Boolean) -> Unit
+) {
+    CustomListItem(
         modifier = Modifier
             .height(56.dp),
         headlineContent = {
@@ -126,29 +165,12 @@ private fun SwitchItem(checked: MutableState<Boolean>) {
             )
         },
         trailingContent = {
-            // TODO change color
             Switch(
                 modifier = Modifier
                     .height(32.dp)
                     .width(52.dp),
-                checked = checked.value, onCheckedChange = {
-                    checked.value = it
-                }
+                checked = isDarkTheme, onCheckedChange = onSelectedThemeMode
             )
         },
     )
 }
-
-/**
- * Create fake settings for now
- * @author Simon Francisco
- */
-private val fakeSettings = listOf(
-    "Основной цвет",
-    "Звуки",
-    "Хаптики",
-    "Код пароль",
-    "Синхронизация",
-    "Язык",
-    "О программе",
-)

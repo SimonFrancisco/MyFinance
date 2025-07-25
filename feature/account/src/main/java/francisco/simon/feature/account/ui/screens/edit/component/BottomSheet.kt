@@ -24,7 +24,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.CustomListItem
-import francisco.simon.core.ui.theme.Red
 import francisco.simon.feature.account.ui.screens.edit.AccountEditViewModel.UpdateModel
 import francisco.simon.feature.account.ui.screens.edit.utils.Currency
 
@@ -53,7 +52,6 @@ private fun CurrencyPickerBottomSheet(
         sheetState = sheetState,
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         tonalElevation = 2.dp,
-        containerColor = francisco.simon.core.ui.theme.GreyBottomSheet
     ) {
         Currency.entries.forEach { currency ->
             CustomListItem(
@@ -76,7 +74,6 @@ private fun CurrencyPickerBottomSheet(
                 }, headlineContent = {
                     Text(
                         text = "${stringResource(currency.displayNameRes)} ${currency.symbol}",
-                        color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.bodyLarge,
                     )
                 }
@@ -89,7 +86,7 @@ private fun CurrencyPickerBottomSheet(
                     72.dp
                 )
                 .background(
-                    Red
+                    MaterialTheme.colorScheme.onErrorContainer
                 )
                 .clickable {
                     onDismissRequest()

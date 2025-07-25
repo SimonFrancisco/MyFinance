@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -25,10 +27,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -38,7 +38,6 @@ import francisco.simon.core.ui.components.CustomListItem
 import francisco.simon.core.ui.components.topBar.ActionButton
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
-import francisco.simon.core.ui.theme.Green
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.feature.expenses.expensesComponent
 import francisco.simon.feature.expenses.ui.model.ExpenseUI
@@ -174,7 +173,6 @@ private fun ExpenseHeadingContent(expenseUI: ExpenseUI) {
     Text(
         text = expenseUI.name,
         style = MaterialTheme.typography.bodyLarge,
-        color = MaterialTheme.colorScheme.onSurface,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis
     )
@@ -216,7 +214,7 @@ private fun ExpenseSumItem(expenses: List<ExpenseUI>) {
 @Composable
 fun ExpenseFloatingButton() {
     FloatingActionButton(
-        containerColor = Green,
+        containerColor = MaterialTheme.colorScheme.primary,
         shape = CircleShape,
         modifier = Modifier
             .size(56.dp),
@@ -225,7 +223,7 @@ fun ExpenseFloatingButton() {
         }
     ) {
         Image(
-            imageVector = ImageVector.vectorResource(R.drawable.ic_add),
+            imageVector = Icons.Default.Add,
             contentDescription = null
         )
     }

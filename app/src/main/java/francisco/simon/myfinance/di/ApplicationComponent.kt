@@ -3,7 +3,9 @@ package francisco.simon.myfinance.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import francisco.simon.core.domain.preferences.ColorSchemePreferences
 import francisco.simon.core.domain.preferences.SyncPreferences
+import francisco.simon.core.domain.preferences.ThemeModePreferences
 import francisco.simon.core.domain.repository.AccountRepository
 import francisco.simon.core.domain.repository.CategoryRepository
 import francisco.simon.core.domain.repository.TransactionRepository
@@ -13,9 +15,22 @@ import francisco.simon.feature.expenses.di.ExpensesDependencies
 import francisco.simon.feature.income.di.IncomeDependencies
 import francisco.simon.feature.settings.di.SettingsDependencies
 import francisco.simon.myfinance.App
+import francisco.simon.myfinance.di.factory.ViewModelFactory
+import francisco.simon.myfinance.di.modules.LocalDataModule
+import francisco.simon.myfinance.di.modules.PreferencesModule
+import francisco.simon.myfinance.di.modules.RemoteDataModule
+import francisco.simon.myfinance.di.modules.ViewModelModule
+import francisco.simon.myfinance.di.modules.WorkerModule
 
 @ApplicationScope
-@Component(modules = [DataModule::class, WorkerModule::class])
+@Component(
+    modules = [
+        RemoteDataModule::class,
+        LocalDataModule::class,
+        WorkerModule::class,
+        ViewModelModule::class,
+        PreferencesModule::class]
+)
 internal interface ApplicationComponent :
     CategoryDependencies,
     AccountDependencies,
@@ -31,7 +46,13 @@ internal interface ApplicationComponent :
 
     override fun getSyncPreferences(): SyncPreferences
 
-    fun inject(application:App)
+    override fun getColorSchemePreferences(): ColorSchemePreferences
+
+    override fun getThemeModePreferences(): ThemeModePreferences
+
+    fun inject(application: App)
+
+    fun viewModelFactory(): ViewModelFactory
 
     @Component.Factory
     interface Factory {

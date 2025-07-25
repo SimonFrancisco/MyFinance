@@ -6,7 +6,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import francisco.simon.core.ui.theme.Green
 
 /**
  * Customized progress indicator
@@ -18,7 +17,6 @@ fun FullScreenLoading() {
     Box(modifier = Modifier.fillMaxSize()) {
         CircularProgressIndicator(
             modifier = Modifier.align(Alignment.Center),
-            color = Green,
         )
     }
 }

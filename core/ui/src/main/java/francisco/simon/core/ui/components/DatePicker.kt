@@ -3,18 +3,15 @@
 package francisco.simon.core.ui.components
 
 import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import francisco.simon.core.ui.R
@@ -31,8 +28,6 @@ fun CustomDatePicker(
     onDateSelected: (Date) -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
-    containerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
-    textColor: Color = MaterialTheme.colorScheme.onSurface,
     minDate: Date? = null,
     maxDate: Date? = null
 ) {
@@ -47,17 +42,14 @@ fun CustomDatePicker(
     DatePickerDialog(
         onDismissRequest = onDismiss,
         confirmButton = {
-            ConfirmButton(datePickerState, onDateSelected, onDismiss, textColor)
+            ConfirmButton(datePickerState, onDateSelected, onDismiss)
         },
         dismissButton = {
-            DismissButton(onDismiss, textColor)
+            DismissButton(onDismiss)
         },
         modifier = modifier,
-        colors = DatePickerDefaults.colors(
-            containerColor = containerColor,
-        )
     ) {
-        DatePickerSettings(datePickerState, containerColor)
+        DatePickerSettings(datePickerState)
     }
 }
 
@@ -66,7 +58,6 @@ private fun ConfirmButton(
     datePickerState: DatePickerState,
     onDateSelected: (Date) -> Unit,
     onDismiss: () -> Unit,
-    textColor: Color
 ) {
     TextButton(
         onClick = {
@@ -86,17 +77,15 @@ private fun ConfirmButton(
         Text(
             text = stringResource(R.string.ok),
             fontWeight = FontWeight.SemiBold,
-            color = textColor
         )
     }
 }
 
 @Composable
-private fun DismissButton(onDismiss: () -> Unit, textColor: Color) {
+private fun DismissButton(onDismiss: () -> Unit) {
     TextButton(onClick = onDismiss) {
         Text(
             text = stringResource(R.string.exit),
-            color = textColor
         )
     }
 }
@@ -108,23 +97,12 @@ private fun DismissButton(onDismiss: () -> Unit, textColor: Color) {
 @Composable
 private fun DatePickerSettings(
     datePickerState: DatePickerState,
-    containerColor: Color
 ) {
     DatePicker(
         state = datePickerState,
         title = null,
         headline = null,
         showModeToggle = false,
-        colors = DatePickerDefaults.colors(
-            containerColor = containerColor,
-            selectedDayContentColor = MaterialTheme.colorScheme.onSurface,
-            selectedDayContainerColor = francisco.simon.core.ui.theme.Green,
-            todayDateBorderColor = francisco.simon.core.ui.theme.Green,
-            todayContentColor = MaterialTheme.colorScheme.onSurface,
-            selectedYearContainerColor = francisco.simon.core.ui.theme.Green,
-            selectedYearContentColor = MaterialTheme.colorScheme.onSurface,
-            currentYearContentColor = MaterialTheme.colorScheme.onSurface,
-        )
     )
 }
 

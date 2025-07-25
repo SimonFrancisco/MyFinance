@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import francisco.simon.core.domain.entity.Category
 import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.CustomListItem
-import francisco.simon.core.ui.theme.Red
 import francisco.simon.core.ui.transactions.addTransaction.AddTransactionBaseViewModel.AddTransaction
 import francisco.simon.core.ui.transactions.editTransaction.EditTransactionBaseViewModel.EditTransaction
 
@@ -80,7 +79,6 @@ private fun CategoryPickerBottomSheet(
         sheetState = sheetState,
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         tonalElevation = 2.dp,
-        containerColor = francisco.simon.core.ui.theme.GreyBottomSheet
     ) {
         LazyColumn {
             items(categories, key = { it.id }) {category ->
@@ -108,7 +106,6 @@ private fun CategoryPickerBottomSheet(
                     }, headlineContent = {
                         Text(
                             text = category.name,
-                            color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.bodyLarge,
                         )
                     }
@@ -122,7 +119,7 @@ private fun CategoryPickerBottomSheet(
                             72.dp
                         )
                         .background(
-                            Red
+                            MaterialTheme.colorScheme.onErrorContainer
                         )
                         .clickable {
                             onDismissRequest()

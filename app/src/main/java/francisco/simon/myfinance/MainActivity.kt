@@ -2,7 +2,6 @@ package francisco.simon.myfinance
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,16 +14,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toArgb
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import francisco.simon.core.domain.utils.theme.MyFinanceThemeMode
 import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.AppTopBar
-import francisco.simon.core.ui.theme.Green
-import francisco.simon.core.ui.theme.GreyLight
 import francisco.simon.core.ui.theme.MyFinanceTheme
 import francisco.simon.feature.expenses.navigation.ExpenseGraph.ExpenseRoute
 import francisco.simon.feature.expenses.ui.screens.expense.ExpenseFloatingButton
@@ -38,27 +37,26 @@ import francisco.simon.myfinance.navigationBar.mainTabs
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        edgeToEdge()
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            MyFinanceTheme {
+            val component = getApplicationComponent()
+            val viewModel: MyFinanceViewModel = viewModel(
+                factory = component.viewModelFactory()
+            )
+            val themeMode = viewModel.themeMode.collectAsStateWithLifecycle()
+            val isDarkTheme = when (themeMode.value) {
+                MyFinanceThemeMode.DARK -> true
+                MyFinanceThemeMode.LIGHT -> false
+            }
+            MyFinanceTheme(
+                darkTheme = isDarkTheme
+            ) {
                 FinanceApp()
             }
         }
     }
 
-    private fun edgeToEdge() {
-        enableEdgeToEdge(
-            navigationBarStyle = SystemBarStyle.light(
-                GreyLight.toArgb(),
-                GreyLight.toArgb()
-            ),
-            statusBarStyle = SystemBarStyle.light(
-                Green.toArgb(),
-                Green.toArgb()
-            )
-        )
-    }
 }
 
 /**
@@ -72,6 +70,7 @@ private fun FinanceApp() {
     val appBarState = remember {
         mutableStateOf(AppBarState(R.string.expense_app_top_bar))
     }
+
     Scaffold(
         bottomBar = {
             BottomBarSettings(currentBackStackEntry, navController)

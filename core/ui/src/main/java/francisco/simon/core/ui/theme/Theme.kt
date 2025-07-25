@@ -3,35 +3,25 @@ package francisco.simon.core.ui.theme
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-
-    )
-
-private val LightColorScheme = lightColorScheme(
-    surface = White,
-    onSurface = Black,
-    outlineVariant = Grey,
-    surfaceContainer = GreyLight,
-    tertiary = DarkGrey,
-    secondaryContainer = LightGreen,
-    onSurfaceVariant = LighterGray
-
-)
+import francisco.simon.core.domain.utils.theme.MyFinanceColorScheme
+import francisco.simon.core.ui.theme.colors.blue.darkBlueScheme
+import francisco.simon.core.ui.theme.colors.blue.lightBlueScheme
+import francisco.simon.core.ui.theme.colors.green.darkGreenScheme
+import francisco.simon.core.ui.theme.colors.green.lightGreenScheme
+import francisco.simon.core.ui.theme.colors.red.darkRedScheme
+import francisco.simon.core.ui.theme.colors.red.lightRedScheme
+import francisco.simon.core.ui.theme.colors.yellow.darkYellowScheme
+import francisco.simon.core.ui.theme.colors.yellow.lightYellowScheme
 
 @Composable
 fun MyFinanceTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
+    myFinanceColorScheme: MyFinanceColorScheme = MyFinanceColorScheme.GREEN,
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
@@ -41,8 +31,39 @@ fun MyFinanceTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        else -> when (myFinanceColorScheme) {
+            MyFinanceColorScheme.GREEN -> {
+                if (darkTheme) {
+                    darkGreenScheme
+                } else {
+                    lightGreenScheme
+                }
+            }
+
+            MyFinanceColorScheme.RED -> {
+                if (darkTheme) {
+                    darkRedScheme
+                } else {
+                    lightRedScheme
+                }
+            }
+
+            MyFinanceColorScheme.YELLOW -> {
+                if (darkTheme) {
+                    darkYellowScheme
+                } else {
+                    lightYellowScheme
+                }
+            }
+
+            MyFinanceColorScheme.BLUE -> {
+                if (darkTheme) {
+                    darkBlueScheme
+                } else {
+                    lightBlueScheme
+                }
+            }
+        }
     }
 
     MaterialTheme(

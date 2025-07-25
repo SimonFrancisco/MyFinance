@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -26,6 +25,8 @@ import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.core.ui.utils.toDate
 import francisco.simon.core.ui.utils.toTime
 import java.time.LocalDate
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.graphics.SolidColor
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
@@ -102,8 +103,11 @@ internal fun CommentInfo(transactionModel: MutableState<AddTransaction>) {
                     onValueChange = { newValue ->
                         transactionModel.value = transactionModel.value.copy(comment = newValue)
                     },
+                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     textStyle = MaterialTheme.typography.bodyLarge.copy(
-                        textAlign = TextAlign.Start
+                        textAlign = TextAlign.Start,
+                        color = MaterialTheme.colorScheme.onSurface
+
                     )
                 )
             }
@@ -125,14 +129,12 @@ internal fun TimeInfo(
         headlineContent = {
             Text(
                 text = stringResource(R.string.time),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         },
         trailingContent = {
             Text(
                 text = transactionModel.value.transactionDate.toTime(),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         }
@@ -153,14 +155,12 @@ internal fun DateInfo(
         headlineContent = {
             Text(
                 text = stringResource(R.string.date),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         },
         trailingContent = {
             Text(
                 text = transactionModel.value.transactionDate.toDate(),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         }
@@ -176,7 +176,6 @@ internal fun AmountInfo(transactionModel: MutableState<AddTransaction>) {
         headlineContent = {
             Text(
                 text = stringResource(R.string.sum),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         },
@@ -191,8 +190,11 @@ internal fun AmountInfo(transactionModel: MutableState<AddTransaction>) {
                     onValueChange = { newValue ->
                         transactionModel.value = transactionModel.value.copy(amount = newValue)
                     },
+                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     textStyle = MaterialTheme.typography.bodyLarge.copy(
-                        textAlign = TextAlign.End
+                        textAlign = TextAlign.End,
+                        color = MaterialTheme.colorScheme.onSurface
+
                     ),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Decimal
@@ -202,7 +204,6 @@ internal fun AmountInfo(transactionModel: MutableState<AddTransaction>) {
             Spacer(modifier = Modifier.width(2.dp))
             Text(
                 text = transactionModel.value.account?.currency?.toCurrencySymbol() ?: "",
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
 
@@ -224,14 +225,12 @@ internal fun CategoryInfo(
         headlineContent = {
             Text(
                 text = stringResource(R.string.category),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         },
         trailingContent = {
             Text(
                 text = transactionModel.value.category?.name ?: "",
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         }
@@ -245,14 +244,12 @@ internal fun AccountInfo(transactionModel: MutableState<AddTransaction>) {
         headlineContent = {
             Text(
                 text = stringResource(R.string.account),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         },
         trailingContent = {
             Text(
                 text = transactionModel.value.account?.name ?: "",
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         }

@@ -54,4 +54,10 @@
     <string name="last_sync_time">Время последней сихронизации</string>
     <string name="no_sync_time">Пока не было сихронизации!</string>
     <string name="others">Прочее</string>
+    <string name="settings_primary_color">Основной цвет</string>
+    <string name="settings_vibration">Хаптики</string>
+    <string name="settings_pin_code">Код пароль</string>
+    <string name="settings_synchronization">Синхронизация</string>
+    <string name="settings_language">Язык</string>
+    <string name="settings_about_app">О программе</string>
 </resources>

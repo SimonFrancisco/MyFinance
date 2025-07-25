@@ -1,0 +1,32 @@
+package francisco.simon.myfinance.di.modules
+
+import android.content.Context
+import dagger.Module
+import dagger.Provides
+import francisco.simon.core.data.network.preferences.ColorSchemePreferencesImpl
+import francisco.simon.core.data.network.preferences.SyncPreferencesImpl
+import francisco.simon.core.data.network.preferences.ThemeModePreferencesImpl
+import francisco.simon.core.domain.preferences.ColorSchemePreferences
+import francisco.simon.core.domain.preferences.SyncPreferences
+import francisco.simon.core.domain.preferences.ThemeModePreferences
+import francisco.simon.myfinance.di.ApplicationScope
+
+@Module
+internal object PreferencesModule {
+
+    @[ApplicationScope Provides]
+    fun provideSyncPreferences(context: Context): SyncPreferences {
+        return SyncPreferencesImpl(context)
+    }
+
+    @[ApplicationScope Provides]
+    fun provideColorSchemePreferences(context: Context): ColorSchemePreferences {
+        return ColorSchemePreferencesImpl(context)
+    }
+
+    @[ApplicationScope Provides]
+    fun provideThemeModePreferences(context: Context): ThemeModePreferences {
+        return ThemeModePreferencesImpl(context)
+    }
+
+}
