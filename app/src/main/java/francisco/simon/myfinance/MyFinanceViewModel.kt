@@ -2,22 +2,34 @@ package francisco.simon.myfinance
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import francisco.simon.core.domain.utils.theme.MyFinanceColorScheme
 import francisco.simon.core.domain.utils.theme.MyFinanceThemeMode
-import francisco.simon.feature.settings.domain.theme_mode.GetThemeModeUseCase
+import francisco.simon.myfinance.domain.GetColorSchemeUseCase
+import francisco.simon.myfinance.domain.GetThemeModeUseCase
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
-class MyFinanceViewModel @Inject constructor(
-    getThemeModeUseCase: GetThemeModeUseCase
+internal class MyFinanceViewModel @Inject constructor(
+    getThemeModeUseCase: GetThemeModeUseCase,
+    getColorSchemeUseCase: GetColorSchemeUseCase
 ) : ViewModel() {
 
     val themeMode: StateFlow<MyFinanceThemeMode> =
         getThemeModeUseCase()
             .stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.Lazily,
+                started = SharingStarted.Eagerly,
                 initialValue = MyFinanceThemeMode.LIGHT
             )
+
+    val colorScheme: StateFlow<MyFinanceColorScheme> =
+        getColorSchemeUseCase()
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.Eagerly,
+                initialValue = MyFinanceColorScheme.GREEN
+            )
+
 }

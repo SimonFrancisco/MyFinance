@@ -42,7 +42,7 @@ internal val lightRedScheme = lightColorScheme(
     surfaceContainerHighest = redSurfaceContainerHighestLight,
 )
 
-internal val darkRedScheme = darkColorScheme(
+ val darkRedScheme = darkColorScheme(
     primary = redPrimaryDark,
     onPrimary = redOnPrimaryDark,
     primaryContainer = redPrimaryContainerDark,

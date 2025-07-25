@@ -35,7 +35,11 @@ import francisco.simon.feature.settings.ui.SettingScreen
  * @author Simon Francisco
  */
 @Composable
-internal fun SettingsScreen(appBarState: MutableState<AppBarState>, onGoToSync: () -> Unit) {
+internal fun SettingsScreen(
+    appBarState: MutableState<AppBarState>,
+    onGoToSync: () -> Unit,
+    onGoToPrimaryColor: () -> Unit,
+) {
     UpdateAppBarState(
         appBarState = appBarState,
         titleRes = R.string.settings_app_top_bar,
@@ -51,13 +55,16 @@ internal fun SettingsScreen(appBarState: MutableState<AppBarState>, onGoToSync: 
     SettingsScreenContent(
         state = currentState,
         onClick = { settingScreen ->
-            when(settingScreen){
-                SettingScreen.PRIMARY_COLOR -> Unit
+            when (settingScreen) {
+                SettingScreen.PRIMARY_COLOR -> {
+                    onGoToPrimaryColor()
+                }
                 SettingScreen.VIBRATION -> Unit
                 SettingScreen.PIN_CODE -> Unit
                 SettingScreen.SYNCHRONIZATION -> {
                     onGoToSync()
                 }
+
                 SettingScreen.LANGUAGE -> Unit
                 SettingScreen.ABOUT -> Unit
             }

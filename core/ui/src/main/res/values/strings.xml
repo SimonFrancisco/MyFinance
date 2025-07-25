@@ -11,6 +11,7 @@
     <string name="category_app_top_bar">Мои статьи</string>
     <string name="settings_app_top_bar">Настройки</string>
     <string name="sync_app_top_bar">Синхронизация</string>
+    <string name="primary_color_app_top_bar">Основной цвет</string>
     <string name="history_app_top_bar">Моя история</string>
     <string name="add_income_app_top_bar">Мои доходы</string>
     <string name="add_expense_app_top_bar">Мои расходы</string>

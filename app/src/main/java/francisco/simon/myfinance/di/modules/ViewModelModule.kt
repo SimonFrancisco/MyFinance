@@ -8,8 +8,7 @@ import francisco.simon.myfinance.MyFinanceViewModel
 import francisco.simon.myfinance.di.key.ViewModelKey
 
 @Module
-interface ViewModelModule {
-
+internal interface ViewModelModule {
     @[Binds IntoMap ViewModelKey(MyFinanceViewModel::class)]
     fun bindMyFinanceViewModel(viewModel: MyFinanceViewModel): ViewModel
 }

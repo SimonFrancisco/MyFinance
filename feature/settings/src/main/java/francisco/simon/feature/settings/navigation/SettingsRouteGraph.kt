@@ -9,4 +9,7 @@ data object SettingsGraph {
 
     @Serializable
     data object SyncRoute
+
+    @Serializable
+    data object PrimaryColorRoute
 }

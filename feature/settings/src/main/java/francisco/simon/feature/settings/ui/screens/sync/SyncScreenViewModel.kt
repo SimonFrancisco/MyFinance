@@ -2,7 +2,7 @@ package francisco.simon.feature.settings.ui.screens.sync
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import francisco.simon.feature.settings.domain.GetLastSyncTimeUseCase
+import francisco.simon.feature.settings.domain.synchronization.GetLastSyncTimeUseCase
 import francisco.simon.feature.settings.ui.mappers.toReadableTime
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

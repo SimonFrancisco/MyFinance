@@ -49,8 +49,10 @@ class MainActivity : ComponentActivity() {
                 MyFinanceThemeMode.DARK -> true
                 MyFinanceThemeMode.LIGHT -> false
             }
+            val colorScheme = viewModel.colorScheme.collectAsStateWithLifecycle()
             MyFinanceTheme(
-                darkTheme = isDarkTheme
+                darkTheme = isDarkTheme,
+                myFinanceColorScheme = colorScheme.value
             ) {
                 FinanceApp()
             }
