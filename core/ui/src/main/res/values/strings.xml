@@ -11,6 +11,7 @@
     <string name="category_app_top_bar">Мои статьи</string>
     <string name="settings_app_top_bar">Настройки</string>
     <string name="sync_app_top_bar">Синхронизация</string>
+    <string name="about_app_top_bar">О программе</string>
     <string name="primary_color_app_top_bar">Основной цвет</string>
     <string name="history_app_top_bar">Моя история</string>
     <string name="add_income_app_top_bar">Мои доходы</string>
@@ -61,4 +62,6 @@
     <string name="settings_synchronization">Синхронизация</string>
     <string name="settings_language">Язык</string>
     <string name="settings_about_app">О программе</string>
+    <string name="app_verison">Версия приложения</string>
+    <string name="app_last_update">Последнее обновление</string>
 </resources>

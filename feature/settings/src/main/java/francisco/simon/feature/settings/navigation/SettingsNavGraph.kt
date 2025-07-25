@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.utils.safePopBackStack
+import francisco.simon.feature.settings.ui.screens.about.AboutScreen
 import francisco.simon.feature.settings.ui.screens.primary_color.PrimaryColorScreen
 import francisco.simon.feature.settings.ui.screens.settings.SettingsScreen
 import francisco.simon.feature.settings.ui.screens.sync.SyncScreen
@@ -28,7 +29,11 @@ fun NavGraphBuilder.settingsNavGraph(
                 },
                 onGoToPrimaryColor = {
                     navController.navigate(SettingsGraph.PrimaryColorRoute)
-                })
+                },
+                onGoToAbout = {
+                    navController.navigate(SettingsGraph.AboutRoute)
+                }
+            )
         }
         composable<SettingsGraph.SyncRoute> {
             SyncScreen(
@@ -40,6 +45,14 @@ fun NavGraphBuilder.settingsNavGraph(
         }
         composable<SettingsGraph.PrimaryColorRoute> {
             PrimaryColorScreen(
+                appBarState = appBarState,
+                onGoBackToSettingScreen = {
+                    navController.safePopBackStack()
+                }
+            )
+        }
+        composable<SettingsGraph.AboutRoute> {
+            AboutScreen(
                 appBarState = appBarState,
                 onGoBackToSettingScreen = {
                     navController.safePopBackStack()

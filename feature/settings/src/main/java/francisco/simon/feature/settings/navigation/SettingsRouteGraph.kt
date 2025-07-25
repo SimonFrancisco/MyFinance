@@ -12,4 +12,7 @@ data object SettingsGraph {
 
     @Serializable
     data object PrimaryColorRoute
+
+    @Serializable
+    data object AboutRoute
 }

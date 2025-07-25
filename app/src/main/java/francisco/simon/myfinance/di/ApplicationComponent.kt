@@ -3,6 +3,7 @@ package francisco.simon.myfinance.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import francisco.simon.core.domain.preferences.AboutPreferences
 import francisco.simon.core.domain.preferences.ColorSchemePreferences
 import francisco.simon.core.domain.preferences.SyncPreferences
 import francisco.simon.core.domain.preferences.ThemeModePreferences
@@ -49,6 +50,8 @@ internal interface ApplicationComponent :
     override fun getColorSchemePreferences(): ColorSchemePreferences
 
     override fun getThemeModePreferences(): ThemeModePreferences
+
+    override fun getAboutPreferences(): AboutPreferences
 
     fun inject(application: App)
 

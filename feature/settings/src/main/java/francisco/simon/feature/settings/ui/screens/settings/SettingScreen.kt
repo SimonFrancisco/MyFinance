@@ -39,6 +39,7 @@ internal fun SettingsScreen(
     appBarState: MutableState<AppBarState>,
     onGoToSync: () -> Unit,
     onGoToPrimaryColor: () -> Unit,
+    onGoToAbout: () -> Unit
 ) {
     UpdateAppBarState(
         appBarState = appBarState,
@@ -59,6 +60,7 @@ internal fun SettingsScreen(
                 SettingScreen.PRIMARY_COLOR -> {
                     onGoToPrimaryColor()
                 }
+
                 SettingScreen.VIBRATION -> Unit
                 SettingScreen.PIN_CODE -> Unit
                 SettingScreen.SYNCHRONIZATION -> {
@@ -66,7 +68,9 @@ internal fun SettingsScreen(
                 }
 
                 SettingScreen.LANGUAGE -> Unit
-                SettingScreen.ABOUT -> Unit
+                SettingScreen.ABOUT -> {
+                    onGoToAbout()
+                }
             }
         },
         isDarkTheme = isDarkTheme,

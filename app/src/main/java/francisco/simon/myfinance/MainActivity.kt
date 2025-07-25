@@ -50,6 +50,7 @@ class MainActivity : ComponentActivity() {
                 MyFinanceThemeMode.LIGHT -> false
             }
             val colorScheme = viewModel.colorScheme.collectAsStateWithLifecycle()
+            viewModel.setApiVersion(BuildConfig.VERSION_NAME)
             MyFinanceTheme(
                 darkTheme = isDarkTheme,
                 myFinanceColorScheme = colorScheme.value
