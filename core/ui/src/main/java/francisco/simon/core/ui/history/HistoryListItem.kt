@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import francisco.simon.core.domain.entity.Transaction
 import francisco.simon.core.ui.R
+import francisco.simon.core.ui.components.CustomListItem
 import francisco.simon.core.ui.utils.toCurrencySymbol
 import francisco.simon.core.ui.utils.toDateAndTime
 
@@ -39,7 +40,7 @@ fun HistoryListItem(
     transaction: Transaction,
     onTransactionClicked: (Int) -> Unit
 ) {
-    francisco.simon.core.ui.components.CustomListItem(
+    CustomListItem(
         modifier = Modifier
             .height(70.dp)
             .clickable {
@@ -101,7 +102,6 @@ private fun HeadingContent(transaction: Transaction) {
     Text(
         text = transaction.category.name,
         style = MaterialTheme.typography.bodyLarge,
-        color = MaterialTheme.colorScheme.onSurface,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
     )

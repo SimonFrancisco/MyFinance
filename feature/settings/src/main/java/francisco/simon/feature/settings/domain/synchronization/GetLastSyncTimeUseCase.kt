@@ -1,4 +1,4 @@
-package francisco.simon.feature.settings.domain
+package francisco.simon.feature.settings.domain.synchronization
 
 import francisco.simon.core.domain.preferences.SyncPreferences
 import javax.inject.Inject

@@ -23,6 +23,7 @@ fun String.toCurrencySymbol(): String {
     }
 }
 
+//TODO convert month according to Language
 fun Instant.toApiDate(): String {
     val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     return this.atZone(ZoneId.systemDefault()).toLocalDate().format(dateFormat)

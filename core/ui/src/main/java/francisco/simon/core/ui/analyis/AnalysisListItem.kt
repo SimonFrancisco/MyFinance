@@ -48,7 +48,6 @@ private fun HeadingContent(categoryStatsModel: CategoryStatsModel) {
     Text(
         text = categoryStatsModel.name,
         style = MaterialTheme.typography.bodyLarge,
-        color = MaterialTheme.colorScheme.onSurface,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
     )

@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -42,7 +43,6 @@ internal fun AccountEditScreenBalance(
         headlineContent = {
             Text(
                 text = stringResource(R.string.balance),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         },
@@ -57,8 +57,11 @@ internal fun AccountEditScreenBalance(
                     onValueChange = { newValue ->
                         updateModelState.value = updateModelState.value.copy(balance = newValue)
                     },
+                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     textStyle = MaterialTheme.typography.bodyLarge.copy(
-                        textAlign = TextAlign.End
+                        textAlign = TextAlign.End,
+                        color = MaterialTheme.colorScheme.onSurface
+
                     ),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Decimal
@@ -91,14 +94,13 @@ internal fun AccountEditScreenName(
         headlineContent = {
             Text(
                 text = stringResource(R.string.account_name),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         },
         trailingContent = {
             Box(
                 modifier = Modifier
-                    .width(100.dp)
+                    .width(100.dp),
             ) {
                 BasicTextField(
                     maxLines = 1,
@@ -106,8 +108,10 @@ internal fun AccountEditScreenName(
                     onValueChange = { newValue ->
                         updateModelState.value = updateModelState.value.copy(name = newValue)
                     },
+                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     textStyle = MaterialTheme.typography.bodyLarge.copy(
-                        textAlign = TextAlign.End
+                        textAlign = TextAlign.End,
+                        color = MaterialTheme.colorScheme.onSurface
                     ),
                 )
             }
@@ -130,7 +134,6 @@ internal fun AccountEdiScreenCurrency(
         headlineContent = {
             Text(
                 text = stringResource(R.string.currency),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         },

@@ -53,7 +53,7 @@ private fun RetryButton(onClick: () -> Unit) {
     Button(
         onClick = onClick,
         shape = RectangleShape,
-        colors = ButtonDefaults.buttonColors().copy(contentColor = francisco.simon.core.ui.theme.Black, containerColor = francisco.simon.core.ui.theme.Green)
+        colors = ButtonDefaults.buttonColors().copy(containerColor = MaterialTheme.colorScheme.onErrorContainer)
     ) {
         Text(
             text = stringResource(R.string.try_again),

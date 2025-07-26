@@ -19,7 +19,7 @@ import francisco.simon.feature.settings.di.SettingsDependenciesProvider
 import francisco.simon.myfinance.di.ApplicationComponent
 import francisco.simon.myfinance.di.DaggerApplicationComponent
 import francisco.simon.myfinance.workers.syn_worker.SyncWorker
-import francisco.simon.myfinance.workers.factory.WorkerFactory
+import francisco.simon.myfinance.di.factory.WorkerFactory
 import javax.inject.Inject
 
 internal class App : Application(),

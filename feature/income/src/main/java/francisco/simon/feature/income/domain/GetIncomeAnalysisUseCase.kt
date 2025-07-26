@@ -36,6 +36,7 @@ class GetIncomeAnalysisUseCase @Inject constructor(
                     val percent = (amount.toFloat() / totalSum.toFloat()) * 100
 
                     CategoryStatsModel(
+                        categoryId = category.id,
                         name = category.name,
                         emoji = category.emoji,
                         percent = percent,

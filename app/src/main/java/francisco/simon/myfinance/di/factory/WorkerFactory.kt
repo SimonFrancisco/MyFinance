@@ -1,9 +1,10 @@
-package francisco.simon.myfinance.workers.factory
+package francisco.simon.myfinance.di.factory
 
 import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
+import francisco.simon.myfinance.workers.factory.ChildWorkerFactory
 import francisco.simon.myfinance.workers.syn_worker.SyncWorker
 import javax.inject.Inject
 import javax.inject.Provider

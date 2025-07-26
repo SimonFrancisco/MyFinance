@@ -23,8 +23,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import francisco.simon.core.ui.R
 import francisco.simon.core.ui.components.FullScreenLoading
 import francisco.simon.core.ui.components.RetryCall
-import francisco.simon.core.ui.theme.Red
-import francisco.simon.core.ui.theme.White
 import francisco.simon.core.ui.transactions.EditCategoryBottomSheet
 import francisco.simon.core.ui.transactions.editTransaction.EditTransactionBaseViewModel.EditTransaction
 
@@ -127,8 +125,7 @@ private fun DeleteButton(
             onDeleteTransaction()
         },
         colors = ButtonDefaults.buttonColors().copy(
-            containerColor = Red,
-            contentColor = White
+            containerColor = MaterialTheme.colorScheme.onErrorContainer,
         ),
         modifier = Modifier
             .width(380.dp)

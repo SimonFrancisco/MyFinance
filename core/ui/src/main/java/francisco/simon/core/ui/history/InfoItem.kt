@@ -34,7 +34,6 @@ fun InfoItem(
         headlineContent = {
             Text(
                 text = stringResource(leadingTextResId),
-                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         },

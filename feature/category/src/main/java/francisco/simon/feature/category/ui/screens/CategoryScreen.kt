@@ -40,6 +40,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.core.ui.R
+import francisco.simon.core.ui.components.FullScreenLoading
+import francisco.simon.core.ui.components.RetryCall
 import francisco.simon.core.ui.components.topBar.AppBarState
 import francisco.simon.core.ui.components.topBar.topBarUpdate.UpdateAppBarState
 import francisco.simon.feature.category.categoryComponent
@@ -76,7 +78,7 @@ private fun CategoryScreenContent(
         HorizontalDivider()
         when (state) {
             is CategoryScreenState.Error -> {
-                francisco.simon.core.ui.components.RetryCall(
+                RetryCall(
                     errorRes = state.errorMessageRes,
                     onClick = {
                         viewModel.retry()
@@ -85,7 +87,7 @@ private fun CategoryScreenContent(
             }
 
             is CategoryScreenState.Loading -> {
-                francisco.simon.core.ui.components.FullScreenLoading()
+                FullScreenLoading()
             }
 
             is CategoryScreenState.Success -> {
@@ -139,7 +141,6 @@ private fun CategoryHeadingContent(category: CategoryUI) {
     Text(
         text = category.name,
         style = MaterialTheme.typography.bodyLarge,
-        color = MaterialTheme.colorScheme.onSurface,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
     )
