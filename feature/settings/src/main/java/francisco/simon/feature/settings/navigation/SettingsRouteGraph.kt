@@ -15,4 +15,7 @@ data object SettingsGraph {
 
     @Serializable
     data object AboutRoute
+
+    @Serializable
+    data object LanguageRoute
 }

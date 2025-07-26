@@ -39,7 +39,8 @@ internal fun SettingsScreen(
     appBarState: MutableState<AppBarState>,
     onGoToSync: () -> Unit,
     onGoToPrimaryColor: () -> Unit,
-    onGoToAbout: () -> Unit
+    onGoToAbout: () -> Unit,
+    onGoToLanguage: () -> Unit
 ) {
     UpdateAppBarState(
         appBarState = appBarState,
@@ -67,7 +68,9 @@ internal fun SettingsScreen(
                     onGoToSync()
                 }
 
-                SettingScreen.LANGUAGE -> Unit
+                SettingScreen.LANGUAGE -> {
+                    onGoToLanguage()
+                }
                 SettingScreen.ABOUT -> {
                     onGoToAbout()
                 }

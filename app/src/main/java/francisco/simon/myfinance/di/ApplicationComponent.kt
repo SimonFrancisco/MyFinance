@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import francisco.simon.core.domain.preferences.AboutPreferences
 import francisco.simon.core.domain.preferences.ColorSchemePreferences
+import francisco.simon.core.domain.preferences.LanguagePreferences
 import francisco.simon.core.domain.preferences.SyncPreferences
 import francisco.simon.core.domain.preferences.ThemeModePreferences
 import francisco.simon.core.domain.repository.AccountRepository
@@ -52,6 +53,8 @@ internal interface ApplicationComponent :
     override fun getThemeModePreferences(): ThemeModePreferences
 
     override fun getAboutPreferences(): AboutPreferences
+
+    override fun languagePreferences(): LanguagePreferences
 
     fun inject(application: App)
 

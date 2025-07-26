@@ -9,11 +9,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
@@ -51,12 +53,22 @@ class MainActivity : ComponentActivity() {
             }
             val colorScheme = viewModel.colorScheme.collectAsStateWithLifecycle()
             viewModel.setApiVersion(BuildConfig.VERSION_NAME)
-            MyFinanceTheme(
-                darkTheme = isDarkTheme,
-                myFinanceColorScheme = colorScheme.value
-            ) {
-                FinanceApp()
+
+            val locale = viewModel.locale.collectAsStateWithLifecycle()
+            val localizedContext = remember(locale.value) {
+                applicationContext.applyLocale(locale.value)
             }
+            CompositionLocalProvider(
+                LocalContext provides localizedContext
+            ) {
+                MyFinanceTheme(
+                    darkTheme = isDarkTheme,
+                    myFinanceColorScheme = colorScheme.value
+                ) {
+                    FinanceApp()
+                }
+            }
+
         }
     }
 
@@ -73,7 +85,6 @@ private fun FinanceApp() {
     val appBarState = remember {
         mutableStateOf(AppBarState(R.string.expense_app_top_bar))
     }
-
     Scaffold(
         bottomBar = {
             BottomBarSettings(currentBackStackEntry, navController)
